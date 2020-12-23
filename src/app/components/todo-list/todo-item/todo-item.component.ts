@@ -88,3 +88,12 @@ export class TodoItemComponent implements OnInit {
   handleDetailSelection(): void {
     this.detailViewActive = !this.detailViewActive;
   }
+
+  handleEditSelection(): void {
+    if (this.editingModeActive) {
+      this.disableEditingMode();
+    } else {
+      this.enableEditingMode();
+    }
+  }
+}
