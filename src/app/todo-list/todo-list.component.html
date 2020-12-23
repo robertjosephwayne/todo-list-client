@@ -1,0 +1,10 @@
+<h2>Todo List</h2>
+
+<div *ngFor="let todo of todos$ | async">
+  <app-todo-item
+    [id]="todo.id"
+    [title]="todo.title"
+    [desc]="todo.desc"
+    [isComplete]="todo.isComplete"
+  ></app-todo-item>
+</div>
