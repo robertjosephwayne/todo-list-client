@@ -1,20 +1,56 @@
-<p>
-  <span *ngIf="!editingModeActive">
-    {{ title }} - {{ desc }} - Status:
-    {{ isComplete ? "Complete" : "Incomplete" }}
-    <button type="button" (click)="toggleEditingMode()">Edit</button>
-    <button type="button" (click)="deleteTodoItem()">Delete</button>
-  </span>
-  <span *ngIf="editingModeActive">
-    <input type="text" [value]="title" #titleInput /> -
-    <input type="text" [value]="desc" #descInput />
-    <button type="button" (click)="toggleEditingMode()">Cancel</button>
-    <button
-      type="button"
-      (click)="saveChanges(titleInput.value, descInput.value)"
-    >
-      Save
-    </button>
-  </span>
-  <button type="button" (click)="toggleCompleteStatus()">Toggle Status</button>
-</p>
+<mat-card class="my-1">
+  <div class="flex justify-between">
+    <div>
+      <button color="primary" mat-icon-button (click)="handleDetailSelection()">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+      <span class="align-baseline" *ngIf="!editingModeActive">
+        {{ title }}
+      </span>
+
+      <input
+        class="editing-mode"
+        *ngIf="editingModeActive"
+        type="text"
+        [(ngModel)]="updatedTitle"
+      />
+    </div>
+
+    <div>
+      <button
+        *ngIf="!editingModeActive"
+        color="accent"
+        mat-icon-button
+        (click)="handleEditSelection()"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button
+        *ngIf="editingModeActive"
+        color="accent"
+        mat-icon-button
+        (click)="saveChanges()"
+      >
+        <mat-icon>save</mat-icon>
+      </button>
+
+      <button color="warn" mat-icon-button (click)="deleteTodoItem()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="detailViewActive">
+    <span *ngIf="!editingModeActive">
+      {{ desc }}
+    </span>
+    <input
+      class="editing-mode"
+      *ngIf="editingModeActive"
+      type="text"
+      [(ngModel)]="updatedDesc"
+    />
+  </div>
+</mat-card>
