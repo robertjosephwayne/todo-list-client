@@ -1,0 +1,20 @@
+<p>
+  <span *ngIf="!editingModeActive">
+    {{ title }} - {{ desc }} - Status:
+    {{ isComplete ? "Complete" : "Incomplete" }}
+    <button type="button" (click)="toggleEditingMode()">Edit</button>
+    <button type="button" (click)="deleteTodoItem()">Delete</button>
+  </span>
+  <span *ngIf="editingModeActive">
+    <input type="text" [value]="title" #titleInput /> -
+    <input type="text" [value]="desc" #descInput />
+    <button type="button" (click)="toggleEditingMode()">Cancel</button>
+    <button
+      type="button"
+      (click)="saveChanges(titleInput.value, descInput.value)"
+    >
+      Save
+    </button>
+  </span>
+  <button type="button" (click)="toggleCompleteStatus()">Toggle Status</button>
+</p>
