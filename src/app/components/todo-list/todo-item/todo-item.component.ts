@@ -84,4 +84,7 @@ export class TodoItemComponent implements OnInit {
   deleteTodoItem(): void {
     this.store.dispatch(TodoListActions.deleteTodoItem({ id: this.id }));
   }
-}
+
+  handleDetailSelection(): void {
+    this.detailViewActive = !this.detailViewActive;
+  }
