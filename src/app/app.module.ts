@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
+import { TodoListEffects } from './store/todo-list/todo-list.effects';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { AppComponent } from './app.component';
       logOnly: environment.production
     }),
     EffectsModule.forRoot([
+      TodoListEffects
     ])
   ],
   providers: [],
