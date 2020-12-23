@@ -5,7 +5,10 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TodoListComponent,
+    TodoItemComponent,
+    TodoListEditorComponent
   ],
   imports: [
     BrowserModule
