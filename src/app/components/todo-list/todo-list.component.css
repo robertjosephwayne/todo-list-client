@@ -1,0 +1,29 @@
+table {
+  margin: auto;
+  width: 80%;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+tr.todo-row:not(.expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.todo-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+.todo-row td {
+  border-bottom-width: 0;
+}
+
+.todo-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.todo-description {
+  padding: 16px;
+}
