@@ -32,7 +32,15 @@
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
-      <button color="primary" type="button" (click)="createTodo()">ADD</button>
+      <button
+        mat-stroked-button
+        color="primary"
+        type="button"
+        (click)="createTodo()"
+        [disabled]="title === ''"
+      >
+        ADD
+      </button>
     </mat-card-actions>
   </mat-card>
 </div>
