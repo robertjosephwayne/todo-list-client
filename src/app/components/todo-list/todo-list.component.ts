@@ -3,7 +3,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { Todo } from '../../models/todo.model';
 
@@ -23,77 +23,16 @@ import * as fromTodoList from '../../store/todo-list/todo-list.selectors';
   ],
 })
 export class TodoListComponent implements OnInit {
-  todos: Todo[];
-  todosSub: Subscription;
-  columnsToDisplay = ['select', 'title', 'isComplete'];
-  expandedTodo: Todo | null;
-  selection: SelectionModel<Todo>;
+  todos$: Observable<Todo[]>;
 
   constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.todosSub = this.store.select(fromTodoList.selectAllTodos).subscribe(todos => {
-      this.todos = todos;
-    });
+    this.todos$ = this.store.select(fromTodoList.selectAllTodos);
     this.fetchAll();
-    this.setSelection();
-  }
-
-  setSelection(): void {
-    const initialSelection = [];
-    const allowMultiSelect = true;
-    this.selection = new SelectionModel<Todo>(allowMultiSelect, initialSelection);
   }
 
   fetchAll(): void {
     this.store.dispatch(TodoListActions.fetchTodoList());
-  }
-
-  isAllSelected(): boolean {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.todos.length;
-    return numSelected === numRows;
-  }
-
-  masterToggle(): void {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.todos.forEach(row => this.selection.select(row));
-  }
-
-  markSelectionComplete(): void {
-    this.selection.selected.forEach(row => {
-      this.markTodoItemComplete(row.id, row.isComplete);
-    });
-  }
-
-  markSelectionIncomplete(): void {
-    this.selection.selected.forEach(row => {
-      this.markTodoItemIncomplete(row.id, row.isComplete)
-    });
-  }
-
-  markTodoItemComplete(id: string, previousCompleteStatus: boolean): void {
-    this.store.dispatch(
-      TodoListActions.completeStatusChanged({
-        id,
-        previousCompleteStatus,
-        updatedCompleteStatus: true
-      })
-    );
-  }
-
-  markTodoItemIncomplete(id: string, previousCompleteStatus): void {
-    this.store.dispatch(
-      TodoListActions.completeStatusChanged({
-        id,
-        previousCompleteStatus,
-        updatedCompleteStatus: false
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.todosSub.unsubscribe();
   }
 }
