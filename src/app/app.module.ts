@@ -8,7 +8,12 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
+import { environment } from '../environments/environment';
+import { appReducer } from './store/app.reducer';
 import { TodoListEffects } from './store/todo-list/todo-list.effects';
+import { TodoItemComponent } from './todo-item/todo-item.component';
+import { TodoListComponent } from './todo-list/todo-list.component';
+import { TodoListEditorComponent } from './todo-list-editor/todo-list-editor.component';
 
 @NgModule({
   declarations: [
