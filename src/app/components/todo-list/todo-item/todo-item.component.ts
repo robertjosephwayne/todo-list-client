@@ -16,6 +16,7 @@ export class TodoItemComponent implements OnInit {
   updatedTitle: string;
   updatedDesc: string;
   editingModeActive = false;
+  detailViewActive = false;
 
   constructor(private store: Store) { }
 
