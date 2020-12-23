@@ -5,3 +5,7 @@
 .mat-form-field {
   width: 280px;
 }
+
+button {
+  outline: none;
+}
