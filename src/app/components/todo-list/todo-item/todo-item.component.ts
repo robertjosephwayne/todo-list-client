@@ -13,6 +13,8 @@ export class TodoItemComponent implements OnInit {
   @Input() title: string;
   @Input() desc: string;
   @Input() isComplete: boolean;
+  updatedTitle: string;
+  updatedDesc: string;
   editingModeActive = false;
 
   constructor(private store: Store) { }
