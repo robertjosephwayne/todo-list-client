@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Todo } from '../models/todo.model';
+import { Todo } from '../../models/todo.model';
 
-import * as TodoListActions from '../store/todo-list/todo-list.actions';
-import * as fromTodoList from '../store/todo-list/todo-list.selectors';
+import * as TodoListActions from '../../store/todo-list/todo-list.actions';
+import * as fromTodoList from '../../store/todo-list/todo-list.selectors';
 
 @Component({
   selector: 'app-todo-list',

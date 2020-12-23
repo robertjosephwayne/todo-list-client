@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
-import * as TodoListActions from '../store/todo-list/todo-list.actions';
+import * as TodoListActions from '../../store/todo-list/todo-list.actions';
 
 @Component({
   selector: 'app-todo-list-editor',

@@ -11,9 +11,9 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { appReducer } from './store/app.reducer';
 import { TodoListEffects } from './store/todo-list/todo-list.effects';
-import { TodoItemComponent } from './todo-item/todo-item.component';
-import { TodoListComponent } from './todo-list/todo-list.component';
-import { TodoListEditorComponent } from './todo-list-editor/todo-list-editor.component';
+import { TodoItemComponent } from './components/todo-list/todo-item/todo-item.component';
+import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { TodoListEditorComponent } from './components/todo-list-editor/todo-list-editor.component';
 
 @NgModule({
   declarations: [
