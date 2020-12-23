@@ -76,7 +76,7 @@ export class TodoListService {
       )
       .subscribe(() => {
         this.store.dispatch(
-          TodoListActions.editTodoItemTitleSuccess({ id, updatedTitle })
+          TodoListActions.editTodoItemTitleSuccess()
         )
       });
   }
@@ -93,7 +93,7 @@ export class TodoListService {
       )
       .subscribe(() => {
         this.store.dispatch(
-          TodoListActions.editTodoItemDescSuccess({ id, updatedDesc })
+          TodoListActions.editTodoItemDescSuccess()
         )
       });
   }
