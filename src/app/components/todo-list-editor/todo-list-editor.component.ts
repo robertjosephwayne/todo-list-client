@@ -23,5 +23,19 @@ export class TodoListEditorComponent implements OnInit {
       title: this.title,
       desc: this.desc
     }));
+    this.clearEditor();
+  }
+
+  clearEditor(): void {
+    this.clearTitle();
+    this.clearDesc();
+  }
+
+  clearTitle(): void {
+    this.title = "";
+  }
+
+  clearDesc(): void {
+    this.desc = "";
   }
 }
