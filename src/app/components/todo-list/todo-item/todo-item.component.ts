@@ -23,17 +23,24 @@ export class TodoItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  toggleCompleteStatus(): void {
+  markTodoItemComplete(): void {
     this.store.dispatch(
       TodoListActions.completeStatusChanged({
         id: this.id,
-        isComplete: !this.isComplete
+        previousCompleteStatus: this.isComplete,
+        updatedCompleteStatus: true
       })
     );
   }
 
-  toggleEditingMode(): void {
-    this.editingModeActive = !this.editingModeActive;
+  markTodoItemIncomplete(): void {
+    this.store.dispatch(
+      TodoListActions.completeStatusChanged({
+        id: this.id,
+        previousCompleteStatus: this.isComplete,
+        updatedCompleteStatus: false
+      })
+    );
   }
 
   saveChanges(updatedTitle: string, updatedDesc: string): void {
