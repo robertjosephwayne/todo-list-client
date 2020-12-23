@@ -1,5 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 
 import { Subscription } from 'rxjs';
@@ -24,8 +26,9 @@ import * as fromTodoList from '../../store/todo-list/todo-list.selectors';
 export class TodoListComponent implements OnInit {
   todos: Todo[];
   todosSub: Subscription;
-  columnsToDisplay = ['title', 'isComplete'];
+  columnsToDisplay = ['select', 'title', 'isComplete'];
   expandedTodo: Todo | null;
+  selection: SelectionModel<Todo>;
 
   constructor(private store: Store) { }
 
@@ -34,10 +37,29 @@ export class TodoListComponent implements OnInit {
       this.todos = todos;
     });
     this.fetchAll();
+    this.setSelection();
+  }
+
+  setSelection(): void {
+    const initialSelection = [];
+    const allowMultiSelect = true;
+    this.selection = new SelectionModel<Todo>(allowMultiSelect, initialSelection);
   }
 
   fetchAll(): void {
     this.store.dispatch(TodoListActions.fetchTodoList());
+  }
+
+  isAllSelected(): boolean {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.todos.length;
+    return numSelected === numRows;
+  }
+
+  masterToggle(): void {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.todos.forEach(row => this.selection.select(row));
   }
 
   ngOnDestroy(): void {

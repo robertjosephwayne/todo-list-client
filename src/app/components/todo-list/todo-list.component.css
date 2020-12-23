@@ -27,3 +27,7 @@ tr.todo-row:not(.expanded-row):active {
 .todo-description {
   padding: 16px;
 }
+
+.mat-column-select {
+  overflow: initial;
+}
