@@ -1,11 +1,13 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MaterialModule } from './material.module';
 
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
@@ -31,6 +33,8 @@ import { TodoListEditorComponent } from './components/todo-list-editor/todo-list
       maxAge: 25,
       logOnly: environment.production
     }),
+    BrowserAnimationsModule,
+    MaterialModule,
     EffectsModule.forRoot([
       TodoListEffects
     ])
