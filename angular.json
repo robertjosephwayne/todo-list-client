@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "todo-list-client"
+    }
+  },
+  "defaultProject": "todo-list-client",
+  "cli": {
+    "analytics": false
+  }
 }
