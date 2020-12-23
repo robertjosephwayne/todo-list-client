@@ -1,12 +1,38 @@
-<h2>Add New Todo Item</h2>
+<div class="grid justify-items-center my-6">
+  <mat-card class="text-center">
+    <mat-card-content>
+      <mat-form-field>
+        <mat-label>Create Task</mat-label>
+        <input matInput type="text" [(ngModel)]="title" />
+        <button
+          mat-button
+          *ngIf="title"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear title"
+          (click)="clearTitle()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
 
-<form>
-  <label for="title">Title:</label>
-  <input type="text" name="title" [(ngModel)]="title" />
-  <br />
-  <label for="desc">Description:</label>
-  <input type="text" name="desc" [(ngModel)]="desc" />
-  <br />
-  <button type="button" (click)="createTodo()">Create</button>
-  <hr />
-</form>
+      <mat-form-field>
+        <mat-label>Additional Detail (Optional)</mat-label>
+        <input matInput type="text" [(ngModel)]="desc" />
+        <button
+          mat-button
+          *ngIf="desc"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear description"
+          (click)="clearDesc()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button color="primary" type="button" (click)="createTodo()">ADD</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
