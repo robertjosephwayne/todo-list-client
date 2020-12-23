@@ -52,14 +52,19 @@ export class TodoListService {
       });
   }
 
-  updateCompleteStatus(id: string, isComplete: boolean) {
-    this.http.patch(`http://localhost:3000/todos/${id}`, { isComplete })
+  updateCompleteStatus(id: string, previousCompleteStatus: boolean, updatedCompleteStatus: boolean) {
+    this.http.patch(`http://localhost:3000/todos/${id}`, { isComplete: updatedCompleteStatus })
       .pipe(
-        catchError(this.handleError)
+        catchError((error) => {
+          this.store.dispatch(
+            TodoListActions.completeStatusChangedFailure({ id, previousCompleteStatus })
+          );
+          return this.handleError(error);
+        })
       )
       .subscribe(() => {
         this.store.dispatch(
-          TodoListActions.completeStatusChangedSuccess({ id, isComplete })
+          TodoListActions.completeStatusChangedSuccess()
         )
       });
   }

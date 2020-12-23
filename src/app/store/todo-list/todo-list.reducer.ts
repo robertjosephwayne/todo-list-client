@@ -31,12 +31,27 @@ const _todoListReducer = createReducer(
     };
   }),
 
-  on(TodoListActions.completeStatusChangedSuccess, (state, { id, isComplete }) => {
+  on(TodoListActions.completeStatusChanged, (state, { id, previousCompleteStatus, updatedCompleteStatus }) => {
     const todoItemIndex = state.todos.findIndex(todo => todo.id === id);
     const todoItem = state.todos[todoItemIndex];
     const updatedTodoItem = {
       ...todoItem,
-      isComplete
+      isComplete: updatedCompleteStatus
+    };
+    const updatedTodoList = [...state.todos];
+    updatedTodoList[todoItemIndex] = updatedTodoItem;
+    return {
+      ...state,
+      todos: updatedTodoList
+    };
+  }),
+
+  on(TodoListActions.completeStatusChangedFailure, (state, { id, previousCompleteStatus }) => {
+    const todoItemIndex = state.todos.findIndex(todo => todo.id === id);
+    const todoItem = state.todos[todoItemIndex];
+    const updatedTodoItem = {
+      ...todoItem,
+      isComplete: previousCompleteStatus
     };
     const updatedTodoList = [...state.todos];
     updatedTodoList[todoItemIndex] = updatedTodoItem;

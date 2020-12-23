@@ -33,12 +33,16 @@ export const createTodoItemSuccess = createAction(
 
 export const completeStatusChanged = createAction(
   '[Todo List] Complete Status Changed',
-  props<{ id: string, isComplete: boolean }>()
+  props<{ id: string, previousCompleteStatus: boolean, updatedCompleteStatus: boolean }>()
+);
+
+export const completeStatusChangedFailure = createAction(
+  '[Todo List] Complete Status Changed Success',
+  props<{ id: string, previousCompleteStatus: boolean }>()
 );
 
 export const completeStatusChangedSuccess = createAction(
   '[Todo List] Complete Status Changed Success',
-  props<{ id: string, isComplete: boolean }>()
 );
 
 export const editTodoItemTitle = createAction(

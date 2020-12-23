@@ -43,7 +43,8 @@ export class TodoListEffects {
     map((action) => {
       this.todoListService.updateCompleteStatus(
         action.id,
-        action.isComplete
+        action.previousCompleteStatus,
+        action.updatedCompleteStatus
       );
     })
   ), { dispatch: false });

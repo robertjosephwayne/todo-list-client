@@ -1,7 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 
 import { Subscription } from 'rxjs';
@@ -60,6 +59,38 @@ export class TodoListComponent implements OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.todos.forEach(row => this.selection.select(row));
+  }
+
+  markSelectionComplete(): void {
+    this.selection.selected.forEach(row => {
+      this.markTodoItemComplete(row.id, row.isComplete);
+    });
+  }
+
+  markSelectionIncomplete(): void {
+    this.selection.selected.forEach(row => {
+      this.markTodoItemIncomplete(row.id, row.isComplete)
+    });
+  }
+
+  markTodoItemComplete(id: string, previousCompleteStatus: boolean): void {
+    this.store.dispatch(
+      TodoListActions.completeStatusChanged({
+        id,
+        previousCompleteStatus,
+        updatedCompleteStatus: true
+      })
+    );
+  }
+
+  markTodoItemIncomplete(id: string, previousCompleteStatus): void {
+    this.store.dispatch(
+      TodoListActions.completeStatusChanged({
+        id,
+        previousCompleteStatus,
+        updatedCompleteStatus: false
+      })
+    );
   }
 
   ngOnDestroy(): void {
