@@ -1,0 +1,12 @@
+<h2>Add New Todo Item</h2>
+
+<form>
+  <label for="title">Title:</label>
+  <input type="text" name="title" [(ngModel)]="title" />
+  <br />
+  <label for="desc">Description:</label>
+  <input type="text" name="desc" [(ngModel)]="desc" />
+  <br />
+  <button type="button" (click)="createTodo()">Create</button>
+  <hr />
+</form>
