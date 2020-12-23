@@ -1,10 +1,64 @@
-<h2>Todo List</h2>
+<table
+  mat-table
+  [dataSource]="todos"
+  multiTemplateDataRows
+  class="mat-elevation-z2"
+>
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef>Title</th>
+    <td mat-cell *matCellDef="let todo">{{ todo.title }}</td>
+  </ng-container>
 
-<div *ngFor="let todo of todos$ | async">
-  <app-todo-item
-    [id]="todo.id"
-    [title]="todo.title"
-    [desc]="todo.desc"
-    [isComplete]="todo.isComplete"
-  ></app-todo-item>
-</div>
+  <ng-container matColumnDef="isComplete">
+    <th mat-header-cell *matHeaderCellDef>Status</th>
+    <td mat-cell *matCellDef="let todo">
+      {{ todo.isComplete ? "Complete" : "Incomplete" }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="expandedDetail">
+    <td
+      mat-cell
+      *matCellDef="let todo"
+      [attr.colspan]="columnsToDisplay.length"
+    >
+      <div
+        class="todo-detail"
+        [@detailExpand]="todo == expandedTodo ? 'expanded' : 'collapsed'"
+      >
+        <div class="todo-description">
+          {{
+            todo.desc
+              ? todo.desc
+              : "No details have been provided for this item"
+          }}
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr
+    mat-row
+    *matRowDef="let todo; columns: columnsToDisplay"
+    class="todo-row"
+    [class.expanded-row]="expandedTodo === todo"
+    (click)="expandedTodo = expandedTodo === todo ? null : todo"
+  ></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: ['expandedDetail']"
+    class="detail-row"
+  ></tr>
+</table>
+
+<!-- <mat-list>
+  <mat-list-item *ngFor="let todo of todos$ | async">
+    <app-todo-item
+      [id]="todo.id"
+      [title]="todo.title"
+      [desc]="todo.desc"
+      [isComplete]="todo.isComplete"
+    ></app-todo-item>
+  </mat-list-item>
+</mat-list> -->
