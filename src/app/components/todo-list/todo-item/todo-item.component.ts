@@ -43,34 +43,40 @@ export class TodoItemComponent implements OnInit {
     );
   }
 
-  saveChanges(updatedTitle: string, updatedDesc: string): void {
-    this.saveTitleChanges(updatedTitle);
-    this.saveDescChanges(updatedDesc);
+  enableEditingMode(): void {
+    this.updatedTitle = this.title;
+    this.updatedDesc = this.desc;
+    this.editingModeActive = true;
+  }
+
+  disableEditingMode(): void {
     this.editingModeActive = false;
   }
 
-  saveTitleChanges(updatedTitle: string): void {
-    const previousTitle = this.title;
-    if (updatedTitle === previousTitle) return;
-    this.title = updatedTitle;
+  saveChanges(): void {
+    this.saveTitleChanges();
+    this.saveDescChanges();
+    this.disableEditingMode();
+  }
+
+  saveTitleChanges(): void {
+    if (this.title === this.updatedTitle) return;
     this.store.dispatch(
       TodoListActions.editTodoItemTitle({
         id: this.id,
-        previousTitle,
-        updatedTitle
+        previousTitle: this.title,
+        updatedTitle: this.updatedTitle
       })
     );
   }
 
-  saveDescChanges(updatedDesc: string): void {
-    const previousDesc = this.desc;
-    if (updatedDesc === previousDesc) return;
-    this.desc = updatedDesc;
+  saveDescChanges(): void {
+    if (this.desc === this.updatedDesc) return;
     this.store.dispatch(
       TodoListActions.editTodoItemDesc({
         id: this.id,
-        previousDesc,
-        updatedDesc
+        previousDesc: this.desc,
+        updatedDesc: this.updatedDesc
       })
     );
   }
