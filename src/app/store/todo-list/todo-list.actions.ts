@@ -52,8 +52,7 @@ export const editTodoItemTitleFailure = createAction(
 );
 
 export const editTodoItemTitleSuccess = createAction(
-  '[Todo List] Edit Todo Item Title Success',
-  props<{ id: string, updatedTitle: string }>()
+  '[Todo List] Edit Todo Item Title Success'
 );
 
 export const editTodoItemDesc = createAction(
@@ -67,6 +66,5 @@ export const editTodoItemDescFailure = createAction(
 );
 
 export const editTodoItemDescSuccess = createAction(
-  '[Todo List] Edit Todo Item Desc Success',
-  props<{ id: string, updatedDesc: string }>()
+  '[Todo List] Edit Todo Item Desc Success'
 );
