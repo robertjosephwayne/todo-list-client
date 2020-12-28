@@ -11,7 +11,7 @@ import * as TodoListActions from '../../store/todo-list/todo-list.actions';
 })
 export class TodoListEditorComponent implements OnInit {
   title: string = "";
-  desc: string = "";
+  description: string = "";
 
   constructor(private store: Store) { }
 
@@ -21,21 +21,21 @@ export class TodoListEditorComponent implements OnInit {
   createTodo(): void {
     this.store.dispatch(TodoListActions.createTodoItem({
       title: this.title,
-      desc: this.desc
+      description: this.description
     }));
     this.clearEditor();
   }
 
   clearEditor(): void {
     this.clearTitle();
-    this.clearDesc();
+    this.clearDescription();
   }
 
   clearTitle(): void {
     this.title = "";
   }
 
-  clearDesc(): void {
-    this.desc = "";
+  clearDescription(): void {
+    this.description = "";
   }
 }

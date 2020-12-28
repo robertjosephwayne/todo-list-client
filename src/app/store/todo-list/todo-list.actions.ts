@@ -23,7 +23,7 @@ export const deleteTodoItemSuccess = createAction(
 
 export const createTodoItem = createAction(
   '[Todo List] Create Todo Item',
-  props<{ title: string, desc: string }>()
+  props<{ title: string, description: string }>()
 );
 
 export const createTodoItemSuccess = createAction(
@@ -59,16 +59,16 @@ export const editTodoItemTitleSuccess = createAction(
   '[Todo List] Edit Todo Item Title Success'
 );
 
-export const editTodoItemDesc = createAction(
-  '[Todo List] Edit Todo Item Desc',
-  props<{ id: string, previousDesc: string, updatedDesc: string }>()
+export const editTodoItemDescription = createAction(
+  '[Todo List] Edit Todo Item Description',
+  props<{ id: string, previousDescription: string, updatedDescription: string }>()
 );
 
-export const editTodoItemDescFailure = createAction(
-  '[Todo List] Edit Todo Item Desc Failure',
-  props<{ id: string, previousDesc: string }>()
+export const editTodoItemDescriptionFailure = createAction(
+  '[Todo List] Edit Todo Item Description Failure',
+  props<{ id: string, previousDescription: string }>()
 );
 
-export const editTodoItemDescSuccess = createAction(
-  '[Todo List] Edit Todo Item Desc Success'
+export const editTodoItemDescriptionSuccess = createAction(
+  '[Todo List] Edit Todo Item Description Success'
 );

@@ -33,7 +33,7 @@ export class TodoListEffects {
     map((action) => {
       this.todoListService.createTodoItem(
         action.title,
-        action.desc
+        action.description
       );
     })
   ), { dispatch: false });
@@ -60,13 +60,13 @@ export class TodoListEffects {
     })
   ), { dispatch: false });
 
-  editTodoItemDesc$ = createEffect(() => this.actions$.pipe(
-    ofType(TodoListActions.editTodoItemDesc),
+  editTodoItemDescription$ = createEffect(() => this.actions$.pipe(
+    ofType(TodoListActions.editTodoItemDescription),
     map((action) => {
-      this.todoListService.editTodoItemDesc(
+      this.todoListService.editTodoItemDescription(
         action.id,
-        action.previousDesc,
-        action.updatedDesc
+        action.previousDescription,
+        action.updatedDescription
       );
     })
   ), { dispatch: false });

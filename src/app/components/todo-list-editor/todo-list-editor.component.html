@@ -5,7 +5,6 @@
         <mat-label>Create Task</mat-label>
         <input matInput type="text" [(ngModel)]="title" />
         <button
-          mat-button
           *ngIf="title"
           matSuffix
           mat-icon-button
@@ -18,14 +17,14 @@
 
       <mat-form-field>
         <mat-label>Additional Detail (Optional)</mat-label>
-        <input matInput type="text" [(ngModel)]="desc" />
+        <input matInput type="text" [(ngModel)]="description" />
         <button
           mat-button
-          *ngIf="desc"
+          *ngIf="description"
           matSuffix
           mat-icon-button
           aria-label="Clear description"
-          (click)="clearDesc()"
+          (click)="clearDescription()"
         >
           <mat-icon>close</mat-icon>
         </button>
@@ -33,7 +32,7 @@
     </mat-card-content>
     <mat-card-actions>
       <button
-        mat-stroked-button
+        mat-raised-button
         color="primary"
         type="button"
         (click)="createTodo()"

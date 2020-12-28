@@ -91,12 +91,12 @@ const _todoListReducer = createReducer(
     };
   }),
 
-  on(TodoListActions.editTodoItemDesc, (state, { id, previousDesc, updatedDesc }) => {
+  on(TodoListActions.editTodoItemDescription, (state, { id, previousDescription, updatedDescription }) => {
     const todoItemIndex = state.todos.findIndex(todo => todo.id === id);
     const todoItem = state.todos[todoItemIndex];
     const updatedTodoItem = {
       ...todoItem,
-      desc: updatedDesc
+      description: updatedDescription
     };
     const updatedTodoList = [...state.todos];
     updatedTodoList[todoItemIndex] = updatedTodoItem;
@@ -106,12 +106,12 @@ const _todoListReducer = createReducer(
     };
   }),
 
-  on(TodoListActions.editTodoItemDescFailure, (state, { id, previousDesc }) => {
+  on(TodoListActions.editTodoItemDescriptionFailure, (state, { id, previousDescription }) => {
     const todoItemIndex = state.todos.findIndex(todo => todo.id === id);
     const todoItem = state.todos[todoItemIndex];
     const updatedTodoItem = {
       ...todoItem,
-      desc: previousDesc
+      description: previousDescription
     };
     const updatedTodoList = [...state.todos];
     updatedTodoList[todoItemIndex] = updatedTodoItem;

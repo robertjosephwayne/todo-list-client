@@ -36,10 +36,10 @@ export class TodoListService {
       });
   }
 
-  createTodoItem(title: string, desc: string): void {
+  createTodoItem(title: string, description: string): void {
     const newTodoItem = {
       title,
-      desc,
+      description,
       isComplete: false
     };
 
@@ -86,19 +86,19 @@ export class TodoListService {
       });
   }
 
-  editTodoItemDesc(id: string, previousDesc: string, updatedDesc: string) {
-    this.http.patch(`http://localhost:3000/todos/${id}`, { desc: updatedDesc })
+  editTodoItemDescription(id: string, previousDescription: string, updatedDescription: string) {
+    this.http.patch(`http://localhost:3000/todos/${id}`, { description: updatedDescription })
       .pipe(
         catchError((error) => {
           this.store.dispatch(
-            TodoListActions.editTodoItemDescFailure({ id, previousDesc })
+            TodoListActions.editTodoItemDescriptionFailure({ id, previousDescription })
           );
           return this.handleError(error);
         })
       )
       .subscribe(() => {
         this.store.dispatch(
-          TodoListActions.editTodoItemDescSuccess()
+          TodoListActions.editTodoItemDescriptionSuccess()
         )
       });
   }
