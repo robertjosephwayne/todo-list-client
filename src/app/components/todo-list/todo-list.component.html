@@ -5,17 +5,9 @@
     </mat-expansion-panel-header>
     <p>{{ todo.description }}</p>
     <mat-action-row>
-      <a color="primary" mat-icon-button [routerLink]="['/edit', todo.id]">
-        <mat-icon>edit</mat-icon>
-      </a>
+      <a color="primary" mat-button [routerLink]="['/edit', todo.id]">Edit</a>
 
-      <button color="primary" mat-icon-button>
-        <mat-icon>save</mat-icon>
-      </button>
-
-      <button (click)="onDelete(todo)" color="warn" mat-icon-button>
-        <mat-icon>delete</mat-icon>
-      </button>
+      <button (click)="onDelete(todo)" color="warn" mat-button>Delete</button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
