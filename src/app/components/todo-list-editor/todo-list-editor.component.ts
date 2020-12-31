@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Todo } from 'src/app/models/todo.model';
 
+import * as fromRouter from '../../store/router/router.selectors';
+import * as fromTodoList from '../../store/todo-list/todo-list.selectors';
 import * as TodoListActions from '../../store/todo-list/todo-list.actions';
 
 @Component({
