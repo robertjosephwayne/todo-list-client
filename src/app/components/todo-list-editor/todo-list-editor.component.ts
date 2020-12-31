@@ -19,16 +19,13 @@ export class TodoListEditorComponent implements OnInit {
   }
 
   createTodo(): void {
+  createTodo(form: NgForm): void {
+    if (form.invalid) return;
     this.store.dispatch(TodoListActions.createTodoItem({
-      title: this.title,
-      description: this.description
+      title: form.value.title,
+      description: form.value.description
     }));
-    this.clearEditor();
-  }
-
-  clearEditor(): void {
-    this.clearTitle();
-    this.clearDescription();
+    form.resetForm();
   }
 
   clearTitle(form: NgForm): void {
