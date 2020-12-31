@@ -48,7 +48,9 @@ import { SignupComponent } from './components/auth/signup/signup.component';
       TodoListEffects,
       AuthEffects
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
