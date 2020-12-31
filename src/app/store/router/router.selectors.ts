@@ -18,4 +18,4 @@ export const {
   selectUrl,            // select the current url
 } = fromRouter.getSelectors(selectRouter);
 
-export const selectSelectedTodoId = selectQueryParam('todoId');
+export const selectSelectedTodoId = selectRouteParam('todoId');
