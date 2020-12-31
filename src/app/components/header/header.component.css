@@ -16,3 +16,7 @@ a {
 ul {
   display: flex;
 }
+
+button {
+  outline: none;
+}
