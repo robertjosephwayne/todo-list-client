@@ -31,8 +31,8 @@ export class TodoListEditorComponent implements OnInit {
     this.clearDescription();
   }
 
-  clearTitle(): void {
-    this.title = "";
+  clearTitle(form: NgForm): void {
+    // TODO
   }
 
   clearDescription(form: NgForm): void {
