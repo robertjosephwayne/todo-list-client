@@ -8,3 +8,12 @@ export const selectAllTodos = createSelector(
   selectTodoList,
   (todoList) => todoList.todos
 );
+
+export const selectTodoById = createSelector(
+  selectAllTodos,
+  (todos, props) => {
+    return todos.find(todo => {
+      todo.id === props.id;
+    });
+  }
+);
