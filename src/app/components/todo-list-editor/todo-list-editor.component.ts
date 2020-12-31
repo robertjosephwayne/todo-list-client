@@ -16,6 +16,9 @@ export class TodoListEditorComponent implements OnInit {
   constructor(private store: Store) { }
 
   ngOnInit(): void {
+    this.setMode();
+    this.selectedTodoId$ = this.store.select(fromRouter.selectSelectedTodoId);
+    this.setSelectedTodo();
   }
 
   setMode(): void {
