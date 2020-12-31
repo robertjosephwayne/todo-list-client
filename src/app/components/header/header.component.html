@@ -1,0 +1,27 @@
+<mat-toolbar class="mb-6 mat-elevation-z6" color="primary">
+  <span>
+    <a routerLink="/">{{ label }}</a></span
+  >
+  <span class="spacer"></span>
+  <ul>
+    <li>
+      <a mat-button routerLink="/create" routerLinkActive="mat-accent">
+        Add Item
+      </a>
+    </li>
+    <li>
+      <a mat-button routerLink="/login" routerLinkActive="mat-accent">
+        Login
+      </a>
+    </li>
+    <li>
+      <a mat-button routerLink="/signup" routerLinkActive="mat-accent">
+        Sign Up
+      </a>
+    </li>
+    <li>
+      <button mat-button (click)="onLogout()">Logout</button>
+    </li>
+  </ul>
+  <!-- TODO: Add GitHub icon to right side of navbar -->
+</mat-toolbar>
