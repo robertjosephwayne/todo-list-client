@@ -57,6 +57,14 @@ export class AuthEffects {
     })
   ));
 
+  syncLocalStorageToken$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.syncLocalStorageToken),
+    map(() => {
+      const jwtToken = localStorage.getItem('jwtToken');
+      return AuthActions.updateJWTToken({ jwtToken });
+    })
+  ))
+
   constructor(
     private actions$: Actions,
     private store: Store<AppState>,
