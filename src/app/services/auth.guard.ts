@@ -5,25 +5,29 @@ import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
 import * as fromAuth from '../store/auth/auth.selectors';
+import * as AuthActions from '../store/auth/auth.actions';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
+  isAuth: boolean;
 
   constructor(
-    private authService: AuthService,
     private router: Router,
     private store: Store
-  ) { }
+  ) {
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean | Observable<boolean> | Promise<boolean> {
-    const isAuth = localStorage.getItem('jwtToken');
-    if (!isAuth) {
+    this.updateAuthStatus();
+    if (!this.isAuth) {
       this.router.navigate(['/login'])
     }
-    return true;
+    return this.isAuth;
+  }
+
   private updateAuthStatus(): void {
     this.isAuth = !!localStorage.getItem('jwtToken');
     if (this.isAuth) {
