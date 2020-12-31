@@ -8,8 +8,7 @@
             matInput
             type="text"
             name="title"
-            [ngModel]="(selectedTodo$ | async)?.title"
-            #title="ngModel"
+            [ngModel]="selectedTodo?.title"
           />
           <button
             *ngIf="todoForm.value.title"
@@ -28,7 +27,7 @@
             matInput
             type="text"
             name="description"
-            [ngModel]="(selectedTodo$ | async)?.description"
+            [ngModel]="selectedTodo?.description"
           />
           <button
             *ngIf="todoForm.value.description"
