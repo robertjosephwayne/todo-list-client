@@ -29,10 +29,10 @@ export class TodoListComponent implements OnInit {
 
   ngOnInit(): void {
     this.todos$ = this.store.select(fromTodoList.selectAllTodos);
-    this.fetchAll();
+    this.fetchTodoList();
   }
 
-  fetchAll(): void {
+  fetchTodoList(): void {
     this.store.dispatch(TodoListActions.fetchTodoList());
   }
 }
