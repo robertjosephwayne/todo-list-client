@@ -31,48 +31,20 @@ export const createTodoItemSuccess = createAction(
   props<{ newTodoItem: Todo }>()
 );
 
-export const completeStatusChanged = createAction(
-  '[Todo List] Complete Status Changed',
-  props<{ id: string, previousCompleteStatus: boolean, updatedCompleteStatus: boolean }>()
-);
-
-export const completeStatusChangedFailure = createAction(
-  '[Todo List] Complete Status Changed Success',
-  props<{ id: string, previousCompleteStatus: boolean }>()
-);
-
-export const completeStatusChangedSuccess = createAction(
-  '[Todo List] Complete Status Changed Success',
-);
-
-export const editTodoItemTitle = createAction(
-  '[Todo List] Edit Todo Item Title',
-  props<{ id: string, previousTitle: string, updatedTitle: string }>()
-);
-
-export const editTodoItemTitleFailure = createAction(
-  '[Todo List] Edit Todo Item Title Failure',
-  props<{ id: string, previousTitle: string }>()
-);
-
-export const editTodoItemTitleSuccess = createAction(
-  '[Todo List] Edit Todo Item Title Success'
-);
-
-export const editTodoItemDescription = createAction(
-  '[Todo List] Edit Todo Item Description',
-  props<{ id: string, previousDescription: string, updatedDescription: string }>()
-);
-
-export const editTodoItemDescriptionFailure = createAction(
-  '[Todo List] Edit Todo Item Description Failure',
-  props<{ id: string, previousDescription: string }>()
-);
-
-export const editTodoItemDescriptionSuccess = createAction(
-  '[Todo List] Edit Todo Item Description Success'
-);
-
 export const clearTodos = createAction(
   '[Todo List] Clear Todos'
+);
+
+export const editTodoItem = createAction(
+  '[Todo List] Edit Todo Item',
+  props<{ previousTodoItem: Todo, updatedTodoItem: Todo }>()
+);
+
+export const editTodoItemFailure = createAction(
+  '[Todo List] Edit Todo Item Failure',
+  props<{ previousTodoItem: Todo }>()
+);
+
+export const editTodoItemSuccess = createAction(
+  '[Todo List] Edit Todo Item Success'
 );

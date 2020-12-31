@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class TodoListEffects {
+
   fetchTodoList$ = createEffect(() => this.actions$.pipe(
     ofType(TodoListActions.fetchTodoList),
     map(() => this.todoListService.fetchTodoList())
@@ -46,36 +47,20 @@ export class TodoListEffects {
     })
   ), { dispatch: false });
 
-  completeStatusChanged$ = createEffect(() => this.actions$.pipe(
-    ofType(TodoListActions.completeStatusChanged),
+  editTodoItem$ = createEffect(() => this.actions$.pipe(
+    ofType(TodoListActions.editTodoItem),
     map((action) => {
-      this.todoListService.updateCompleteStatus(
-        action.id,
-        action.previousCompleteStatus,
-        action.updatedCompleteStatus
+      this.todoListService.editTodoItem(
+        action.previousTodoItem,
+        action.updatedTodoItem
       );
     })
   ), { dispatch: false });
 
-  editTodoItemTitle$ = createEffect(() => this.actions$.pipe(
-    ofType(TodoListActions.editTodoItemTitle),
-    map((action) => {
-      this.todoListService.editTodoItemTitle(
-        action.id,
-        action.previousTitle,
-        action.updatedTitle
-      );
-    })
-  ), { dispatch: false });
-
-  editTodoItemDescription$ = createEffect(() => this.actions$.pipe(
-    ofType(TodoListActions.editTodoItemDescription),
-    map((action) => {
-      this.todoListService.editTodoItemDescription(
-        action.id,
-        action.previousDescription,
-        action.updatedDescription
-      );
+  editTodoItemSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(TodoListActions.editTodoItemSuccess),
+    tap(() => {
+      this.router.navigate(['/']);
     })
   ), { dispatch: false });
 

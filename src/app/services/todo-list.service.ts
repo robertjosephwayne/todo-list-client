@@ -52,53 +52,24 @@ export class TodoListService {
       });
   }
 
-  updateCompleteStatus(id: string, previousCompleteStatus: boolean, updatedCompleteStatus: boolean) {
-    this.http.patch(`http://localhost:3000/todos/${id}`, { isComplete: updatedCompleteStatus })
+  editTodoItem(previousTodoItem: Todo, updatedTodoItem: Todo) {
+    const id = previousTodoItem.id;
+    this.http.patch(`http://localhost:3000/todos/${id}`, {
+      title: updatedTodoItem.title,
+      description: updatedTodoItem.description,
+      isComplete: updatedTodoItem.isComplete
+    })
       .pipe(
         catchError((error) => {
           this.store.dispatch(
-            TodoListActions.completeStatusChangedFailure({ id, previousCompleteStatus })
+            TodoListActions.editTodoItemFailure({ previousTodoItem })
           );
           return this.handleError(error);
         })
       )
       .subscribe(() => {
         this.store.dispatch(
-          TodoListActions.completeStatusChangedSuccess()
-        )
-      });
-  }
-
-  editTodoItemTitle(id: string, previousTitle: string, updatedTitle: string) {
-    this.http.patch(`http://localhost:3000/todos/${id}`, { title: updatedTitle })
-      .pipe(
-        catchError((error) => {
-          this.store.dispatch(
-            TodoListActions.editTodoItemTitleFailure({ id, previousTitle })
-          );
-          return this.handleError(error);
-        })
-      )
-      .subscribe(() => {
-        this.store.dispatch(
-          TodoListActions.editTodoItemTitleSuccess()
-        )
-      });
-  }
-
-  editTodoItemDescription(id: string, previousDescription: string, updatedDescription: string) {
-    this.http.patch(`http://localhost:3000/todos/${id}`, { description: updatedDescription })
-      .pipe(
-        catchError((error) => {
-          this.store.dispatch(
-            TodoListActions.editTodoItemDescriptionFailure({ id, previousDescription })
-          );
-          return this.handleError(error);
-        })
-      )
-      .subscribe(() => {
-        this.store.dispatch(
-          TodoListActions.editTodoItemDescriptionSuccess()
+          TodoListActions.editTodoItemSuccess()
         )
       });
   }
