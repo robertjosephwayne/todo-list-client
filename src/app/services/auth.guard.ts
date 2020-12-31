@@ -24,5 +24,10 @@ export class AuthGuard implements CanActivate {
       this.router.navigate(['/login'])
     }
     return true;
+  private updateAuthStatus(): void {
+    this.isAuth = !!localStorage.getItem('jwtToken');
+    if (this.isAuth) {
+      this.store.dispatch(AuthActions.syncLocalStorageToken());
+    }
   }
 }
