@@ -18,7 +18,25 @@ export class TodoListEditorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createTodo(): void {
+  setMode(): void {
+    // this.route.paramMap.subscribe((paramMap: ParamMap) => {
+    //   if (paramMap.has('todoId')) {
+    //     this.mode = 'edit';
+    //     this.selectedTodoId = paramMap.get('todoId');
+    //   } else {
+    //     this.mode = 'create';
+    //     this.selectedTodoId = null;
+    //   }
+    // });
+  }
+
+  setSelectedTodo(): void {
+    // this.selectedTodo$ = this.store.select(
+    //   fromTodoList.selectTodoById,
+    //   { id: this.selectedTodoId }
+    // )
+  }
+
   createTodo(form: NgForm): void {
     if (form.invalid) return;
     this.store.dispatch(TodoListActions.createTodoItem({
