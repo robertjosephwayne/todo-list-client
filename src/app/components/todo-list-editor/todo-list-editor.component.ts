@@ -75,14 +75,6 @@ export class TodoListEditorComponent implements OnInit {
     );
   }
 
-  clearTitle(form: NgForm): void {
-    // TODO
-  }
-
-  clearDescription(form: NgForm): void {
-    // TODO
-  }
-
   ngOnDestroy(): void {
     this.selectedTodoIdSub.unsubscribe();
     this.todosSub.unsubscribe();
