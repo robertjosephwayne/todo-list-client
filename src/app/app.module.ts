@@ -23,7 +23,7 @@ import { AuthEffects } from './store/auth/auth.effects';
     AppComponent,
     TodoListComponent,
     TodoItemComponent,
-    TodoListEditorComponent
+    TodoListEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +37,7 @@ import { AuthEffects } from './store/auth/auth.effects';
     BrowserAnimationsModule,
     MaterialModule,
     EffectsModule.forRoot([
-      TodoListEffects
+      TodoListEffects,
       AuthEffects
   ],
   providers: [],
