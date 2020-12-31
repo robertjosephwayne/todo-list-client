@@ -121,6 +121,12 @@ const _todoListReducer = createReducer(
     };
   }),
 
+  on(TodoListActions.clearTodos, (state) => {
+    return {
+      ...state,
+      todos: []
+    };
+  }),
 );
 
 export function todoListReducer(state: TodoListState, action: Action) {

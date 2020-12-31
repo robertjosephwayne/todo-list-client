@@ -72,3 +72,7 @@ export const editTodoItemDescriptionFailure = createAction(
 export const editTodoItemDescriptionSuccess = createAction(
   '[Todo List] Edit Todo Item Description Success'
 );
+
+export const clearTodos = createAction(
+  '[Todo List] Clear Todos'
+);
