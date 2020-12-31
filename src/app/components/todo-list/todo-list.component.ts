@@ -24,6 +24,7 @@ import * as fromTodoList from '../../store/todo-list/todo-list.selectors';
 })
 export class TodoListComponent implements OnInit {
   todos$: Observable<Todo[]>;
+  isLoading = false;
 
   constructor(private store: Store) { }
 

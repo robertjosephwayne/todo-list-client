@@ -21,6 +21,7 @@ export class TodoListEditorComponent implements OnInit {
   todos: Todo[];
   todosSub: Subscription;
   selectedTodo: Todo;
+  isLoading = true;
 
   constructor(
     private store: Store,
@@ -28,6 +29,7 @@ export class TodoListEditorComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.isLoading = false;
     this.todosSub = this.store.select(fromTodoList.selectAllTodos).subscribe(todos => {
       this.todos = todos;
     })
@@ -44,6 +46,7 @@ export class TodoListEditorComponent implements OnInit {
 
   onSave(form: NgForm) {
     if (form.invalid) return;
+    this.isLoading = true;
     const title = form.value.title;
     const description = form.value.description;
     if (this.selectedTodo) {

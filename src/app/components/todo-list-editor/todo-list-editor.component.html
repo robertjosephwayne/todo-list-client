@@ -1,5 +1,6 @@
 <div class="grid justify-items-center my-6">
-  <mat-card class="text-center">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <mat-card class="text-center" *ngIf="!isLoading">
     <form (submit)="onSave(todoForm)" #todoForm="ngForm">
       <mat-card-content>
         <mat-form-field>
