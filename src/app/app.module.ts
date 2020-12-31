@@ -19,8 +19,10 @@ import { TodoListEffects } from './store/todo-list/todo-list.effects';
 import { TodoItemComponent } from './components/todo-list/todo-item/todo-item.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { TodoListEditorComponent } from './components/todo-list-editor/todo-list-editor.component';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AuthEffects } from './store/auth/auth.effects';
 import { SignupComponent } from './components/auth/signup/signup.component';
+import { AuthInterceptor } from './services/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { SignupComponent } from './components/auth/signup/signup.component';
     EffectsModule.forRoot([
       TodoListEffects,
       AuthEffects
+    ]),
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
