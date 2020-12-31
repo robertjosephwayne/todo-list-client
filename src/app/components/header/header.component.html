@@ -35,7 +35,9 @@
       </a>
     </li>
     <li>
-      <button mat-button (click)="onLogout()">Logout</button>
+      <button mat-button *ngIf="isAuth$ | async" (click)="onLogout()">
+        Logout
+      </button>
     </li>
   </ul>
   <!-- TODO: Add GitHub icon to right side of navbar -->
