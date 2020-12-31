@@ -10,8 +10,9 @@ import * as TodoListActions from '../../store/todo-list/todo-list.actions';
   styleUrls: ['./todo-list-editor.component.css']
 })
 export class TodoListEditorComponent implements OnInit {
-  title: string = "";
-  description: string = "";
+  private mode = 'create';
+  private selectedTodoId$: Observable<string>;
+  selectedTodo$: Observable<Todo>;
 
   constructor(private store: Store) { }
 
