@@ -10,8 +10,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MaterialModule } from './material.module';
 
 import { AppComponent } from './app.component';
-import { environment } from '../environments/environment';
 import { appReducer } from './store/app.reducer';
+import { AppRoutingModule } from './app-routing.module';
+import { environment } from '../environments/environment';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { TodoListEffects } from './store/todo-list/todo-list.effects';
@@ -33,6 +34,7 @@ import { SignupComponent } from './components/auth/signup/signup.component';
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     HttpClientModule,
     FormsModule,
     StoreModule.forRoot(appReducer),
