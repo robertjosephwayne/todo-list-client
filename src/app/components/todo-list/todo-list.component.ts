@@ -35,4 +35,8 @@ export class TodoListComponent implements OnInit {
   fetchTodoList(): void {
     this.store.dispatch(TodoListActions.fetchTodoList());
   }
+
+  onDelete(todo: Todo): void {
+    this.store.dispatch(TodoListActions.deleteTodoItem({ id: todo.id }))
+  }
 }
