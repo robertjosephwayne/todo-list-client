@@ -12,6 +12,7 @@ import { MaterialModule } from './material.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { appReducer } from './store/app.reducer';
+import { HeaderComponent } from './components/header/header.component';
 import { TodoListEffects } from './store/todo-list/todo-list.effects';
 import { TodoItemComponent } from './components/todo-list/todo-item/todo-item.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
@@ -21,6 +22,7 @@ import { AuthEffects } from './store/auth/auth.effects';
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
     TodoListComponent,
     TodoItemComponent,
     TodoListEditorComponent,
