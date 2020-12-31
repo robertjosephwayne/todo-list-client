@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
@@ -14,7 +15,10 @@ export class TodoListEditorComponent implements OnInit {
   private selectedTodoId$: Observable<string>;
   selectedTodo$: Observable<Todo>;
 
-  constructor(private store: Store) { }
+  constructor(
+    private store: Store,
+    public route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.setMode();
