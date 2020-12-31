@@ -22,3 +22,12 @@ export const signup = createAction(
 export const signupSuccess = createAction(
   '[Auth] Signup Success'
 );
+
+export const syncLocalStorageToken = createAction(
+  '[Auth] Sync Local Storage Token'
+);
+
+export const updateJWTToken = createAction(
+  '[Auth] Update JWT Token',
+  props<{ jwtToken: string }>()
+);
