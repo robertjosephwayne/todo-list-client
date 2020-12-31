@@ -16,6 +16,7 @@ import { TodoListEffects } from './store/todo-list/todo-list.effects';
 import { TodoItemComponent } from './components/todo-list/todo-item/todo-item.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { TodoListEditorComponent } from './components/todo-list-editor/todo-list-editor.component';
+import { AuthEffects } from './store/auth/auth.effects';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { TodoListEditorComponent } from './components/todo-list-editor/todo-list
     MaterialModule,
     EffectsModule.forRoot([
       TodoListEffects
-    ])
+      AuthEffects
   ],
   providers: [],
   bootstrap: [AppComponent]
