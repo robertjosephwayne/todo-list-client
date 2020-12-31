@@ -5,32 +5,13 @@
   <span class="spacer"></span>
   <ul>
     <li>
-      <a
-        mat-button
-        *ngIf="isAuth$ | async"
-        routerLink="/create"
-        routerLinkActive="mat-accent"
-      >
-        Add Item
-      </a>
+      <a mat-button *ngIf="isAuth$ | async" routerLink="/create"> Add Item </a>
     </li>
     <li>
-      <a
-        mat-button
-        *ngIf="!(isAuth$ | async)"
-        routerLink="/login"
-        routerLinkActive="mat-accent"
-      >
-        Login
-      </a>
+      <a mat-button *ngIf="!(isAuth$ | async)" routerLink="/login"> Login </a>
     </li>
     <li>
-      <a
-        mat-button
-        *ngIf="!(isAuth$ | async)"
-        routerLink="/signup"
-        routerLinkActive="mat-accent"
-      >
+      <a mat-button *ngIf="!(isAuth$ | async)" routerLink="/signup">
         Sign Up
       </a>
     </li>
