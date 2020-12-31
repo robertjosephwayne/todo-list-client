@@ -2,8 +2,10 @@ import { ActionReducerMap } from '@ngrx/store';
 
 import { AppState } from './app.state';
 
+import { authReducer } from './auth/auth.reducer';
 import { todoListReducer } from './todo-list/todo-list.reducer';
 
 export const appReducer: ActionReducerMap<AppState> = {
+  auth: authReducer,
   todoList: todoListReducer,
 };
