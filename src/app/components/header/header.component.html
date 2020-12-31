@@ -25,7 +25,12 @@
       </a>
     </li>
     <li>
-      <a mat-button routerLink="/signup" routerLinkActive="mat-accent">
+      <a
+        mat-button
+        *ngIf="!(isAuth$ | async)"
+        routerLink="/signup"
+        routerLinkActive="mat-accent"
+      >
         Sign Up
       </a>
     </li>
