@@ -20,6 +20,13 @@ const _authReducer = createReducer(
       jwtToken: null
     };
   }),
+
+  on(AuthActions.updateJWTToken, (state, { jwtToken }) => {
+    return {
+      ...state,
+      jwtToken
+    };
+  }),
 );
 
 export function authReducer(state: AuthState, action: Action) {
