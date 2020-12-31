@@ -19,12 +19,14 @@ import { TodoItemComponent } from './components/todo-list/todo-item/todo-item.co
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { TodoListEditorComponent } from './components/todo-list-editor/todo-list-editor.component';
 import { AuthEffects } from './store/auth/auth.effects';
+import { SignupComponent } from './components/auth/signup/signup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     LoginComponent,
+    SignupComponent,
     TodoListComponent,
     TodoItemComponent,
     TodoListEditorComponent,
