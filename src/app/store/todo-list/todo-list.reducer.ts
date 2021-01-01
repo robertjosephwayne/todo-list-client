@@ -7,6 +7,13 @@ import * as TodoListActions from './todo-list.actions';
 const _todoListReducer = createReducer(
   initialState,
 
+  on(TodoListActions.fetchTodoList, (state) => {
+    return {
+      ...state,
+      isLoading: true
+    };
+  }),
+
   on(TodoListActions.fetchTodoListSuccess, (state, { todoList }) => {
     return {
       ...state,
