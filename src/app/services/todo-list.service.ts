@@ -19,7 +19,12 @@ export class TodoListService {
   fetchTodoList(): void {
     this.http.get<Todo[]>('http://localhost:3000/todos')
       .pipe(
-        catchError(this.handleError)
+        catchError((error) => {
+          this.store.dispatch(
+            TodoListActions.fetchTodoListFailure()
+          );
+          return this.handleError(error);
+        })
       )
       .subscribe(todoList => {
         this.store.dispatch(TodoListActions.fetchTodoListSuccess({ todoList }));
