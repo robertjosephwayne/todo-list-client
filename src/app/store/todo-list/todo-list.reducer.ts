@@ -37,6 +37,13 @@ const _todoListReducer = createReducer(
     };
   }),
 
+  on(TodoListActions.createTodoItem, (state) => {
+    return {
+      ...state,
+      isLoading: true
+    };
+  }),
+
   on(TodoListActions.createTodoItemSuccess, (state, { newTodoItem }) => {
     const updatedTodoList = [...state.todos];
     updatedTodoList.push(newTodoItem);
