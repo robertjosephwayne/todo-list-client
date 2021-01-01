@@ -44,7 +44,11 @@ const _todoListReducer = createReducer(
     updatedTodoList[todoItemIndex] = updatedTodoItem;
     return {
       ...state,
-      todos: updatedTodoList
+      todos: updatedTodoList,
+      editingTodo: null
+    };
+  }),
+
   on(TodoListActions.startEditingTodoItem, (state, { todoItem }) => {
     return {
       ...state,
