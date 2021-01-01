@@ -32,3 +32,8 @@ export const selectTodoById = createSelector(
     });
   }
 );
+
+export const selectIsLoading = createSelector(
+  selectTodoList,
+  (todoList) => todoList.isLoading
+);
