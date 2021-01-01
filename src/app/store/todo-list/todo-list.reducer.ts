@@ -17,7 +17,8 @@ const _todoListReducer = createReducer(
   on(TodoListActions.fetchTodoListSuccess, (state, { todoList }) => {
     return {
       ...state,
-      todos: todoList
+      todos: todoList,
+      isLoading: false
     };
   }),
 
