@@ -51,6 +51,10 @@ export class TodoListComponent implements OnInit {
   onDelete(todo: Todo): void {
     this.store.dispatch(TodoListActions.deleteTodoItem({ id: todo.id }))
   }
+
+  onEdit(todo: Todo): void {
+    this.store.dispatch(TodoListActions.startEditingTodoItem({ todoItem: todo }));
+  }
   ngOnDestroy(): void {
     this.isLoadingSub.unsubscribe();
     this.isEditingSub.unsubscribe();
