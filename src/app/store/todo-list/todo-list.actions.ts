@@ -52,3 +52,8 @@ export const editTodoItemFailure = createAction(
 export const editTodoItemSuccess = createAction(
   '[Todo List] Edit Todo Item Success'
 );
+
+export const startEditingTodoItem = createAction(
+  '[Todo List] Start Editing Todo Item',
+  props<{ todoItem: Todo }>()
+);
