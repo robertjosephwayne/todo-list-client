@@ -56,13 +56,6 @@ export class TodoListEffects {
     })
   ), { dispatch: false });
 
-  editTodoItemSuccess$ = createEffect(() => this.actions$.pipe(
-    ofType(TodoListActions.editTodoItemSuccess),
-    tap(() => {
-      this.router.navigate(['/']);
-    })
-  ), { dispatch: false });
-
   constructor(
     private actions$: Actions,
     private store: Store<AppState>,
