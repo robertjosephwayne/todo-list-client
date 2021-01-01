@@ -14,6 +14,13 @@ const _todoListReducer = createReducer(
     };
   }),
 
+  on(TodoListActions.fetchTodoListFailure, (state) => {
+    return {
+      ...state,
+      isLoading: false
+    }
+  }),
+
   on(TodoListActions.deleteTodoItem, (state, { id }) => {
     const updatedTodoList = state.todos.filter(todo => todo.id !== id);
     return {

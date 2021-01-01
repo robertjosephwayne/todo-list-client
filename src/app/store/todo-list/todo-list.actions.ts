@@ -11,6 +11,10 @@ export const fetchTodoListSuccess = createAction(
   props<{ todoList: Todo[] }>()
 );
 
+export const fetchTodoListFailure = createAction(
+  '[Todo List] Fetch Todo List Failure'
+);
+
 export const deleteTodoItem = createAction(
   '[Todo List] Delete Todo Item',
   props<{ id: string }>()
