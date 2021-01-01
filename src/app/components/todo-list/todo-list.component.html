@@ -3,10 +3,8 @@
     <mat-expansion-panel-header>
       {{ todo.title }}
     </mat-expansion-panel-header>
-    <p>{{ todo.description }}</p>
     <mat-action-row>
       <a color="primary" mat-button [routerLink]="['/edit', todo.id]">Edit</a>
-
       <button (click)="onDelete(todo)" color="warn" mat-button>Delete</button>
     </mat-action-row>
   </mat-expansion-panel>

@@ -23,7 +23,7 @@ export const deleteTodoItemSuccess = createAction(
 
 export const createTodoItem = createAction(
   '[Todo List] Create Todo Item',
-  props<{ title: string, description: string }>()
+  props<{ title: string }>()
 );
 
 export const createTodoItemSuccess = createAction(

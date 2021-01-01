@@ -48,27 +48,24 @@ export class TodoListEditorComponent implements OnInit {
     if (form.invalid) return;
     this.isLoading = true;
     const title = form.value.title;
-    const description = form.value.description;
     if (this.selectedTodo) {
-      this.saveChanges(title, description);
+      this.saveChanges(title);
     } else {
-      this.createTodo(title, description);
+      this.createTodo(title);
     }
     form.resetForm();
   }
 
-  createTodo(title: string, description: string): void {
+  createTodo(title: string): void {
     this.store.dispatch(TodoListActions.createTodoItem({
-      title,
-      description
+      title
     }));
   }
 
-  saveChanges(updatedTitle: string, updatedDescription: string) {
+  saveChanges(updatedTitle: string) {
     const updatedTodoItem = {
       ...this.selectedTodo,
-      title: updatedTitle,
-      description: updatedDescription
+      title: updatedTitle
     };
     this.store.dispatch(
       TodoListActions.editTodoItem({

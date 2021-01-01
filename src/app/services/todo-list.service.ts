@@ -36,10 +36,9 @@ export class TodoListService {
       });
   }
 
-  createTodoItem(title: string, description: string): void {
+  createTodoItem(title: string): void {
     const newTodoItem = {
       title,
-      description,
       isComplete: false
     };
 
@@ -56,7 +55,6 @@ export class TodoListService {
     const id = previousTodoItem.id;
     this.http.patch(`http://localhost:3000/todos/${id}`, {
       title: updatedTodoItem.title,
-      description: updatedTodoItem.description,
       isComplete: updatedTodoItem.isComplete
     })
       .pipe(

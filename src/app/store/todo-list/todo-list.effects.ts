@@ -34,8 +34,7 @@ export class TodoListEffects {
     ofType(TodoListActions.createTodoItem),
     map((action) => {
       this.todoListService.createTodoItem(
-        action.title,
-        action.description
+        action.title
       );
     })
   ), { dispatch: false });
