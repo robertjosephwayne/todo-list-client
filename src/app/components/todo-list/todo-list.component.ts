@@ -55,6 +55,18 @@ export class TodoListComponent implements OnInit {
   onEdit(todo: Todo): void {
     this.store.dispatch(TodoListActions.startEditingTodoItem({ todoItem: todo }));
   }
+
+  onComplete(todo: Todo): void {
+    const updatedTodoItem: Todo = {
+      ...todo,
+      isComplete: true
+    };
+    this.store.dispatch(TodoListActions.editTodoItem({
+      previousTodoItem: todo,
+      updatedTodoItem
+    }));
+  }
+
   ngOnDestroy(): void {
     this.isLoadingSub.unsubscribe();
     this.isEditingSub.unsubscribe();
