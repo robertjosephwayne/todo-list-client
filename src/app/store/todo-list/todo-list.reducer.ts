@@ -58,6 +58,13 @@ const _todoListReducer = createReducer(
       todos: []
     };
   }),
+
+  on(TodoListActions.disableEditingMode, (state) => {
+    return {
+      ...state,
+      editingTodo: null
+    };
+  })
 );
 
 export function todoListReducer(state: TodoListState, action: Action) {

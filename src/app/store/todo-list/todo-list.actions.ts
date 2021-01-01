@@ -57,3 +57,7 @@ export const startEditingTodoItem = createAction(
   '[Todo List] Start Editing Todo Item',
   props<{ todoItem: Todo }>()
 );
+
+export const disableEditingMode = createAction(
+  '[Todo List] Disable Editing Mode'
+);
