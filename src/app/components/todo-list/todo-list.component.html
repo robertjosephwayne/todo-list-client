@@ -1,4 +1,4 @@
-<mat-accordion *ngIf="!isLoading">
+<!-- <mat-accordion *ngIf="!isLoading">
   <mat-expansion-panel *ngFor="let todo of todos$ | async">
     <mat-expansion-panel-header>
       {{ todo.title }}
@@ -8,4 +8,25 @@
       <button (click)="onDelete(todo)" color="warn" mat-button>Delete</button>
     </mat-action-row>
   </mat-expansion-panel>
-</mat-accordion>
+</mat-accordion> -->
+<mat-list *ngIf="!isEditing && !isLoading">
+  <mat-list-item *ngFor="let todo of todos$ | async">
+    <mat-checkbox (click)="onComplete(todo)"></mat-checkbox>
+    <span class="todo-title">
+      {{ todo.title }}
+    </span>
+    <span class="spacer"></span>
+    <button mat-icon-button color="accent" (click)="onEdit(todo)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="onDelete(todo)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>
+
+<app-todo-list-editor *ngIf="isEditing && !isLoading"></app-todo-list-editor>
+
+<div class="grid justify-items-center my-6">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</div>
