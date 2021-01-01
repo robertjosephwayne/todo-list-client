@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Todo } from 'src/app/models/todo.model';
 
 import * as fromRouter from '../../store/router/router.selectors';
@@ -16,12 +16,10 @@ import * as TodoListActions from '../../store/todo-list/todo-list.actions';
   styleUrls: ['./todo-list-editor.component.css']
 })
 export class TodoListEditorComponent implements OnInit {
-  selectedTodoId: string;
-  selectedTodoIdSub: Subscription;
-  todos: Todo[];
-  todosSub: Subscription;
-  selectedTodo: Todo;
-  isLoading = true;
+  editingTodo: Todo;
+  editingTodoSub: Subscription;
+  isEditing: boolean;
+  isEditingSub: Subscription;
 
   constructor(
     private store: Store,
@@ -29,31 +27,23 @@ export class TodoListEditorComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.isLoading = false;
-    this.todosSub = this.store.select(fromTodoList.selectAllTodos).subscribe(todos => {
-      this.todos = todos;
-    })
-
-    this.selectedTodoIdSub = this.store.select(fromRouter.selectSelectedTodoId).subscribe(selectedTodoId => {
-      this.selectedTodoId = selectedTodoId;
-      this.setSelectedTodo();
+    this.editingTodoSub = this.store.select(fromTodoList.selectEditingTodo).subscribe(editingTodo => {
+      this.editingTodo = editingTodo;
     });
-  }
 
-  setSelectedTodo() {
-    this.selectedTodo = this.todos.find(todo => todo.id === this.selectedTodoId);
+    this.isEditingSub = this.store.select(fromTodoList.selectIsEditing).subscribe(isEditing => {
+      this.isEditing = isEditing;
+    })
   }
 
   onSave(form: NgForm) {
     if (form.invalid) return;
-    this.isLoading = true;
     const title = form.value.title;
-    if (this.selectedTodo) {
+    if (this.isEditing) {
       this.saveChanges(title);
     } else {
       this.createTodo(title);
     }
-    form.resetForm();
   }
 
   createTodo(title: string): void {
@@ -64,19 +54,20 @@ export class TodoListEditorComponent implements OnInit {
 
   saveChanges(updatedTitle: string) {
     const updatedTodoItem = {
-      ...this.selectedTodo,
+      ...this.editingTodo,
       title: updatedTitle
     };
     this.store.dispatch(
       TodoListActions.editTodoItem({
-        previousTodoItem: this.selectedTodo,
+        previousTodoItem: this.editingTodo,
         updatedTodoItem
       })
     );
   }
 
   ngOnDestroy(): void {
-    this.selectedTodoIdSub.unsubscribe();
-    this.todosSub.unsubscribe();
+    this.editingTodoSub.unsubscribe();
+    this.isEditingSub.unsubscribe();
+    if (this.isEditing) this.store.dispatch(TodoListActions.disableEditingMode());
   }
 }
