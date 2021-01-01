@@ -19,6 +19,11 @@ export const selectEditingTodo = createSelector(
   (todoList) => todoList.editingTodo
 );
 
+export const selectIsEditing = createSelector(
+  selectEditingTodo,
+  (editingTodo) => !!editingTodo
+);
+
 export const selectTodoById = createSelector(
   selectAllTodos,
   (todos, props) => {
