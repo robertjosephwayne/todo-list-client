@@ -9,6 +9,10 @@ export const selectAllTodos = createSelector(
   (todoList) => todoList.todos
 );
 
+export const selectIncompleteTodos = createSelector(
+  selectAllTodos,
+  (todos) => todos.filter(todo => !todo.isComplete)
+);
 export const selectTodoById = createSelector(
   selectAllTodos,
   (todos, props) => {
