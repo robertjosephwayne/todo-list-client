@@ -24,13 +24,23 @@ import * as fromTodoList from '../../store/todo-list/todo-list.selectors';
 })
 export class TodoListComponent implements OnInit {
   todos$: Observable<Todo[]>;
-  isLoading = false;
+  isLoading: boolean;
+  isLoadingSub: Subscription;
+  isEditing: boolean;
+  isEditingSub: Subscription;
 
   constructor(private store: Store) { }
 
   ngOnInit(): void {
     this.todos$ = this.store.select(fromTodoList.selectAllTodos);
     this.fetchTodoList();
+    this.isLoadingSub = this.store.select(fromTodoList.selectIsLoading).subscribe(isLoading => {
+      this.isLoading = isLoading;
+    })
+
+    this.isEditingSub = this.store.select(fromTodoList.selectIsEditing).subscribe(isEditing => {
+      this.isEditing = isEditing;
+    })
   }
 
   fetchTodoList(): void {
@@ -39,5 +49,9 @@ export class TodoListComponent implements OnInit {
 
   onDelete(todo: Todo): void {
     this.store.dispatch(TodoListActions.deleteTodoItem({ id: todo.id }))
+  }
+  ngOnDestroy(): void {
+    this.isLoadingSub.unsubscribe();
+    this.isEditingSub.unsubscribe();
   }
 }
