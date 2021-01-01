@@ -49,7 +49,8 @@ const _todoListReducer = createReducer(
     updatedTodoList.push(newTodoItem);
     return {
       ...state,
-      todos: updatedTodoList
+      todos: updatedTodoList,
+      isLoading: false
     };
   }),
 
