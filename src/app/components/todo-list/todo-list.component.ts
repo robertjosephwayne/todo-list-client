@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 
 import { Observable, Subscription } from 'rxjs';
@@ -9,6 +9,7 @@ import { Todo } from '../../models/todo.model';
 
 import * as TodoListActions from '../../store/todo-list/todo-list.actions';
 import * as fromTodoList from '../../store/todo-list/todo-list.selectors';
+import { TodoListEditorComponent } from '../todo-list-editor/todo-list-editor.component';
 
 @Component({
   selector: 'app-todo-list',
@@ -29,7 +30,10 @@ export class TodoListComponent implements OnInit {
   isEditing: boolean;
   isEditingSub: Subscription;
 
-  constructor(private store: Store) { }
+  constructor(
+    private store: Store,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.todos$ = this.store.select(fromTodoList.selectIncompleteTodos);
@@ -54,6 +58,7 @@ export class TodoListComponent implements OnInit {
 
   onEdit(todo: Todo): void {
     this.store.dispatch(TodoListActions.startEditingTodoItem({ todoItem: todo }));
+    this.dialog.open(TodoListEditorComponent);
   }
 
   onComplete(todo: Todo): void {
