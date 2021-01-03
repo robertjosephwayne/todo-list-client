@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/services/auth.service';
 
 import * as fromAuth from '../../store/auth/auth.selectors';
 import * as AuthActions from '../../store/auth/auth.actions';
 import { Observable } from 'rxjs';
+import { TodoListEditorComponent } from '../todo-list-editor/todo-list-editor.component';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +17,10 @@ export class HeaderComponent implements OnInit {
   label = "To-Do List";
   isAuth$: Observable<boolean>;
 
-  constructor(private store: Store) { }
+  constructor(
+    private store: Store,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.setAuthState();
@@ -23,6 +28,10 @@ export class HeaderComponent implements OnInit {
 
   setAuthState(): void {
     this.isAuth$ = this.store.select(fromAuth.selectIsAuth);
+  }
+
+  onAddItem(): void {
+    this.dialog.open(TodoListEditorComponent);
   }
 
   onLogout(): void {

@@ -8,8 +8,7 @@
       <a
         mat-button
         *ngIf="isAuth$ | async"
-        routerLink="/create"
-        routerLinkActive="mat-accent"
+        (click)="onAddItem()"
         >Add Item</a
       >
     </li>
