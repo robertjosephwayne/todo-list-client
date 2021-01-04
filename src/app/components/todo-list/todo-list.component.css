@@ -26,6 +26,6 @@ mat-row:active {
   background: #efefef;
 }
 
-/* #todo-edit-button {
-  display:
-} */
+.completed-todo {
+  text-decoration: line-through;
+}
