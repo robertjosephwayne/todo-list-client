@@ -72,7 +72,10 @@ export class TodoListComponent implements OnInit {
     this.dialog.open(TodoListEditorComponent);
   }
 
-  onComplete(todo: Todo): void {
+  onCreateTodoItem(): void {
+    this.dialog.open(TodoListEditorComponent);
+  }
+
     const updatedTodoItem: Todo = {
       ...todo,
       isComplete: true
