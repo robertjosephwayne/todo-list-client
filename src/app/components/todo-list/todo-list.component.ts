@@ -67,7 +67,7 @@ export class TodoListComponent implements OnInit {
     this.store.dispatch(TodoListActions.deleteTodoItem({ id: todo.id }))
   }
 
-  onEdit(todo: Todo): void {
+  onEditTodoItem(todo: Todo): void {
     this.store.dispatch(TodoListActions.startEditingTodoItem({ todoItem: todo }));
     this.dialog.open(TodoListEditorComponent);
   }

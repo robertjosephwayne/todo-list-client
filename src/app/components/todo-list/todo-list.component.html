@@ -37,7 +37,7 @@
 
   <mat-row
     *matRowDef="let todo; columns: columnsToDisplay"
-    (click)="onEdit(todo)"
+    (click)="onEditTodoItem(todo)"
     [ngClass]="{ 'currently-editing': todo === editingTodo }"
   ></mat-row>
 </mat-table>
