@@ -47,6 +47,12 @@ export class TodoListComponent implements OnInit {
     this.setIncompleteTodosSub();
     this.setIsLoadingSub();
     this.setEditingTodoSub();
+    this.setIsEditingSub();
+  }
+
+  fetchTodoList(): void {
+    this.store.dispatch(TodoListActions.fetchTodoList());
+  }
 
   setAllTodosSub(): void {
     this.allTodosSub = this.store.select(fromTodoList.selectAllTodos).subscribe(allTodos => {
@@ -72,13 +78,10 @@ export class TodoListComponent implements OnInit {
     });
   }
 
+  setIsEditingSub(): void {
     this.isEditingSub = this.store.select(fromTodoList.selectIsEditing).subscribe(isEditing => {
       this.isEditing = isEditing;
     });
-  }
-
-  fetchTodoList(): void {
-    this.store.dispatch(TodoListActions.fetchTodoList());
   }
 
   onDeleteTodoItem(todo: Todo): void {
