@@ -1,24 +1,42 @@
-<mat-toolbar class="mb-6 mat-elevation-z6" color="primary">
-  <span>
-    <a routerLink="/">{{ label }}</a></span
-  >
+<mat-toolbar class="mb-6 bg-gray-50">
+  <span> <a routerLink="/"></a></span>
   <span class="spacer"></span>
-  <ul>
-    <li>
-      <a mat-button *ngIf="!(isAuth$ | async)" routerLink="/login"> Login </a>
-    </li>
-    <li>
+  <ul class="flex">
+    <li
+      class="mr-2 hover:border-b-4 hover:border-blue-200"
+      routerLinkActive="border-b-4 border-blue-600 hover:border-blue-600"
+    >
       <a
-        mat-button
+        mat-flat-button
+        disableRipple
+        *ngIf="!(isAuth$ | async)"
+        routerLink="/login"
+        class="bg-gray-50"
+      >
+        Sign In
+      </a>
+    </li>
+    <li
+      class="hover:border-b-4 hover:border-blue-200"
+      routerLinkActive="border-b-4 border-blue-600 hover:border-blue-600"
+    >
+      <a
+        mat-flat-button
+        disableRipple
         *ngIf="!(isAuth$ | async)"
         routerLink="/signup"
-        focused="true"
+        class="bg-gray-50"
       >
         Sign Up
       </a>
     </li>
     <li>
-      <button mat-button *ngIf="isAuth$ | async" (click)="onLogout()">
+      <button
+        mat-button
+        class="focus:outline-none"
+        *ngIf="isAuth$ | async"
+        (click)="onLogout()"
+      >
         Logout
       </button>
     </li>
