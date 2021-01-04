@@ -30,10 +30,6 @@ export class HeaderComponent implements OnInit {
     this.isAuth$ = this.store.select(fromAuth.selectIsAuth);
   }
 
-  onAddItem(): void {
-    this.dialog.open(TodoListEditorComponent);
-  }
-
   onLogout(): void {
     this.store.dispatch(AuthActions.logout());
   }

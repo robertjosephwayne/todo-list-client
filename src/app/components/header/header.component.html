@@ -7,14 +7,6 @@
     <li>
       <a
         mat-button
-        *ngIf="isAuth$ | async"
-        (click)="onAddItem()"
-        >Add Item</a
-      >
-    </li>
-    <li>
-      <a
-        mat-button
         *ngIf="!(isAuth$ | async)"
         routerLink="/login"
         routerLinkActive="mat-accent"
