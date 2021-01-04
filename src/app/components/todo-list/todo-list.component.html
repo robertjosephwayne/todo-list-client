@@ -9,15 +9,21 @@
 </div>
 
 <mat-table
-  [dataSource]="incompleteTodos"
+  [dataSource]="allTodos"
   class="mat-elevation-z8 mt-4"
   *ngIf="!isLoading"
 >
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
     <mat-cell *matCellDef="let todo">
-      <mat-checkbox (click)="onCompleteTodoItem(todo)"></mat-checkbox>
-      <span class="todo-title">
+      <mat-checkbox
+        (click)="onToggleCompleteStatus(todo)"
+        [checked]="todo.isComplete"
+      ></mat-checkbox>
+      <span
+        class="todo-title"
+        [ngClass]="{ 'completed-todo': todo.isComplete }"
+      >
         {{ todo.title }}
       </span>
     </mat-cell>

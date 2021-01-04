@@ -24,6 +24,8 @@ import { TodoListEditorComponent } from '../todo-list-editor/todo-list-editor.co
   ],
 })
 export class TodoListComponent implements OnInit {
+  allTodos: Todo[];
+  allTodosSub: Subscription;
   incompleteTodos: Todo[];
   incompleteTodosSub: Subscription;
   isLoading: boolean;
@@ -41,7 +43,13 @@ export class TodoListComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchTodoList();
+    this.setAllTodosSub();
 
+  setAllTodosSub(): void {
+    this.allTodosSub = this.store.select(fromTodoList.selectAllTodos).subscribe(allTodos => {
+      this.allTodos = allTodos;
+    });
+  }
     this.incompleteTodosSub = this.store.select(fromTodoList.selectIncompleteTodos).subscribe(incompleteTodos => {
       this.incompleteTodos = incompleteTodos;
     });
@@ -88,6 +96,7 @@ export class TodoListComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
+    this.allTodosSub.unsubscribe();
     this.incompleteTodosSub.unsubscribe();
     this.isLoadingSub.unsubscribe();
     this.editingTodoSub.unsubscribe();
