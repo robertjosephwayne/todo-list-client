@@ -16,7 +16,7 @@
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
     <mat-cell *matCellDef="let todo">
-      <mat-checkbox (click)="onComplete(todo)"></mat-checkbox>
+      <mat-checkbox (click)="onCompleteTodoItem(todo)"></mat-checkbox>
       <span class="todo-title">
         {{ todo.title }}
       </span>
