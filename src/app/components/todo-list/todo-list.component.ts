@@ -45,6 +45,7 @@ export class TodoListComponent implements OnInit {
     this.fetchTodoList();
     this.setAllTodosSub();
     this.setIncompleteTodosSub();
+    this.setIsLoadingSub();
 
   setAllTodosSub(): void {
     this.allTodosSub = this.store.select(fromTodoList.selectAllTodos).subscribe(allTodos => {
@@ -58,9 +59,11 @@ export class TodoListComponent implements OnInit {
     });
   }
 
+  setIsLoadingSub(): void {
     this.isLoadingSub = this.store.select(fromTodoList.selectIsLoading).subscribe(isLoading => {
       this.isLoading = isLoading;
     });
+  }
 
     this.editingTodoSub = this.store.select(fromTodoList.selectEditingTodo).subscribe(editingTodo => {
       this.editingTodo = editingTodo;
