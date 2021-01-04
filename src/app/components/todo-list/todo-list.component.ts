@@ -63,7 +63,7 @@ export class TodoListComponent implements OnInit {
     this.store.dispatch(TodoListActions.fetchTodoList());
   }
 
-  onDelete(todo: Todo): void {
+  onDeleteTodoItem(todo: Todo): void {
     this.store.dispatch(TodoListActions.deleteTodoItem({ id: todo.id }))
   }
 
