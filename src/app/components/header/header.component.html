@@ -5,14 +5,7 @@
   <span class="spacer"></span>
   <ul>
     <li>
-      <a
-        mat-button
-        *ngIf="!(isAuth$ | async)"
-        routerLink="/login"
-        routerLinkActive="mat-accent"
-      >
-        Login
-      </a>
+      <a mat-button *ngIf="!(isAuth$ | async)" routerLink="/login"> Login </a>
     </li>
     <li>
       <a
@@ -20,7 +13,6 @@
         *ngIf="!(isAuth$ | async)"
         routerLink="/signup"
         focused="true"
-        routerLinkActive="mat-accent"
       >
         Sign Up
       </a>
