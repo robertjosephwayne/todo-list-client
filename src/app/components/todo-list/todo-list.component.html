@@ -1,49 +1,49 @@
-<div class="grid justify-items-center mt-6" *ngIf="isLoading">
-  <mat-spinner></mat-spinner>
+<div class="grid justify-items-center">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+  <div id="todo-list-controls" *ngIf="!isLoading">
+    <button mat-mini-fab (click)="onCreateTodoItem()" *ngIf="!isLoading">
+      <mat-icon> add </mat-icon>
+    </button>
+  </div>
+
+  <mat-table
+    [dataSource]="allTodos"
+    class="mat-elevation-z8 mt-4"
+    *ngIf="!isLoading"
+  >
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+      <mat-cell class="title-cell" *matCellDef="let todo">
+        <mat-checkbox
+          (click)="onToggleCompleteStatus(todo)"
+          [checked]="todo.isComplete"
+        ></mat-checkbox>
+        <span
+          class="todo-title"
+          [ngClass]="{ 'completed-todo': todo.isComplete }"
+        >
+          {{ todo.title }}
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="buttons">
+      <mat-header-cell *matHeaderCellDef>Buttons</mat-header-cell>
+      <mat-cell *matCellDef="let todo" class="buttons-cell justify-end">
+        <button id="todo-edit-button" mat-icon-button color="accent">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="onDeleteTodoItem(todo)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-row
+      *matRowDef="let todo; columns: columnsToDisplay"
+      (click)="onEditTodoItem(todo)"
+      [ngClass]="{ 'currently-editing': todo === editingTodo }"
+    ></mat-row>
+  </mat-table>
 </div>
-
-<div class="mt-12" *ngIf="!isLoading">
-  <button mat-raised-button (click)="onCreateTodoItem()" color="primary">
-    Create Task
-  </button>
-</div>
-
-<mat-table
-  [dataSource]="allTodos"
-  class="mat-elevation-z8 mt-4"
-  *ngIf="!isLoading"
->
-  <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
-    <mat-cell *matCellDef="let todo">
-      <mat-checkbox
-        (click)="onToggleCompleteStatus(todo)"
-        [checked]="todo.isComplete"
-      ></mat-checkbox>
-      <span
-        class="todo-title"
-        [ngClass]="{ 'completed-todo': todo.isComplete }"
-      >
-        {{ todo.title }}
-      </span>
-    </mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="buttons">
-    <mat-header-cell *matHeaderCellDef>Buttons</mat-header-cell>
-    <mat-cell *matCellDef="let todo" class="justify-end">
-      <button id="todo-edit-button" mat-icon-button color="accent">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button color="warn" (click)="onDeleteTodoItem(todo)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </mat-cell>
-  </ng-container>
-
-  <mat-row
-    *matRowDef="let todo; columns: columnsToDisplay"
-    (click)="onEditTodoItem(todo)"
-    [ngClass]="{ 'currently-editing': todo === editingTodo }"
-  ></mat-row>
-</mat-table>

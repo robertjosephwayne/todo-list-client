@@ -1,13 +1,13 @@
-.spacer {
-  flex: 1 1 auto;
+#todo-list-controls {
+  width: 600px;
 }
 
 button {
   outline: none;
 }
 
-table {
-  width: 100%;
+mat-table {
+  width: 600px;
 }
 
 .todo-title {
@@ -28,4 +28,12 @@ mat-row:active {
 
 .completed-todo {
   text-decoration: line-through;
+}
+
+.title-cell {
+  flex: 0 0 80%;
+}
+
+.buttons-cell {
+  flex: 0 0 20%;
 }
