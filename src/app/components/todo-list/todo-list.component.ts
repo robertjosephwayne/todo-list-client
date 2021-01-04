@@ -44,15 +44,19 @@ export class TodoListComponent implements OnInit {
   ngOnInit(): void {
     this.fetchTodoList();
     this.setAllTodosSub();
+    this.setIncompleteTodosSub();
 
   setAllTodosSub(): void {
     this.allTodosSub = this.store.select(fromTodoList.selectAllTodos).subscribe(allTodos => {
       this.allTodos = allTodos;
     });
   }
+
+  setIncompleteTodosSub(): void {
     this.incompleteTodosSub = this.store.select(fromTodoList.selectIncompleteTodos).subscribe(incompleteTodos => {
       this.incompleteTodos = incompleteTodos;
     });
+  }
 
     this.isLoadingSub = this.store.select(fromTodoList.selectIsLoading).subscribe(isLoading => {
       this.isLoading = isLoading;
