@@ -2,6 +2,12 @@
   <mat-spinner></mat-spinner>
 </div>
 
+<div class="mt-12" *ngIf="!isLoading">
+  <button mat-raised-button (click)="onCreateTodoItem()" color="primary">
+    Create Task
+  </button>
+</div>
+
 <mat-table
   [dataSource]="incompleteTodos"
   class="mat-elevation-z2"
