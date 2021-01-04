@@ -97,10 +97,10 @@ export class TodoListComponent implements OnInit {
     this.dialog.open(TodoListEditorComponent);
   }
 
-  onCompleteTodoItem(todo: Todo): void {
+  onToggleCompleteStatus(todo: Todo): void {
     const updatedTodoItem: Todo = {
       ...todo,
-      isComplete: true
+      isComplete: !todo.isComplete
     };
     this.store.dispatch(TodoListActions.editTodoItem({
       previousTodoItem: todo,
