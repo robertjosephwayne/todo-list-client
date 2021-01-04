@@ -24,11 +24,15 @@ import { TodoListEditorComponent } from '../todo-list-editor/todo-list-editor.co
   ],
 })
 export class TodoListComponent implements OnInit {
-  todos$: Observable<Todo[]>;
+  incompleteTodos: Todo[];
+  incompleteTodosSub: Subscription;
   isLoading: boolean;
   isLoadingSub: Subscription;
   isEditing: boolean;
   isEditingSub: Subscription;
+  editingTodo: Todo;
+  editingTodoSub: Subscription;
+  columnsToDisplay = ['title', 'buttons'];
 
   constructor(
     private store: Store,
@@ -36,16 +40,23 @@ export class TodoListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.todos$ = this.store.select(fromTodoList.selectIncompleteTodos);
     this.fetchTodoList();
+
+    this.incompleteTodosSub = this.store.select(fromTodoList.selectIncompleteTodos).subscribe(incompleteTodos => {
+      this.incompleteTodos = incompleteTodos;
+    });
 
     this.isLoadingSub = this.store.select(fromTodoList.selectIsLoading).subscribe(isLoading => {
       this.isLoading = isLoading;
+    });
+
+    this.editingTodoSub = this.store.select(fromTodoList.selectEditingTodo).subscribe(editingTodo => {
+      this.editingTodo = editingTodo;
     })
 
     this.isEditingSub = this.store.select(fromTodoList.selectIsEditing).subscribe(isEditing => {
       this.isEditing = isEditing;
-    })
+    });
   }
 
   fetchTodoList(): void {
@@ -73,7 +84,9 @@ export class TodoListComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
+    this.incompleteTodosSub.unsubscribe();
     this.isLoadingSub.unsubscribe();
+    this.editingTodoSub.unsubscribe();
     this.isEditingSub.unsubscribe();
   }
 }

@@ -6,13 +6,26 @@ button {
   outline: none;
 }
 
-mat-list {
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
-  min-width: 400px;
+table {
+  width: 100%;
 }
 
 .todo-title {
   margin-left: 12px;
 }
+
+mat-row:hover {
+  background: whitesmoke;
+}
+
+mat-row:active {
+  background: #efefef;
+}
+
+.currently-editing {
+  background: #efefef;
+}
+
+/* #todo-edit-button {
+  display:
+} */
