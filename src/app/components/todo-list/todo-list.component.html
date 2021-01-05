@@ -2,7 +2,12 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
 
   <div class="w-2/3" *ngIf="!isLoading">
-    <button mat-mini-fab (click)="onCreateTodoItem()" *ngIf="!isLoading">
+    <button
+      class="focus:outline-none"
+      mat-mini-fab
+      (click)="onCreateTodoItem()"
+      *ngIf="!isLoading"
+    >
       <mat-icon> add </mat-icon>
     </button>
   </div>
