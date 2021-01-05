@@ -14,7 +14,7 @@
   >
     <ng-container matColumnDef="title">
       <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
-      <mat-cell *matCellDef="let todo" class="bg-red-200">
+      <mat-cell *matCellDef="let todo">
         <mat-checkbox
           (click)="onToggleCompleteStatus(todo)"
           [checked]="todo.isComplete"
