@@ -4,6 +4,14 @@ module.exports = {
   purge: ["./src/**/*.{html,ts}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    extend: {
+      width: {
+        102: "25.5rem",
+      },
+      screens: {
+        xs: "37.5rem",
+      },
+    },
     colors: {
       transparent: "transparent",
       current: "currentColor",
@@ -23,6 +31,7 @@ module.exports = {
     extend: {
       borderWidth: ["hover"],
       visibility: ["group-hover"],
+      backgroundColor: ["active"],
     },
   },
   plugins: [],
