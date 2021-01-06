@@ -4,7 +4,10 @@
   *ngIf="isLoading"
 ></mat-spinner>
 
-<div class="w-11/12 max-w-2xl mx-auto" *ngIf="!isLoading">
+<div
+  class="grid justify-items-center xs:justify-items-start w-11/12 max-w-2xl mx-auto mt-4"
+  *ngIf="!isLoading"
+>
   <button
     class="focus:outline-none"
     color="primary"

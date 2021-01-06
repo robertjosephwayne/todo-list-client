@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,6 +14,7 @@ import { TodoListEditorComponent } from '../todo-list-editor/todo-list-editor.co
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  @Output() toggleSidenav = new EventEmitter();
   label = "To-Do List";
   isAuth$: Observable<boolean>;
 
@@ -32,5 +33,9 @@ export class HeaderComponent implements OnInit {
 
   onLogout(): void {
     this.store.dispatch(AuthActions.logout());
+  }
+
+  onMenu(): void {
+    this.toggleSidenav.emit();
   }
 }

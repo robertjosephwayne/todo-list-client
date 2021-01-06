@@ -1,5 +1,16 @@
-<mat-toolbar class="hidden xs:mb-6 bg-white xs:bg-gray-50">
-  <span> <a routerLink="/"></a></span>
+<mat-toolbar
+  class="bg-gray-50 border-b border-gray-200"
+  [ngClass]="{ 'border-b': isAuth$ | async }"
+>
+  <!-- <span> <a routerLink="/"></a></span> -->
+  <button
+    mat-icon-button
+    *ngIf="isAuth$ | async"
+    class="focus:outline-none"
+    (click)="onMenu()"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
   <span class="spacer"></span>
   <ul class="flex">
     <li
