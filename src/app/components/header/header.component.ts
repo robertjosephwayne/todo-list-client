@@ -23,12 +23,12 @@ export class HeaderComponent implements OnInit {
     this.setAuthState();
   }
 
-  setAuthState(): void {
-    this.isAuth$ = this.store.select(fromAuth.selectIsAuth);
-  }
-
   onLogout(): void {
     this.store.dispatch(AuthActions.logout());
+  }
+
+  setAuthState(): void {
+    this.isAuth$ = this.store.select(fromAuth.selectIsAuth);
   }
 
   onMenuSelected(): void {
