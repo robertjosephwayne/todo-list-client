@@ -14,7 +14,6 @@ const initialState: SidenavState = {
   drawerMode: 'side'
 };
 
-@Injectable({ providedIn: 'root' })
 export class SidenavStore extends ComponentStore<SidenavState> {
   constructor() {
     super(initialState);
