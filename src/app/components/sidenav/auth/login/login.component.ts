@@ -18,7 +18,11 @@ export class LoginComponent implements OnInit {
     if (loginForm.invalid) return;
     const email = loginForm.value.email;
     const password = loginForm.value.password;
-    this.store.dispatch(AuthActions.login({ email, password }))
+    const loginCredentials = {
+      email: loginForm.value.email,
+      password: loginForm.value.password
+    };
+    this.store.dispatch(AuthActions.login({ loginCredentials }))
   }
 }
 

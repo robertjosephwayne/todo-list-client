@@ -1,27 +1,24 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Todo } from '../models/todo.model';
 
 import { AppState } from '../store/app.state';
-
 import * as AuthActions from '../store/auth/auth.actions';
+import { LoginCredentials } from '../models/login-credentials.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private token: string;
 
   constructor(
     private store: Store<AppState>,
     private http: HttpClient,
-    private router: Router
   ) { }
 
-  login(email: string, password: string): void {
-    this.http.post<{ token: string }>('http://localhost:3000/users/login', { email, password })
+  login(loginCredentials: LoginCredentials): void {
+    this.http.post<{ token: string }>('http://localhost:3000/users/login', loginCredentials)
       .pipe(
         catchError(this.handleError)
       )
