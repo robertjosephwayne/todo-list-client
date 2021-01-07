@@ -4,6 +4,7 @@ import { ComponentStore } from '@ngrx/component-store';
 import { EMPTY } from 'rxjs';
 import { catchError, mergeMap, switchMap, tap } from 'rxjs/operators';
 
+import { NewTodo } from 'src/app/models/new-todo.model';
 import { Todo } from 'src/app/models/todo.model';
 import { TodoListService } from '../../../services/todo-list.service';
 
@@ -39,9 +40,9 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     };
   });
 
-  readonly createTodo = this.effect<string>((titles$) =>
-    titles$.pipe(
-      mergeMap((title) => this.todoListService.createTodo(title).pipe(
+  readonly createTodo = this.effect<NewTodo>((newTodos$) =>
+    newTodos$.pipe(
+      mergeMap((newTodo) => this.todoListService.createTodo(newTodo).pipe(
         tap({
           next: () => {
             this.getTodos();

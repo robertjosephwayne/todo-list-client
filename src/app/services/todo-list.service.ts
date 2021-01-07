@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { NewTodo } from '../models/new-todo.model';
 import { Todo } from '../models/todo.model';
 
 @Injectable({ providedIn: 'root' })
 export class TodoListService {
+
   constructor(private http: HttpClient) { }
 
   getTodos() {
@@ -15,11 +17,7 @@ export class TodoListService {
     return this.http.delete(`http://localhost:3000/todos/${id}`);
   }
 
-  createTodo(title: string) {
-    const newTodo = {
-      title,
-      isComplete: false
-    };
+  createTodo(newTodo: NewTodo) {
     return this.http.post<Todo>('http://localhost:3000/todos', newTodo);
   }
 

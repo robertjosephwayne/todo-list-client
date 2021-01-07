@@ -2,6 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
+import { NewTodo } from 'src/app/models/new-todo.model';
 import { SidenavStore } from '../sidenav.store';
 import { Todo } from '../../../models/todo.model';
 import { TodoListEditorComponent } from './todo-list-editor/todo-list-editor.component';
@@ -46,7 +47,7 @@ export class TodoListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (!result.title) return;
       if (result.title === todo.title) return;
-      const updatedTodo = {
+      const updatedTodo: Todo = {
         ...todo,
         title: result.title
       };
@@ -63,7 +64,11 @@ export class TodoListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (!result.title) return;
-      this.todoListStore.createTodo(result.title);
+      const newTodo: NewTodo = {
+        title: result.title,
+        isComplete: false
+      };
+      this.todoListStore.createTodo(newTodo);
     });
   }
 
