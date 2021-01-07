@@ -1,26 +1,22 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AuthService } from 'src/app/services/auth.service';
+import { Observable } from 'rxjs';
 
 import * as fromAuth from '../../store/auth/auth.selectors';
 import * as AuthActions from '../../store/auth/auth.actions';
-import { Observable } from 'rxjs';
-import { TodoListEditorComponent } from '../todo-list-editor/todo-list-editor.component';
+import { SidenavStore } from '../sidenav/sidenav.store';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  @Output() toggleSidenav = new EventEmitter();
-  label = "To-Do List";
   isAuth$: Observable<boolean>;
 
   constructor(
     private store: Store,
-    private dialog: MatDialog
+    private readonly sidenavStore: SidenavStore
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +31,7 @@ export class HeaderComponent implements OnInit {
     this.store.dispatch(AuthActions.logout());
   }
 
-  onMenu(): void {
-    this.toggleSidenav.emit();
+  onMenuSelected(): void {
+    this.sidenavStore.toggleDrawer();
   }
 }
