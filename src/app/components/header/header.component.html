@@ -1,56 +1,45 @@
 <mat-toolbar
-  class="bg-gray-50 border-b border-gray-200"
+  class="flex justify-between bg-white"
   [ngClass]="{ 'border-b': isAuth$ | async }"
 >
-  <!-- <span> <a routerLink="/"></a></span> -->
+  <div>
+    <button
+      mat-icon-button
+      *ngIf="isAuth$ | async"
+      class="focus:outline-none"
+      (click)="onMenuSelected()"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+
+  <nav mat-tab-nav-bar *ngIf="!(isAuth$ | async)">
+    <a
+      mat-tab-link
+      routerLink="/login"
+      routerLinkActive
+      #signInLink="routerLinkActive"
+      [active]="signInLink.isActive"
+    >
+      Sign In
+    </a>
+    <a
+      mat-tab-link
+      routerLink="/signup"
+      routerLinkActive
+      #signUpLink="routerLinkActive"
+      [active]="signUpLink.isActive"
+    >
+      Sign Up
+    </a>
+  </nav>
+
   <button
-    mat-icon-button
-    *ngIf="isAuth$ | async"
+    mat-button
     class="focus:outline-none"
-    (click)="onMenu()"
+    *ngIf="isAuth$ | async"
+    (click)="onLogout()"
   >
-    <mat-icon>menu</mat-icon>
+    Logout
   </button>
-  <span class="spacer"></span>
-  <ul class="flex">
-    <li
-      class="mr-2 border-b-4 hover:border-emerald-200"
-      routerLinkActive="border-emerald-600 hover:border-emerald-600"
-    >
-      <a
-        mat-flat-button
-        disableRipple
-        *ngIf="!(isAuth$ | async)"
-        routerLink="/login"
-        class="bg-gray-50"
-      >
-        Sign In
-      </a>
-    </li>
-    <li
-      class="border-b-4 hover:border-emerald-200"
-      routerLinkActive="border-emerald-600 hover:border-emerald-600"
-    >
-      <a
-        mat-flat-button
-        disableRipple
-        *ngIf="!(isAuth$ | async)"
-        routerLink="/signup"
-        class="bg-gray-50"
-      >
-        Sign Up
-      </a>
-    </li>
-    <li>
-      <button
-        mat-button
-        class="focus:outline-none"
-        *ngIf="isAuth$ | async"
-        (click)="onLogout()"
-      >
-        Logout
-      </button>
-    </li>
-  </ul>
-  <!-- TODO: Add GitHub icon to right side of navbar -->
 </mat-toolbar>
