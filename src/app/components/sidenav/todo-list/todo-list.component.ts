@@ -2,8 +2,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { SidenavStore } from '../sidenav/sidenav.store';
-import { Todo } from '../../models/todo.model';
+import { SidenavStore } from '../sidenav.store';
+import { Todo } from '../../../models/todo.model';
 import { TodoListEditorComponent } from './todo-list-editor/todo-list-editor.component';
 import { TodoListStore } from './todo-list.store';
 
@@ -20,11 +20,7 @@ import { TodoListStore } from './todo-list.store';
   ],
 })
 export class TodoListComponent implements OnInit {
-  readonly todos$ = this.todoListStore.todos$;
-  readonly isLoading$ = this.todoListStore.isLoading$;
-  readonly isEditing$ = this.todoListStore.isEditing$;
-  readonly editingTodo$ = this.todoListStore.editingTodo$;
-  readonly columnsToDisplay$ = this.todoListStore.columnsToDisplay$;
+  readonly vm$ = this.todoListStore.vm$;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -37,7 +33,6 @@ export class TodoListComponent implements OnInit {
   }
 
   onDeleteTodo(todo: Todo): void {
-    
     this.todoListStore.deleteTodo(todo.id);
   }
 

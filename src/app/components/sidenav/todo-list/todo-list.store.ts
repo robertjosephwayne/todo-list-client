@@ -5,7 +5,7 @@ import { EMPTY } from 'rxjs';
 import { catchError, mergeMap, switchMap, tap } from 'rxjs/operators';
 
 import { Todo } from 'src/app/models/todo.model';
-import { TodoListService } from '../../services/todo-list.service';
+import { TodoListService } from '../../../services/todo-list.service';
 
 export interface TodoListState {
   todos: Todo[];
@@ -29,11 +29,15 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     super(initialState);
   }
 
-  readonly todos$ = this.select(state => state.todos);
-  readonly isLoading$ = this.select(state => state.isLoading);
-  readonly isEditing$ = this.select(state => state.isEditing);
-  readonly editingTodo$ = this.select(state => state.editingTodo);
-  readonly columnsToDisplay$ = this.select(state => state.columnsToDisplay);
+  readonly vm$ = this.select(state => {
+    return {
+      todos: state.todos,
+      isLoading: state.isLoading,
+      isEditing: state.isEditing,
+      editingTodo: state.editingTodo,
+      columnsToDisplay: state.columnsToDisplay,
+    };
+  });
 
   readonly createTodo = this.effect<string>((titles$) =>
     titles$.pipe(
@@ -86,14 +90,14 @@ export class TodoListStore extends ComponentStore<TodoListState> {
   private readonly setLoading = this.updater((state, isLoading: boolean) => {
     return {
       ...state,
-      isLoading
+      isLoading,
     };
   });
 
   private readonly setTodos = this.updater((state, todos: Todo[]) => {
     return {
       ...state,
-      todos
+      todos,
     };
   });
 
@@ -113,7 +117,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
           }),
           catchError(() => EMPTY)
         );
-      })
-    )
+      }),
+    ),
   );
 }

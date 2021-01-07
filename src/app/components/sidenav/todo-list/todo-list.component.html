@@ -1,0 +1,71 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <mat-spinner
+    class="mt-20 mx-auto"
+    [diameter]="70"
+    *ngIf="vm.isLoading"
+  ></mat-spinner>
+
+  <div
+    class="grid justify-items-center xs:justify-items-start w-11/12 max-w-2xl mx-auto mt-4"
+    *ngIf="!vm.isLoading"
+  >
+    <button
+      class="focus:outline-none"
+      color="primary"
+      mat-mini-fab
+      (click)="onCreateTodo()"
+      *ngIf="!vm.isLoading"
+    >
+      <mat-icon> add </mat-icon>
+    </button>
+  </div>
+
+  <mat-table
+    [dataSource]="vm.todos"
+    class="mat-elevation-z8 mt-4 w-11/12 max-w-2xl mx-auto"
+    *ngIf="!vm.isLoading"
+  >
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+      <mat-cell *matCellDef="let todo">
+        <mat-checkbox
+          (click)="onToggleCompleteStatus(todo)"
+          [checked]="todo.isComplete"
+        ></mat-checkbox>
+        <span
+          (click)="onEditTodo(todo)"
+          class="ml-3"
+          [ngClass]="{ 'line-through': todo.isComplete }"
+        >
+          {{ todo.title }}
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="buttons">
+      <mat-header-cell *matHeaderCellDef>Buttons</mat-header-cell>
+      <mat-cell *matCellDef="let todo" class="flex-initial">
+        <button
+          mat-icon-button
+          (click)="onEditTodo(todo)"
+          class="focus:outline-none invisible group-hover:visible text-yellow-500"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          (click)="onDeleteTodo(todo)"
+          class="invisible focus:outline-none group-hover:visible text-red-700"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-row
+      *matRowDef="let todo; columns: vm.columnsToDisplay"
+      class="hover:bg-gray-100 active:bg-gray-200 group"
+      [ngClass]="{ 'bg-gray-200': todo === vm.editingTodo }"
+    ></mat-row>
+  </mat-table>
+</ng-container>
