@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { Observable } from 'rxjs';
 
 export type DrawerMode = 'side' | 'over';
 
@@ -26,8 +25,6 @@ export class SidenavStore extends ComponentStore<SidenavState> {
       isOpen: state.isOpen
     };
   })
-  // readonly drawerMode$: Observable<string> = this.select(state => state.drawerMode);
-  // readonly isOpen$: Observable<boolean> = this.select(state => state.isOpen);
 
   readonly openDrawer = this.updater((state) => {
     return {

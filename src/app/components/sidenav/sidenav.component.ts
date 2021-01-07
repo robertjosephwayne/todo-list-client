@@ -11,8 +11,6 @@ import { TodoListStore } from './todo-list/todo-list.store';
 })
 export class SidenavComponent implements OnInit {
   readonly vm$ = this.sidenavStore.vm$;
-  // readonly drawerMode$ = this.sidenavStore.drawerMode$;
-  // readonly isOpen$ = this.sidenavStore.isOpen$;
 
   constructor(private readonly sidenavStore: SidenavStore) { }
 
