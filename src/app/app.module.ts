@@ -23,6 +23,8 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AuthEffects } from './store/auth/auth.effects';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { AuthInterceptor } from './services/auth-interceptor';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { SidenavDrawerComponent } from './components/sidenav/sidenav-drawer/sidenav-drawer.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { AuthInterceptor } from './services/auth-interceptor';
     TodoListComponent,
     TodoItemComponent,
     TodoListEditorComponent,
+    SidenavComponent,
+    SidenavDrawerComponent,
   ],
   imports: [
     BrowserModule,
