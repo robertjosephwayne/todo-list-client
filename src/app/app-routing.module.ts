@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/auth/login/login.component';
-import { SignupComponent } from './components/auth/signup/signup.component';
-import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { LoginComponent } from './components/sidenav/auth/login/login.component';
+import { SignupComponent } from './components/sidenav/auth/signup/signup.component';
+import { TodoListComponent } from './components/sidenav/todo-list/todo-list.component';
 import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
