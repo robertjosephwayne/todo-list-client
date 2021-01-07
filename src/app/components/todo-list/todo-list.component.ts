@@ -9,6 +9,7 @@ import { Todo } from '../../models/todo.model';
 
 import * as TodoListActions from '../../store/todo-list/todo-list.actions';
 import * as fromTodoList from '../../store/todo-list/todo-list.selectors';
+import { SidenavStore } from '../sidenav/sidenav.store';
 import { TodoListEditorComponent } from '../todo-list-editor/todo-list-editor.component';
 
 @Component({
@@ -38,6 +39,7 @@ export class TodoListComponent implements OnInit {
 
   constructor(
     private store: Store,
+    private readonly sidenavStore: SidenavStore,
     private dialog: MatDialog
   ) { }
 
@@ -114,5 +116,6 @@ export class TodoListComponent implements OnInit {
     this.isLoadingSub.unsubscribe();
     this.editingTodoSub.unsubscribe();
     this.isEditingSub.unsubscribe();
+    this.sidenavStore.closeDrawer();
   }
 }
