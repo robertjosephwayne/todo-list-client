@@ -1,0 +1,16 @@
+<form (submit)="onSave(todoForm)" #todoForm="ngForm">
+  <div mat-dialog-content>
+    <mat-form-field class="w-80">
+      <mat-label *ngIf="!data.isEditing">Create Task</mat-label>
+      <mat-label *ngIf="data.isEditing">Edit Task</mat-label>
+      <input matInput type="text" name="title" [ngModel]="data.title" />
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions class="flex justify-center">
+    <button class="focus:outline-none" mat-button type="submit">Save</button>
+    <button class="focus:outline-none" mat-button mat-dialog-close>
+      Close
+    </button>
+  </div>
+</form>

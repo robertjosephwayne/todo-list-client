@@ -12,8 +12,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private store: Store) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   onLogin(loginForm: NgForm) {
     if (loginForm.invalid) return;

@@ -1,28 +1,28 @@
 <mat-spinner
   class="mt-20 mx-auto"
   [diameter]="70"
-  *ngIf="isLoading"
+  *ngIf="isLoading$ | async"
 ></mat-spinner>
 
 <div
   class="grid justify-items-center xs:justify-items-start w-11/12 max-w-2xl mx-auto mt-4"
-  *ngIf="!isLoading"
+  *ngIf="!(isLoading$ | async)"
 >
   <button
     class="focus:outline-none"
     color="primary"
     mat-mini-fab
-    (click)="onCreateTodoItem()"
-    *ngIf="!isLoading"
+    (click)="onCreateTodo()"
+    *ngIf="!(isLoading$ | async)"
   >
     <mat-icon> add </mat-icon>
   </button>
 </div>
 
 <mat-table
-  [dataSource]="allTodos"
+  [dataSource]="todos$ | async"
   class="mat-elevation-z8 mt-4 w-11/12 max-w-2xl mx-auto"
-  *ngIf="!isLoading"
+  *ngIf="!(isLoading$ | async)"
 >
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
@@ -31,7 +31,11 @@
         (click)="onToggleCompleteStatus(todo)"
         [checked]="todo.isComplete"
       ></mat-checkbox>
-      <span class="ml-3" [ngClass]="{ 'line-through': todo.isComplete }">
+      <span
+        (click)="onEditTodo(todo)"
+        class="ml-3"
+        [ngClass]="{ 'line-through': todo.isComplete }"
+      >
         {{ todo.title }}
       </span>
     </mat-cell>
@@ -42,13 +46,14 @@
     <mat-cell *matCellDef="let todo" class="flex-initial">
       <button
         mat-icon-button
+        (click)="onEditTodo(todo)"
         class="focus:outline-none invisible group-hover:visible text-yellow-500"
       >
         <mat-icon>edit</mat-icon>
       </button>
       <button
         mat-icon-button
-        (click)="onDeleteTodoItem(todo)"
+        (click)="onDeleteTodo(todo)"
         class="invisible focus:outline-none group-hover:visible text-red-700"
       >
         <mat-icon>delete</mat-icon>
@@ -57,9 +62,8 @@
   </ng-container>
 
   <mat-row
-    *matRowDef="let todo; columns: columnsToDisplay"
-    (click)="onEditTodoItem(todo)"
+    *matRowDef="let todo; columns: columnsToDisplay$ | async"
     class="hover:bg-gray-100 active:bg-gray-200 group"
-    [ngClass]="{ 'bg-gray-200': todo === editingTodo }"
+    [ngClass]="{ 'bg-gray-200': todo === (editingTodo$ | async) }"
   ></mat-row>
 </mat-table>

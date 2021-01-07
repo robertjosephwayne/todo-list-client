@@ -20,8 +20,8 @@ export class SidenavStore extends ComponentStore<SidenavState> {
     super(initialState);
   }
 
-  readonly isOpen$: Observable<boolean> = this.select(state => state.isOpen);
   readonly drawerMode$: Observable<string> = this.select(state => state.drawerMode);
+  readonly isOpen$: Observable<boolean> = this.select(state => state.isOpen);
 
   readonly openDrawer = this.updater((state) => {
     return {

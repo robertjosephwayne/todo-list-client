@@ -1,20 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-
-import { map, tap, withLatestFrom } from 'rxjs/operators';
-
-import { AppState } from '../app.state';
-
-import * as AuthActions from './auth.actions';
-import * as TodoListActions from '../todo-list/todo-list.actions';
-
-import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 
+import { map, tap } from 'rxjs/operators';
 
+import * as AuthActions from './auth.actions';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Injectable()
 export class AuthEffects {
@@ -50,12 +41,11 @@ export class AuthEffects {
 
   logout$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.logout),
-    map(() => {
+    tap(() => {
       localStorage.removeItem('jwtToken');
       this.router.navigate(['./login']);
-      return TodoListActions.clearTodos();
     })
-  ));
+  ), { dispatch: false });
 
   syncLocalStorageToken$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.syncLocalStorageToken),
@@ -67,7 +57,6 @@ export class AuthEffects {
 
   constructor(
     private actions$: Actions,
-    private store: Store<AppState>,
     private router: Router,
     private authService: AuthService
   ) { }

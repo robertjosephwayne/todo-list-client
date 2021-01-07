@@ -1,16 +1,11 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Store } from '@ngrx/store';
 
-import { Observable, Subscription } from 'rxjs';
-
-import { Todo } from '../../models/todo.model';
-
-import * as TodoListActions from '../../store/todo-list/todo-list.actions';
-import * as fromTodoList from '../../store/todo-list/todo-list.selectors';
 import { SidenavStore } from '../sidenav/sidenav.store';
-import { TodoListEditorComponent } from '../todo-list-editor/todo-list-editor.component';
+import { Todo } from '../../models/todo.model';
+import { TodoListEditorComponent } from './todo-list-editor/todo-list-editor.component';
+import { TodoListStore } from './todo-list.store';
 
 @Component({
   selector: 'app-todo-list',
@@ -25,97 +20,67 @@ import { TodoListEditorComponent } from '../todo-list-editor/todo-list-editor.co
   ],
 })
 export class TodoListComponent implements OnInit {
-  allTodos: Todo[];
-  allTodosSub: Subscription;
-  incompleteTodos: Todo[];
-  incompleteTodosSub: Subscription;
-  isLoading: boolean;
-  isLoadingSub: Subscription;
-  isEditing: boolean;
-  isEditingSub: Subscription;
-  editingTodo: Todo;
-  editingTodoSub: Subscription;
-  columnsToDisplay = ['title', 'buttons'];
+  readonly todos$ = this.todoListStore.todos$;
+  readonly isLoading$ = this.todoListStore.isLoading$;
+  readonly isEditing$ = this.todoListStore.isEditing$;
+  readonly editingTodo$ = this.todoListStore.editingTodo$;
+  readonly columnsToDisplay$ = this.todoListStore.columnsToDisplay$;
 
   constructor(
-    private store: Store,
+    private readonly dialog: MatDialog,
     private readonly sidenavStore: SidenavStore,
-    private dialog: MatDialog
+    private readonly todoListStore: TodoListStore,
   ) { }
 
   ngOnInit(): void {
-    this.fetchTodoList();
-    this.setAllTodosSub();
-    this.setIncompleteTodosSub();
-    this.setIsLoadingSub();
-    this.setEditingTodoSub();
-    this.setIsEditingSub();
+    this.todoListStore.getTodos();
   }
 
-  fetchTodoList(): void {
-    this.store.dispatch(TodoListActions.fetchTodoList());
+  onDeleteTodo(todo: Todo): void {
+    
+    this.todoListStore.deleteTodo(todo.id);
   }
 
-  setAllTodosSub(): void {
-    this.allTodosSub = this.store.select(fromTodoList.selectAllTodos).subscribe(allTodos => {
-      this.allTodos = allTodos;
+  onEditTodo(todo: Todo): void {
+    const dialogRef = this.dialog.open(TodoListEditorComponent, {
+      data: {
+        title: todo.title,
+        isEditing: true
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result.title) return;
+      if (result.title === todo.title) return;
+      const updatedTodo = {
+        ...todo,
+        title: result.title
+      };
+      this.todoListStore.editTodo(updatedTodo);
     });
   }
 
-  setIncompleteTodosSub(): void {
-    this.incompleteTodosSub = this.store.select(fromTodoList.selectIncompleteTodos).subscribe(incompleteTodos => {
-      this.incompleteTodos = incompleteTodos;
+  onCreateTodo(): void {
+    const dialogRef = this.dialog.open(TodoListEditorComponent, {
+      data: {
+        title: '',
+        isEditing: false
+      }
     });
-  }
-
-  setIsLoadingSub(): void {
-    this.isLoadingSub = this.store.select(fromTodoList.selectIsLoading).subscribe(isLoading => {
-      this.isLoading = isLoading;
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result.title) return;
+      this.todoListStore.createTodo(result.title);
     });
-  }
-
-  setEditingTodoSub(): void {
-    this.editingTodoSub = this.store.select(fromTodoList.selectEditingTodo).subscribe(editingTodo => {
-      this.editingTodo = editingTodo;
-    });
-  }
-
-  setIsEditingSub(): void {
-    this.isEditingSub = this.store.select(fromTodoList.selectIsEditing).subscribe(isEditing => {
-      this.isEditing = isEditing;
-    });
-  }
-
-  onDeleteTodoItem(todo: Todo): void {
-    this.store.dispatch(TodoListActions.deleteTodoItem({ id: todo.id }))
-  }
-
-  onEditTodoItem(todo: Todo): void {
-    this.store.dispatch(TodoListActions.startEditingTodoItem({ todoItem: todo }));
-    this.dialog.open(TodoListEditorComponent);
-  }
-
-  onCreateTodoItem(): void {
-    this.dialog.open(TodoListEditorComponent);
   }
 
   onToggleCompleteStatus(todo: Todo): void {
-    const updatedTodoItem: Todo = {
+    const updatedTodo: Todo = {
       ...todo,
       isComplete: !todo.isComplete
     };
-    this.store.dispatch(TodoListActions.editTodoItem({
-      previousTodoItem: todo,
-      updatedTodoItem
-    }));
+    this.todoListStore.editTodo(updatedTodo);
   }
 
   ngOnDestroy(): void {
-    this.allTodosSub.unsubscribe();
-    this.incompleteTodosSub.unsubscribe();
-    this.isLoadingSub.unsubscribe();
-    this.editingTodoSub.unsubscribe();
-    this.isEditingSub.unsubscribe();
     this.sidenavStore.closeDrawer();
   }
 }

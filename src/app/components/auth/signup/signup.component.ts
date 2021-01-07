@@ -12,8 +12,7 @@ export class SignupComponent implements OnInit {
 
   constructor(private store: Store) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   onSignup(signupForm: NgForm) {
     if (signupForm.invalid) return;

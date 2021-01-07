@@ -1,7 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
-
-import { SidenavStore } from '../sidenav.store';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-sidenav-drawer',
