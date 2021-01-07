@@ -1,11 +1,4 @@
 <div class="h-full flex flex-col">
-  <app-header (toggleSidenav)="drawer.toggle()"></app-header>
-
-  <mat-drawer-container class="h-screen bg-gray-50" autosize>
-    <mat-drawer #drawer class="w-80 bg-gray-50" [mode]="drawerMode">
-      <p>Sidenav</p>
-    </mat-drawer>
-
-    <router-outlet></router-outlet>
-  </mat-drawer-container>
+  <app-header></app-header>
+  <app-sidenav class="h-full"></app-sidenav>
 </div>
