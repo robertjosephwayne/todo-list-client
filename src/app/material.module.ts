@@ -13,6 +13,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSliderModule,
     MatProgressSpinnerModule,
     MatTableModule,
+    MatTabsModule,
     MatToolbarModule,
   ],
   exports: [
@@ -48,6 +50,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSliderModule,
     MatProgressSpinnerModule,
     MatTableModule,
+    MatTabsModule,
     MatToolbarModule,
   ]
 })
