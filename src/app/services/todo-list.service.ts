@@ -5,10 +5,7 @@ import { Todo } from '../models/todo.model';
 
 @Injectable({ providedIn: 'root' })
 export class TodoListService {
-
-  constructor(
-    private http: HttpClient,
-  ) { }
+  constructor(private http: HttpClient) { }
 
   getTodos() {
     return this.http.get<Todo[]>('http://localhost:3000/todos');
