@@ -42,56 +42,99 @@ export class TodoListStore extends ComponentStore<TodoListState> {
 
   readonly createTodo = this.effect<NewTodo>((newTodos$) =>
     newTodos$.pipe(
-      mergeMap((newTodo) => this.todoListService.createTodo(newTodo).pipe(
-        tap({
-          next: () => {
-            this.getTodos();
-          },
-          error: () => {
-            // Handle error
-          }
-        }),
-        catchError(() => EMPTY)
-      )),
+      mergeMap((newTodo) => {
+        this.setState((state) => {
+          return {
+            ...state,
+            todos: [
+              ...state.todos,
+              { ...newTodo, id: '' }
+            ]
+          };
+        });
+        return this.todoListService.createTodo(newTodo).pipe(
+          tap({
+            next: () => {
+              this.getTodos();
+            },
+            error: (error) => {
+              this.getTodos();
+              return this.handleError(error);
+            }
+          }),
+          catchError(() => EMPTY)
+        );
+      }),
     ),
   );
 
-  readonly deleteTodo = this.effect<string>((ids$) =>
-    ids$.pipe(
-      mergeMap((id) => this.todoListService.deleteTodo(id).pipe(
-        tap({
-          next: () => {
-            this.getTodos();
-          },
-          error: () => {
-            // Handle error
-          }
-        }),
-        catchError(() => EMPTY)
-      )),
-    ),
-  );
-
-  readonly editTodo = this.effect<Todo>((todos$) =>
+  readonly deleteTodo = this.effect<Todo>((todos$) =>
     todos$.pipe(
-      mergeMap((todo) => this.todoListService.editTodo(todo).pipe(
-        tap({
-          next: () => {
-            this.getTodos();
-          },
-          error: () => {
-            // Handle error
-          }
-        }),
-        catchError(() => EMPTY)
-      )),
+      mergeMap((todo) => {
+        this.setState((state) => {
+          const updatedTodos = state.todos.filter(currentTodo => currentTodo.id !== todo.id);
+          return {
+            ...state,
+            todos: updatedTodos
+          };
+        });
+        return this.todoListService.deleteTodo(todo.id).pipe(
+          tap({
+            next: () => {
+              this.getTodos();
+            },
+            error: (error) => {
+              this.getTodos();
+              return this.handleError(error);
+            }
+          }),
+          catchError(() => EMPTY)
+        );
+      }),
     ),
   );
 
-  private readonly setLoading = this.updater((state, isLoading: boolean) => {
+  readonly editTodo = this.effect<Todo>((editedTodos$) =>
+    editedTodos$.pipe(
+      mergeMap((editedTodo) => {
+        this.setState((state) => {
+          const updatedTodos = [
+            ...state.todos
+          ];
+          const editedTodoIndex = updatedTodos.findIndex(todo => todo.id === editedTodo.id);
+          updatedTodos[editedTodoIndex] = editedTodo;
+          return {
+            ...state,
+            todos: updatedTodos
+          };
+        });
+        return this.todoListService.editTodo(editedTodo).pipe(
+          tap({
+            next: () => {
+              this.getTodos();
+            },
+            error: (error) => {
+              this.getTodos();
+              return this.handleError(error);
+            }
+          }),
+          catchError(() => EMPTY)
+        );
+      }),
+    ),
+  );
+
+  readonly setIsLoading = this.updater((state, isLoading: boolean) => {
     return {
       ...state,
       isLoading,
+    };
+  });
+
+  readonly setIsEditing = this.updater((state, isEditing: boolean) => {
+    return {
+      ...state,
+      isEditing
     };
   });
 
@@ -104,21 +147,23 @@ export class TodoListStore extends ComponentStore<TodoListState> {
 
   readonly getTodos = this.effect((trigger$) =>
     trigger$.pipe(
-      tap(() => this.setLoading(true)),
+      // tap(() => this.setLoading(true)),
       switchMap(() => {
         return this.todoListService.getTodos().pipe(
           tap({
             next: (todos) => {
               this.setTodos(todos);
-              this.setLoading(false);
+              this.setIsLoading(false);
             },
-            error: () => {
-              // Handle error
-            }
+            error: this.handleError
           }),
           catchError(() => EMPTY)
         );
       }),
     ),
   );
+
+  private readonly handleError = (error) => {
+    console.error(error);
+  };
 }
