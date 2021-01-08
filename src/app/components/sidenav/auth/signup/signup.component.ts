@@ -9,6 +9,8 @@ import * as AuthActions from '../../../../store/auth/auth.actions';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  emailErrorMessage = "Please enter a valid email.";
+  passwordErrorMessage = "Please enter a valid password.";
 
   constructor(private store: Store) { }
 

@@ -16,11 +16,11 @@
             required
             email
           />
-          <mat-error *ngIf="emailInput.invalid"
-            >Please enter a valid email.</mat-error
-          >
-        </mat-form-field>
-      </div>
+            <mat-error *ngIf="emailInput.invalid">
+              {{ emailErrorMessage }}
+            </mat-error>
+          </mat-form-field>
+        </div>
 
       <div class="mb-6">
         <mat-form-field appearance="outline" class="w-full">
@@ -34,11 +34,11 @@
             required
             password
           />
-          <mat-error *ngIf="passwordInput.invalid"
-            >Please enter a valid password.</mat-error
-          >
-        </mat-form-field>
-      </div>
+            <mat-error *ngIf="passwordInput.invalid">
+              {{ passwordErrorMessage }}
+            </mat-error>
+          </mat-form-field>
+        </div>
 
       <div class="flex justify-between">
         <div class="flex align-middle h-9">
