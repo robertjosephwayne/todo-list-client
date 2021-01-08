@@ -1,59 +1,61 @@
-<mat-card class="mx-auto h-full xs:h-auto w-full xs:w-102 xs:mt-12">
-  <div class="pt-8 px-6 pb-5">
-    <div class="text-center">
-      <h1>Sign In</h1>
-    </div>
-    <form (submit)="onLogin(loginForm)" #loginForm="ngForm" class="pt-2">
-      <div class="mb-4">
-        <mat-form-field appearance="outline" class="w-full">
-          <mat-label>Email</mat-label>
-          <input
-            matInput
-            name="email"
-            ngModel
-            type="email"
-            #emailInput="ngModel"
-            required
-            email
-          />
+<div class="h-full xs:flex xs:items-center">
+  <mat-card class="mx-auto h-full xs:h-auto w-full xs:w-102">
+    <div class="pt-8 px-6 pb-5">
+      <div class="text-center">
+        <h1>Sign In</h1>
+      </div>
+      <form (submit)="onLogin(loginForm)" #loginForm="ngForm" class="pt-2">
+        <div class="mb-4">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              name="email"
+              ngModel
+              type="email"
+              #emailInput="ngModel"
+              required
+              email
+            />
             <mat-error *ngIf="emailInput.invalid">
               {{ emailErrorMessage }}
             </mat-error>
           </mat-form-field>
         </div>
 
-      <div class="mb-6">
-        <mat-form-field appearance="outline" class="w-full">
-          <mat-label>Password</mat-label>
-          <input
-            matInput
-            name="password"
-            ngModel
-            type="password"
-            #passwordInput="ngModel"
-            required
-            password
-          />
+        <div class="mb-6">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              name="password"
+              ngModel
+              type="password"
+              #passwordInput="ngModel"
+              required
+              password
+            />
             <mat-error *ngIf="passwordInput.invalid">
-              {{ passwordErrorMessage }}
+
             </mat-error>
           </mat-form-field>
         </div>
 
-      <div class="flex justify-between">
-        <div class="flex align-middle h-9">
-          <span class="my-auto">
-            <a routerLink="/signup"> Create account </a>
-          </span>
+        <div class="flex justify-between">
+          <div class="flex align-middle h-9">
+            <span class="my-auto">
+              <a routerLink="/signup"> Create account </a>
+            </span>
+          </div>
+          <button
+            mat-raised-button
+            class="bg-emerald-800 text-white focus:outline-none w-8"
+            type="submit"
+          >
+            Next
+          </button>
         </div>
-        <button
-          mat-raised-button
-          class="bg-emerald-800 text-white focus:outline-none w-8"
-          type="submit"
-        >
-          Next
-        </button>
-      </div>
-    </form>
-  </div>
-</mat-card>
+      </form>
+    </div>
+  </mat-card>
+</div>
