@@ -1,19 +1,16 @@
-<mat-toolbar
-  class="flex justify-between bg-white"
-  [ngClass]="{ 'border-b': isAuth$ | async }"
->
-  <div>
-    <button
-      mat-icon-button
-      *ngIf="isAuth$ | async"
-      class="focus:outline-none"
-      (click)="onMenuSelected()"
-    >
-      <mat-icon>menu</mat-icon>
-    </button>
-  </div>
+<ng-container *ngIf="isAuth$ | async as isAuth">
+  <mat-toolbar class="flex justify-between bg-white border-b">
+    <div>
+      <button
+        mat-icon-button
+        class="focus:outline-none"
+        (click)="onMenuSelected()"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
 
-  <nav mat-tab-nav-bar *ngIf="!(isAuth$ | async)">
+    <!-- <nav mat-tab-nav-bar *ngIf="!isAuth">
     <a
       mat-tab-link
       routerLink="/login"
@@ -32,14 +29,10 @@
     >
       Sign Up
     </a>
-  </nav>
+  </nav> -->
 
-  <button
-    mat-button
-    class="focus:outline-none"
-    *ngIf="isAuth$ | async"
-    (click)="onLogout()"
-  >
-    Logout
-  </button>
-</mat-toolbar>
+    <button mat-button class="focus:outline-none" (click)="onLogout()">
+      Logout
+    </button>
+  </mat-toolbar>
+</ng-container>
