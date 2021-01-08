@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { NewTodo } from '../models/new-todo.model';
-import { Todo } from '../models/todo.model';
+import { Todo, TodoId } from '../models/todo.model';
 
 @Injectable({ providedIn: 'root' })
 export class TodoListService {
@@ -13,8 +13,8 @@ export class TodoListService {
     return this.http.get<Todo[]>('http://localhost:3000/todos');
   }
 
-  deleteTodo(id: string) {
-    return this.http.delete(`http://localhost:3000/todos/${id}`);
+  deleteTodo(todoId: TodoId) {
+    return this.http.delete(`http://localhost:3000/todos/${todoId}`);
   }
 
   createTodo(newTodo: NewTodo) {
