@@ -8,6 +8,7 @@ import { catchError } from 'rxjs/operators';
 import { AppState } from '../store/app.state';
 import * as AuthActions from '../store/auth/auth.actions';
 import { LoginCredentials } from '../models/login-credentials.model';
+import { SignupInformation } from '../models/signup-information.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -29,8 +30,8 @@ export class AuthService {
       });
   }
 
-  signup(email: string, password: string): void {
-    this.http.post('http://localhost:3000/signup', { email, password })
+  signup(signupInformation: SignupInformation): void {
+    this.http.post('http://localhost:3000/signup', signupInformation)
       .pipe(
         catchError(this.handleError)
       )

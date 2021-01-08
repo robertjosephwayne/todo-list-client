@@ -28,7 +28,7 @@ export class AuthEffects {
   signup$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.signup),
     map((action) => {
-      this.authService.signup(action.email, action.password);
+      this.authService.signup(action.signupInformation);
     })
   ), { dispatch: false });
 
@@ -53,11 +53,11 @@ export class AuthEffects {
       const jwtToken = localStorage.getItem('jwtToken');
       return AuthActions.updateJWTToken({ jwtToken });
     })
-  ))
+  ));
 
   constructor(
     private actions$: Actions,
+    private authService: AuthService,
     private router: Router,
-    private authService: AuthService
   ) { }
 }

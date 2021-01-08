@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 
 import { LoginCredentials } from 'src/app/models/login-credentials.model';
+import { SignupInformation } from 'src/app/models/signup-information.model';
 
 export const login = createAction(
   '[Auth] Login',
@@ -18,7 +19,7 @@ export const logout = createAction(
 
 export const signup = createAction(
   '[Auth] Signup',
-  props<{ email: string, password: string }>()
+  props<{ signupInformation: SignupInformation }>()
 );
 
 export const signupSuccess = createAction(

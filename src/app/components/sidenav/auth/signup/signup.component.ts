@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
 import * as AuthActions from '../../../../store/auth/auth.actions';
+import { SignupInformation } from 'src/app/models/signup-information.model';
 
 @Component({
   templateUrl: './signup.component.html',
@@ -18,9 +19,11 @@ export class SignupComponent implements OnInit {
 
   onSignup(signupForm: NgForm) {
     if (signupForm.invalid) return;
-    const email = signupForm.value.email;
-    const password = signupForm.value.password;
-    this.store.dispatch(AuthActions.signup({ email, password }))
+    const signupInformation: SignupInformation = {
+      email: signupForm.value.email,
+      password: signupForm.value.password
+    };
+    this.store.dispatch(AuthActions.signup({ signupInformation }));
   }
 }
 
