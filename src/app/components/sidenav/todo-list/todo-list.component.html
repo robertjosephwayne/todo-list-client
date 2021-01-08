@@ -13,7 +13,7 @@
       class="focus:outline-none"
       color="primary"
       mat-mini-fab
-      (click)="onCreateTodo()"
+      (click)="openCreateTodoDialog()"
       *ngIf="!vm.isLoading"
     >
       <mat-icon> add </mat-icon>
@@ -33,7 +33,7 @@
           [checked]="todo.isComplete"
         ></mat-checkbox>
         <span
-          (click)="onEditTodo(todo)"
+          (click)="openEditTodoDialog(todo)"
           class="ml-3"
           [ngClass]="{ 'line-through': todo.isComplete }"
         >
@@ -47,7 +47,7 @@
       <mat-cell *matCellDef="let todo" class="flex-initial">
         <button
           mat-icon-button
-          (click)="onEditTodo(todo)"
+          (click)="openEditTodoDialog(todo)"
           class="focus:outline-none invisible group-hover:visible text-yellow-500"
         >
           <mat-icon>edit</mat-icon>

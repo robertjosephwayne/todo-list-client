@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { NewTodo } from 'src/app/models/new-todo.model';
 import { SidenavStore } from '../sidenav.store';
@@ -30,46 +30,52 @@ export class TodoListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.todoListStore.setIsLoading(true);
     this.todoListStore.getTodos();
   }
 
   onDeleteTodo(todo: Todo): void {
-    this.todoListStore.deleteTodo(todo.id);
+    this.todoListStore.deleteTodo(todo);
   }
 
-  onEditTodo(todo: Todo): void {
+  openEditTodoDialog(todo: Todo): void {
     const dialogRef = this.dialog.open(TodoListEditorComponent, {
       data: {
         title: todo.title,
         isEditing: true
       }
     });
-    dialogRef.afterClosed().subscribe(result => {
-      if (!result.title) return;
-      if (result.title === todo.title) return;
-      const updatedTodo: Todo = {
-        ...todo,
-        title: result.title
-      };
-      this.todoListStore.editTodo(updatedTodo);
-    });
+    dialogRef.afterClosed().subscribe(result =>
+      this.handleEditTodoDialogResult(todo, result)
+    );
   }
 
-  onCreateTodo(): void {
+  handleEditTodoDialogResult(originalTodo: Todo, result) {
+    if (!result.title || result.title === originalTodo.title) return;
+    const editedTodo: Todo = {
+      ...originalTodo,
+      title: result.title
+    };
+    this.todoListStore.editTodo(editedTodo);
+  }
+
+  openCreateTodoDialog(): void {
     const dialogRef = this.dialog.open(TodoListEditorComponent, {
       data: {
         title: '',
         isEditing: false
       }
     });
-    dialogRef.afterClosed().subscribe(result => {
-      if (!result.title) return;
-      const newTodo: NewTodo = {
-        title: result.title,
-        isComplete: false
-      };
-      this.todoListStore.createTodo(newTodo);
-    });
+    dialogRef.afterClosed().subscribe(this.handleCreateTodoDialogResult);
+  }
+
+  handleCreateTodoDialogResult(result): void {
+    if (!result.title) return;
+    const newTodo: NewTodo = {
+      title: result.title,
+      isComplete: false
+    };
+    this.todoListStore.createTodo(newTodo);
   }
 
   onToggleCompleteStatus(todo: Todo): void {
