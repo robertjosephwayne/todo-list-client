@@ -97,6 +97,35 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     ),
   );
 
+  readonly createProject = this.effect<NewProject>((newProjects$) =>
+    newProjects$.pipe(
+      mergeMap((newProject) => {
+        debugger;
+        this.setState((state) => {
+          return {
+            ...state,
+            projects: [
+              ...state.projects,
+              { ...newProject, id: '' }
+            ]
+          };
+        });
+        return this.todoListService.createProject(newProject).pipe(
+          tap({
+            next: () => {
+              this.getProjects();
+            },
+            error: (error) => {
+              this.getProjects();
+              return this.handleError(error);
+            }
+          }),
+          catchError(() => EMPTY)
+        );
+      }),
+    ),
+  );
+
   readonly deleteTodo = this.effect<Todo>((todos$) =>
     todos$.pipe(
       mergeMap((todo) => {
