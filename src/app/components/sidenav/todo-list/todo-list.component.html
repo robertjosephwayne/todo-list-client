@@ -4,6 +4,7 @@
   *ngIf="isLoading$ | async"
 ></mat-spinner>
 
+<ng-container *ngIf="selectedProject$ | async as selectedProject">
 <div class="w-11/12 max-w-3xl mx-auto mt-4" *ngIf="!(isLoading$ | async)">
   <div class="mb-6">
     <button
@@ -66,3 +67,4 @@
       [ngClass]="{ 'bg-gray-200': todo === editingTodo$ | async }"
     ></mat-row>
   </mat-table>
+</ng-container>
