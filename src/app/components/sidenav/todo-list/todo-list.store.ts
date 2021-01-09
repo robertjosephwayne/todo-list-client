@@ -4,6 +4,7 @@ import { ComponentStore } from '@ngrx/component-store';
 import { EMPTY } from 'rxjs';
 import { catchError, mergeMap, switchMap, tap } from 'rxjs/operators';
 
+import { NewProject } from 'src/app/models/new-project.model';
 import { NewTodo } from 'src/app/models/new-todo.model';
 import { Project } from 'src/app/models/project.model';
 import { Todo } from 'src/app/models/todo.model';
@@ -227,12 +228,44 @@ export class TodoListStore extends ComponentStore<TodoListState> {
 
   readonly getTodos = this.effect((trigger$) =>
     trigger$.pipe(
-      // tap(() => this.setLoading(true)),
       switchMap(() => {
         return this.todoListService.getTodos().pipe(
           tap({
             next: (todos) => {
               this.setTodos(todos);
+            },
+            error: this.handleError
+          }),
+          catchError(() => EMPTY)
+        );
+      }),
+    ),
+  );
+
+  readonly initializeProjects = this.effect((trigger$) =>
+    trigger$.pipe(
+      switchMap(() => {
+        return this.todoListService.getProjects().pipe(
+          tap({
+            next: (projects) => {
+              this.setProjects(projects);
+              this.setInboxSelected();
+            },
+            error: this.handleError
+          }),
+          catchError(() => EMPTY)
+        );
+      }),
+    ),
+  );
+
+  readonly getProjects = this.effect((trigger$) =>
+    trigger$.pipe(
+      switchMap(() => {
+        return this.todoListService.getProjects().pipe(
+          tap({
+            next: (projects) => {
+              this.setProjects(projects);
               this.setIsLoading(false);
             },
             error: this.handleError
