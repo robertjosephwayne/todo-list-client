@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 import { NewTodo } from 'src/app/models/new-todo.model';
 import { SidenavStore } from '../sidenav.store';
@@ -21,7 +21,12 @@ import { TodoListStore } from './todo-list.store';
   ],
 })
 export class TodoListComponent implements OnInit {
-  readonly vm$ = this.todoListStore.vm$;
+  readonly todos$ = this.todoListStore.todos$;
+  readonly isLoading$ = this.todoListStore.isLoading$;
+  readonly isEditing$ = this.todoListStore.isEditing$;
+  readonly editingTodo$ = this.todoListStore.editingTodo$;
+  readonly columnsToDisplay$ = this.todoListStore.columnsToDisplay$;
+  readonly selectedProject$ = this.todoListStore.selectedProject$;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -66,7 +71,9 @@ export class TodoListComponent implements OnInit {
         isEditing: false
       }
     });
-    dialogRef.afterClosed().subscribe(this.handleCreateTodoDialogResult);
+    dialogRef.afterClosed().subscribe((result) => {
+      this.handleCreateTodoDialogResult(result);
+    });
   }
 
   handleCreateTodoDialogResult(result): void {

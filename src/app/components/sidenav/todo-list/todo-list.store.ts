@@ -9,19 +9,29 @@ import { Todo } from 'src/app/models/todo.model';
 import { TodoListService } from '../../../services/todo-list.service';
 
 export interface TodoListState {
-  todos: Todo[];
-  isLoading: boolean;
-  isEditing: boolean;
-  editingTodo: Todo;
   columnsToDisplay: string[];
+  editingTodo: Todo;
+  isEditing: boolean;
+  isLoading: boolean;
+  projectNames: string[];
+  selectedProject: string;
+  todos: Todo[];
 }
 
 const initialState: TodoListState = {
-  todos: [],
-  isLoading: false,
-  isEditing: false,
+  columnsToDisplay: ['title', 'buttons'],
   editingTodo: null,
-  columnsToDisplay: ['title', 'buttons']
+  isEditing: false,
+  isLoading: false,
+  projectNames: [
+    'Personal',
+    'Shopping',
+    'Work',
+    'School',
+    'Movies to watch',
+  ],
+  selectedProject: '',
+  todos: [],
 };
 
 @Injectable()
@@ -30,15 +40,13 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     super(initialState);
   }
 
-  readonly vm$ = this.select(state => {
-    return {
-      todos: state.todos,
-      isLoading: state.isLoading,
-      isEditing: state.isEditing,
-      editingTodo: state.editingTodo,
-      columnsToDisplay: state.columnsToDisplay,
-    };
-  });
+  readonly columnsToDisplay$ = this.select(state => state.columnsToDisplay);
+  readonly editingTodo$ = this.select(state => state.editingTodo);
+  readonly isEditing$ = this.select(state => state.isEditing);
+  readonly isLoading$ = this.select(state => state.isLoading);
+  readonly projectNames$ = this.select(state => state.projectNames);
+  readonly selectedProject$ = this.select(state => state.selectedProject);
+  readonly todos$ = this.select(state => state.todos);
 
   readonly createTodo = this.effect<NewTodo>((newTodos$) =>
     newTodos$.pipe(
@@ -135,6 +143,14 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     return {
       ...state,
       isEditing
+    };
+  });
+
+
+  readonly setSelectedProject = this.updater((state, selectedProject: string) => {
+    return {
+      ...state,
+      selectedProject
     };
   });
 
