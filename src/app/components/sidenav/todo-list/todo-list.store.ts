@@ -43,6 +43,32 @@ export class TodoListStore extends ComponentStore<TodoListState> {
   readonly selectedProject$ = this.select(state => state.selectedProject);
   readonly todos$ = this.select(state => state.todos);
 
+  readonly inboxProject$ = this.select(
+    this.projects$,
+    (projects) => projects.find(project => project.name === 'Inbox')
+  );
+
+  readonly customProjects$ = this.select(
+    this.projects$,
+    this.inboxProject$,
+    (projects, inboxProject) => projects.filter(project => project.id !== inboxProject.id)
+  );
+
+  readonly inboxSelected$ = this.select(
+    this.selectedProject$,
+    this.inboxProject$,
+    (selectedProject, inboxProject) => {
+      if (!selectedProject || !inboxProject) return false;
+      return selectedProject.id === inboxProject.id;
+    }
+  );
+
+  readonly selectedProjectTodos$ = this.select(
+    this.todos$,
+    this.selectedProject$,
+    (todos, selectedProject) => todos.filter(todo => todo.projectId === selectedProject.id)
+  );
+
   readonly createTodo = this.effect<NewTodo>((newTodos$) =>
     newTodos$.pipe(
       mergeMap((newTodo) => {
