@@ -1,4 +1,5 @@
 export interface NewTodo {
-  title: string;
   isComplete: boolean;
+  projectId: string;
+  title: string;
 }
