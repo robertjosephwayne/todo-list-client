@@ -11,11 +11,11 @@
         class="focus:outline-none"
         color="primary"
         mat-mini-fab
-      (click)="openCreateTodoDialog()"
-    >
-      <mat-icon> add </mat-icon>
-    </button>
-  </div>
+        (click)="openCreateTodoDialog(selectedProject)"
+      >
+        <mat-icon> add </mat-icon>
+      </button>
+    </div>
     <h1>{{ selectedProject.name }}</h1>
   </div>
 
