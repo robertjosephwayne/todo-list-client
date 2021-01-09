@@ -5,6 +5,7 @@ import { EMPTY } from 'rxjs';
 import { catchError, mergeMap, switchMap, tap } from 'rxjs/operators';
 
 import { NewTodo } from 'src/app/models/new-todo.model';
+import { Project } from 'src/app/models/project.model';
 import { Todo } from 'src/app/models/todo.model';
 import { TodoListService } from '../../../services/todo-list.service';
 
@@ -14,7 +15,7 @@ export interface TodoListState {
   isEditing: boolean;
   isLoading: boolean;
   projects: Project[];
-  selectedProject: string;
+  selectedProject: Project;
   todos: Todo[];
 }
 
@@ -25,7 +26,6 @@ const initialState: TodoListState = {
   isLoading: false,
   projects: [],
   selectedProject: null,
-  selectedProject: '',
   todos: [],
 };
 
