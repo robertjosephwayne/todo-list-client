@@ -1,7 +1,7 @@
 <mat-spinner
   class="mt-20 mx-auto"
   [diameter]="70"
-  *ngIf="isLoading$ | async as isLoading"
+  *ngIf="isLoading$ | async"
 ></mat-spinner>
 
 <div class="w-11/12 max-w-3xl mx-auto mt-4" *ngIf="!(isLoading$ | async)">
