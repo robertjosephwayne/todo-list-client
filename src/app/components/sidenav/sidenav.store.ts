@@ -28,14 +28,14 @@ export class SidenavStore extends ComponentStore<SidenavState> {
   readonly openDrawer = this.updater((state) => {
     return {
       ...state,
-      isOpen: true
+      drawerOpen: true
     };
   });
 
   readonly closeDrawer = this.updater((state) => {
     return {
       ...state,
-      isOpen: false
+      drawerOpen: false
     };
   });
 
