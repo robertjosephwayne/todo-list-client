@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import * as fromAuth from '../../../store/auth/auth.selectors';
+import { Project } from 'src/app/models/project.model';
 import { SidenavStore } from '../sidenav.store';
 import { TodoListStore } from '../todo-list/todo-list.store';
+import { NewProject } from 'src/app/models/new-project.model';
+import { MatDialog } from '@angular/material/dialog';
+import { NewProjectDialogComponent } from './new-project-dialog/new-project-dialog.component';
 
 @Component({
   selector: 'app-sidenav-drawer',
@@ -16,17 +23,35 @@ export class SidenavDrawerComponent implements OnInit {
   readonly selectedProject$ = this.todoListStore.selectedProject$;
 
   constructor(
+    private readonly dialog: MatDialog,
     private readonly sidenavStore: SidenavStore,
+    private readonly store: Store,
     private readonly todoListStore: TodoListStore
   ) { }
 
   ngOnInit(): void {
   }
 
-  selectProject(project: string): void {
+  openCreateProjectDialog(): void {
+    const dialogRef = this.dialog.open(NewProjectDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      this.handleCreateProjectDialogResult(result);
+    });
+  }
+
+  handleCreateProjectDialogResult(result): void {
+    if (!result) return;
+    const newProject: NewProject = {
+      name: result
+    };
+    this.todoListStore.createProject(newProject);
+  }
+
   selectInbox(): void {
     this.todoListStore.setInboxSelected();
   }
+
+  selectProject(project: Project): void {
     this.todoListStore.setSelectedProject(project);
   }
 
