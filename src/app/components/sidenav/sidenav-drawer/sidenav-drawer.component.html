@@ -1,1 +1,35 @@
-<p>Sidenav</p>
+<mat-nav-list>
+  <a
+    mat-list-item
+    (click)="selectProject('Inbox')"
+    [ngClass]="{ 'font-bold': (selectedProject$ | async) === 'Inbox' }"
+  >
+    <mat-icon matListIcon>inbox</mat-icon>
+    <span class="ml-2">Inbox</span>
+  </a>
+
+  <mat-divider></mat-divider>
+
+  <a mat-list-item (click)="toggleProjectList()">
+    <mat-icon matListIcon *ngIf="!(projectListOpen$ | async)">
+      chevron_right
+    </mat-icon>
+    <mat-icon matListIcon *ngIf="projectListOpen$ | async">
+      expand_more
+    </mat-icon>
+    <span class="ml-2">Projects</span>
+  </a>
+  <ng-container *ngIf="projectListOpen$ | async">
+    <a
+      mat-list-item
+      *ngFor="let projectName of projectNames$ | async"
+      (click)="selectProject(projectName)"
+    >
+      <span
+        class="ml-12"
+        [ngClass]="{ 'font-bold': (selectedProject$ | async) === projectName }"
+        >{{ projectName }}
+      </span>
+    </a>
+  </ng-container>
+</mat-nav-list>
