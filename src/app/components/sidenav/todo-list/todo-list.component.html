@@ -5,12 +5,12 @@
 ></mat-spinner>
 
 <ng-container *ngIf="selectedProject$ | async as selectedProject">
-<div class="w-11/12 max-w-3xl mx-auto mt-4" *ngIf="!(isLoading$ | async)">
-  <div class="mb-6">
-    <button
-      class="focus:outline-none"
-      color="primary"
-      mat-mini-fab
+  <div class="w-11/12 max-w-3xl mx-auto mt-4" *ngIf="!(isLoading$ | async)">
+    <div class="mb-6">
+      <button
+        class="focus:outline-none"
+        color="primary"
+        mat-mini-fab
       (click)="openCreateTodoDialog()"
     >
       <mat-icon> add </mat-icon>
@@ -19,27 +19,27 @@
   <h1>{{ (selectedProject$ | async) || "Inbox" }}</h1>
 </div>
 
-<mat-table
-  [dataSource]="todos$ | async"
-  class="mat-elevation-z2 w-11/12 max-w-3xl mx-auto"
-  *ngIf="!(isLoading$ | async)"
->
-  <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
-    <mat-cell *matCellDef="let todo">
-      <mat-checkbox
-        (click)="onToggleCompleteStatus(todo)"
-        [checked]="todo.isComplete"
-      ></mat-checkbox>
-      <span
-        (click)="openEditTodoDialog(todo)"
-        class="ml-3"
-        [ngClass]="{ 'line-through': todo.isComplete }"
-      >
-        {{ todo.title }}
-      </span>
-    </mat-cell>
-  </ng-container>
+  <mat-table
+    [dataSource]="selectedProjectTodos$ | async"
+    class="mat-elevation-z2 w-11/12 max-w-3xl mx-auto"
+    *ngIf="!(isLoading$ | async)"
+  >
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+      <mat-cell *matCellDef="let todo">
+        <mat-checkbox
+          (click)="onToggleCompleteStatus(todo)"
+          [checked]="todo.isComplete"
+        ></mat-checkbox>
+        <span
+          (click)="openEditTodoDialog(todo)"
+          class="ml-3"
+          [ngClass]="{ 'line-through': todo.isComplete }"
+        >
+          {{ todo.title }}
+        </span>
+      </mat-cell>
+    </ng-container>
 
     <ng-container matColumnDef="buttons">
       <mat-header-cell *matHeaderCellDef>Buttons</mat-header-cell>
