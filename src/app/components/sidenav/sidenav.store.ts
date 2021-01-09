@@ -52,4 +52,11 @@ export class SidenavStore extends ComponentStore<SidenavState> {
       drawerMode
     };
   });
+
+  readonly toggleProjectList = this.updater((state) => {
+    return {
+      ...state,
+      projectListOpen: !state.projectListOpen
+    };
+  });
 }
