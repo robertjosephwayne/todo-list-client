@@ -16,8 +16,8 @@
       <mat-icon> add </mat-icon>
     </button>
   </div>
-  <h1>{{ (selectedProject$ | async) || "Inbox" }}</h1>
-</div>
+    <h1>{{ selectedProject.name }}</h1>
+  </div>
 
   <mat-table
     [dataSource]="selectedProjectTodos$ | async"
