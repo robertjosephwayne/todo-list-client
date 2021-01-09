@@ -6,11 +6,13 @@ export type DrawerMode = 'side' | 'over';
 export interface SidenavState {
   drawerOpen: boolean;
   drawerMode: DrawerMode;
+  projectListOpen: boolean;
 }
 
 const initialState: SidenavState = {
   drawerOpen: false,
   drawerMode: 'side',
+  projectListOpen: false,
 };
 
 @Injectable()
@@ -21,10 +23,7 @@ export class SidenavStore extends ComponentStore<SidenavState> {
 
   readonly drawerMode$ = this.select(state => state.drawerMode);
   readonly drawerOpen$ = this.select(state => state.drawerOpen);
-      drawerMode: state.drawerMode,
-      isOpen: state.isOpen
-    };
-  })
+  readonly projectListOpen$ = this.select(state => state.projectListOpen);
 
   readonly openDrawer = this.updater((state) => {
     return {
