@@ -1,12 +1,10 @@
-<ng-container *ngIf="vm$ | async as vm">
-  <mat-drawer-container class="h-full bg-gray-50" autosize>
-    <mat-drawer
-      class="w-80 bg-gray-50"
-      [mode]="vm.drawerMode"
-      [opened]="vm.isOpen"
-    >
-      <app-sidenav-drawer></app-sidenav-drawer>
-    </mat-drawer>
-    <router-outlet></router-outlet>
-  </mat-drawer-container>
-</ng-container>
+<mat-drawer-container class="h-full bg-gray-50" autosize>
+  <mat-drawer
+    class="w-80 bg-gray-50 p-3"
+    [mode]="drawerMode$ | async"
+    [opened]="drawerOpen$ | async"
+  >
+    <app-sidenav-drawer></app-sidenav-drawer>
+  </mat-drawer>
+  <router-outlet></router-outlet>
+</mat-drawer-container>

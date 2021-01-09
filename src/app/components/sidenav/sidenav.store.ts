@@ -4,13 +4,13 @@ import { ComponentStore } from '@ngrx/component-store';
 export type DrawerMode = 'side' | 'over';
 
 export interface SidenavState {
-  isOpen: boolean;
+  drawerOpen: boolean;
   drawerMode: DrawerMode;
 }
 
 const initialState: SidenavState = {
-  isOpen: false,
-  drawerMode: 'side'
+  drawerOpen: false,
+  drawerMode: 'side',
 };
 
 @Injectable()
@@ -19,8 +19,8 @@ export class SidenavStore extends ComponentStore<SidenavState> {
     super(initialState);
   }
 
-  readonly vm$ = this.select(state => {
-    return {
+  readonly drawerMode$ = this.select(state => state.drawerMode);
+  readonly drawerOpen$ = this.select(state => state.drawerOpen);
       drawerMode: state.drawerMode,
       isOpen: state.isOpen
     };
@@ -43,7 +43,7 @@ export class SidenavStore extends ComponentStore<SidenavState> {
   readonly toggleDrawer = this.updater((state) => {
     return {
       ...state,
-      isOpen: !state.isOpen
+      drawerOpen: !state.drawerOpen
     };
   });
 
