@@ -7,6 +7,7 @@ import { SidenavStore } from '../sidenav.store';
 import { Todo } from '../../../models/todo.model';
 import { TodoListEditorComponent } from './todo-list-editor/todo-list-editor.component';
 import { TodoListStore } from './todo-list.store';
+import { Project } from 'src/app/models/project.model';
 
 @Component({
   selector: 'app-todo-list',
@@ -21,12 +22,12 @@ import { TodoListStore } from './todo-list.store';
   ],
 })
 export class TodoListComponent implements OnInit {
-  readonly todos$ = this.todoListStore.todos$;
-  readonly isLoading$ = this.todoListStore.isLoading$;
-  readonly isEditing$ = this.todoListStore.isEditing$;
-  readonly editingTodo$ = this.todoListStore.editingTodo$;
   readonly columnsToDisplay$ = this.todoListStore.columnsToDisplay$;
+  readonly editingTodo$ = this.todoListStore.editingTodo$;
+  readonly isEditing$ = this.todoListStore.isEditing$;
+  readonly isLoading$ = this.todoListStore.isLoading$;
   readonly selectedProject$ = this.todoListStore.selectedProject$;
+  readonly selectedProjectTodos$ = this.todoListStore.selectedProjectTodos$;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -35,8 +36,8 @@ export class TodoListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.todoListStore.setIsLoading(true);
     this.todoListStore.getTodos();
+    this.todoListStore.initializeProjects();
   }
 
   onDeleteTodo(todo: Todo): void {
@@ -64,11 +65,12 @@ export class TodoListComponent implements OnInit {
     this.todoListStore.editTodo(editedTodo);
   }
 
-  openCreateTodoDialog(): void {
+  openCreateTodoDialog(selectedProject: Project): void {
     const dialogRef = this.dialog.open(TodoListEditorComponent, {
       data: {
         title: '',
-        isEditing: false
+        isEditing: false,
+        projectId: selectedProject.id
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -80,6 +82,7 @@ export class TodoListComponent implements OnInit {
     if (!result.title) return;
     const newTodo: NewTodo = {
       title: result.title,
+      projectId: result.projectId,
       isComplete: false
     };
     this.todoListStore.createTodo(newTodo);
