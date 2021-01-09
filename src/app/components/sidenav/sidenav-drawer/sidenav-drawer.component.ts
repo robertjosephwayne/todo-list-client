@@ -8,8 +8,11 @@ import { TodoListStore } from '../todo-list/todo-list.store';
   styleUrls: ['./sidenav-drawer.component.css']
 })
 export class SidenavDrawerComponent implements OnInit {
+  readonly customProjects$ = this.todoListStore.customProjects$;
+  readonly inboxProject$ = this.todoListStore.inboxProject$;
+  readonly inboxSelected$ = this.todoListStore.inboxSelected$;
+  readonly isAuth$ = this.store.select(fromAuth.selectIsAuth);
   readonly projectListOpen$ = this.sidenavStore.projectListOpen$;
-  readonly projectNames$ = this.todoListStore.projectNames$;
   readonly selectedProject$ = this.todoListStore.selectedProject$;
 
   constructor(
@@ -17,7 +20,8 @@ export class SidenavDrawerComponent implements OnInit {
     private readonly todoListStore: TodoListStore
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   selectProject(project: string): void {
     this.todoListStore.setSelectedProject(project);
