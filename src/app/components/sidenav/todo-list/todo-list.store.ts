@@ -39,7 +39,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
   readonly editingTodo$ = this.select(state => state.editingTodo);
   readonly isEditing$ = this.select(state => state.isEditing);
   readonly isLoading$ = this.select(state => state.isLoading);
-  readonly projectNames$ = this.select(state => state.projectNames);
+  readonly projects$ = this.select(state => state.projects);
   readonly selectedProject$ = this.select(state => state.selectedProject);
   readonly todos$ = this.select(state => state.todos);
 
