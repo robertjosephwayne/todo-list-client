@@ -13,7 +13,7 @@ export interface TodoListState {
   editingTodo: Todo;
   isEditing: boolean;
   isLoading: boolean;
-  projectNames: string[];
+  projects: Project[];
   selectedProject: string;
   todos: Todo[];
 }
@@ -23,13 +23,8 @@ const initialState: TodoListState = {
   editingTodo: null,
   isEditing: false,
   isLoading: false,
-  projectNames: [
-    'Personal',
-    'Shopping',
-    'Work',
-    'School',
-    'Movies to watch',
-  ],
+  projects: [],
+  selectedProject: null,
   selectedProject: '',
   todos: [],
 };
