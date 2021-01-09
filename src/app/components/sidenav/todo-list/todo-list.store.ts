@@ -210,6 +210,14 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     };
   });
 
+  readonly setInboxSelected = this.updater((state) => {
+    const inboxProject: Project = state.projects.find(project => project.name === 'Inbox');
+    return {
+      ...state,
+      selectedProject: inboxProject
+    };
+  });
+
   private readonly setTodos = this.updater((state, todos: Todo[]) => {
     return {
       ...state,
