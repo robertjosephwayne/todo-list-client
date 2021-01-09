@@ -196,6 +196,12 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     };
   });
 
+  readonly setProjects = this.updater((state, projects: Project[]) => {
+    return {
+      ...state,
+      projects
+    };
+  });
 
   readonly setSelectedProject = this.updater((state, selectedProject: string) => {
     return {
