@@ -24,6 +24,9 @@ export class SidenavDrawerComponent implements OnInit {
   }
 
   selectProject(project: string): void {
+  selectInbox(): void {
+    this.todoListStore.setInboxSelected();
+  }
     this.todoListStore.setSelectedProject(project);
   }
 
