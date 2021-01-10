@@ -57,8 +57,8 @@ export class TodoListComponent implements OnInit {
     );
   }
 
-  handleEditTodoDialogResult(originalTodo: Todo, result) {
-    if (!result.title || result.title === originalTodo.title) return;
+  handleEditTodoDialogResult(originalTodo: Todo, result: { title: string }) {
+    if (!result?.title || result.title === originalTodo.title) return;
     const editedTodo: Todo = {
       ...originalTodo,
       title: result.title
@@ -78,8 +78,8 @@ export class TodoListComponent implements OnInit {
     });
   }
 
-  handleCreateTodoDialogResult(result): void {
-    if (!result.title) return;
+  handleCreateTodoDialogResult(result: { title: string, projectId: string }): void {
+    if (!result?.title) return;
     const newTodo: NewTodo = {
       title: result.title,
       projectId: result.projectId,
