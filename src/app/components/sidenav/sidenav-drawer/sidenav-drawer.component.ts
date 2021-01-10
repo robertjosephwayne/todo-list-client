@@ -20,7 +20,6 @@ export class SidenavDrawerComponent implements OnInit {
   readonly inboxSelected$ = this.todoListStore.inboxSelected$;
   readonly isAuth$ = this.store.select(fromAuth.selectIsAuth);
   readonly projectListOpen$ = this.sidenavStore.projectListOpen$;
-  // readonly selectedProject$ = this.todoListStore.selectedProject$;
   readonly selectedProjectId$ = this.todoListStore.selectedProjectId$;
 
   constructor(
