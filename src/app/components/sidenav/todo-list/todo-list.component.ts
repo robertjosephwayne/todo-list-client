@@ -38,7 +38,6 @@ export class TodoListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.todoListStore.getTodos();
     this.todoListStore.initializeProjects();
   }
 
