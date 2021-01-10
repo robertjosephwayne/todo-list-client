@@ -18,11 +18,13 @@
     </div>
     <h1>{{ selectedProjectName$ | async }}</h1>
   </div>
+</ng-container>
 
-  <!-- TODO: Display message when todo list is empty -->
+<!-- TODO: Display message when todo list is empty -->
 
+<ng-container *ngIf="selectedProjectTodos$ | async as selectedProjectTodos">
   <mat-table
-    [dataSource]="selectedProjectTodos$ | async"
+    [dataSource]="selectedProjectTodos"
     class="mat-elevation-z2 w-11/12 max-w-3xl mx-auto"
     *ngIf="!(isLoading$ | async)"
   >
