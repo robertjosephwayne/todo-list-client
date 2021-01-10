@@ -12,30 +12,31 @@ export class TodoListService {
   constructor(private http: HttpClient) { }
 
   createTodo(newTodo: NewTodo) {
-    return this.http.post<Todo>('http://localhost:3000/todos', newTodo);
+    return this.http.post<Todo>(`http://localhost:3000/projects/${newTodo.projectId}/todos`, newTodo);
   }
 
   createProject(newProject: NewProject) {
     return this.http.post<Project>('http://localhost:3000/projects', newProject);
   }
 
-  deleteTodo(todoId: TodoId) {
-    return this.http.delete(`http://localhost:3000/todos/${todoId}`);
+  deleteTodo(todo: Todo) {
+    return this.http.delete(`http://localhost:3000/projects/${todo.projectId}/todos?where[id]=${todo.id}`);
   }
 
   editTodo(updatedTodo: Todo) {
-    return this.http.patch(`http://localhost:3000/todos/${updatedTodo.id}`, {
+    return this.http.patch(`http://localhost:3000/projects/${updatedTodo.projectId}/todos/${updatedTodo.id}`, {
       title: updatedTodo.title,
-      isComplete: updatedTodo.isComplete
+      isComplete: updatedTodo.isComplete,
+      projectId: updatedTodo.projectId
     });
   }
 
-  getTodos() {
-    return this.http.get<Todo[]>('http://localhost:3000/todos');
-  }
+  // getTodos() {
+  //   return this.http.get<Todo[]>('http://localhost:3000/todos');
+  // }
 
   getProjects() {
-    return this.http.get<Project[]>('http://localhost:3000/projects');
+    return this.http.get<Project[]>('http://localhost:3000/projects?filter[include][][relation]=todos');
   }
 
 }
