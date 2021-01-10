@@ -26,6 +26,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { SidenavDrawerComponent } from './components/sidenav/sidenav-drawer/sidenav-drawer.component';
 import { NewProjectDialogComponent } from './components/sidenav/sidenav-drawer/new-project-dialog/new-project-dialog.component';
 import { CreateTodoDialogComponent } from './create-todo-dialog/create-todo-dialog.component';
+import { EditTodoDialogComponent } from './edit-todo-dialog/edit-todo-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { CreateTodoDialogComponent } from './create-todo-dialog/create-todo-dial
     SidenavDrawerComponent,
     NewProjectDialogComponent,
     CreateTodoDialogComponent,
+    EditTodoDialogComponent,
   ],
   imports: [
     BrowserModule,
