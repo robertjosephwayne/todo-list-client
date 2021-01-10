@@ -27,7 +27,7 @@ export class TodoListComponent implements OnInit {
   readonly editingTodo$ = this.todoListStore.editingTodo$;
   readonly isEditing$ = this.todoListStore.isEditing$;
   readonly isLoading$ = this.todoListStore.isLoading$;
-  readonly selectedProject$ = this.todoListStore.selectedProject$;
+  readonly selectedProjectId$ = this.todoListStore.selectedProjectId$;
   readonly selectedProjectTodos$ = this.todoListStore.selectedProjectTodos$;
 
   constructor(
@@ -66,11 +66,11 @@ export class TodoListComponent implements OnInit {
     this.todoListStore.editTodo(editedTodo);
   }
 
-  openCreateTodoDialog(selectedProject: Project): void {
+  openCreateTodoDialog(selectedProjectId: string): void {
     const dialogRef = this.dialog.open(CreateTodoDialogComponent, {
       data: {
         title: '',
-        projectId: selectedProject.id
+        projectId: selectedProjectId
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
