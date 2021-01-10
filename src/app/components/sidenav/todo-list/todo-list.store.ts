@@ -101,7 +101,6 @@ export class TodoListStore extends ComponentStore<TodoListState> {
   readonly createProject = this.effect<NewProject>((newProjects$) =>
     newProjects$.pipe(
       mergeMap((newProject) => {
-        debugger;
         this.setState((state) => {
           return {
             ...state,
