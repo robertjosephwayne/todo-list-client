@@ -20,7 +20,8 @@ export class SidenavDrawerComponent implements OnInit {
   readonly inboxSelected$ = this.todoListStore.inboxSelected$;
   readonly isAuth$ = this.store.select(fromAuth.selectIsAuth);
   readonly projectListOpen$ = this.sidenavStore.projectListOpen$;
-  readonly selectedProject$ = this.todoListStore.selectedProject$;
+  // readonly selectedProject$ = this.todoListStore.selectedProject$;
+  readonly selectedProjectId$ = this.todoListStore.selectedProjectId$;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -52,7 +53,7 @@ export class SidenavDrawerComponent implements OnInit {
   }
 
   selectProject(project: Project): void {
-    this.todoListStore.setSelectedProject(project);
+    this.todoListStore.setSelectedProjectId(project.id);
   }
 
   toggleProjectList(): void {

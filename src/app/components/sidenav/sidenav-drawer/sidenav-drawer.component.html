@@ -29,7 +29,7 @@
         <span
           class="ml-12"
           [ngClass]="{
-            'font-bold': (selectedProject$ | async) === project
+            'font-bold': (selectedProjectId$ | async) === project.id
           }"
           >{{ project.name }}
         </span>
