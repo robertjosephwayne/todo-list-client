@@ -1,6 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Project } from 'src/app/models/project.model';
+import { Todo } from 'src/app/models/todo.model';
+import { TodoListStore } from '../todo-list.store';
 
 @Component({
   selector: 'app-edit-todo-dialog',
@@ -8,17 +11,27 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./edit-todo-dialog.component.css']
 })
 export class EditTodoDialogComponent implements OnInit {
+  selectedProjectId: string;
 
   constructor(
     public dialogRef: MatDialogRef<EditTodoDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { title: string }
+    @Inject(MAT_DIALOG_DATA) public data: { todo: Todo, projects: Project[] }
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.setSelectedProjectId();
+  }
+
+  setSelectedProjectId(): void {
+    const selectedProject = this.data.projects.find(project => {
+      return project.id === this.data.todo.projectId;
+    });
+    this.selectedProjectId = selectedProject.id;
+  }
 
   onSave(form: NgForm) {
     if (form.invalid) return;
-    this.data.title = form.value.title;
+    this.data.todo.title = form.value.title;
     this.dialogRef.close(this.data);
   }
 
