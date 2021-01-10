@@ -9,6 +9,7 @@ import { TodoListStore } from './todo-list.store';
 import { Project } from 'src/app/models/project.model';
 import { EditTodoDialogComponent } from './edit-todo-dialog/edit-todo-dialog.component';
 import { CreateTodoDialogComponent } from './create-todo-dialog/create-todo-dialog.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-todo-list',
@@ -30,6 +31,8 @@ export class TodoListComponent implements OnInit {
   readonly selectedProjectId$ = this.todoListStore.selectedProjectId$;
   readonly selectedProjectName$ = this.todoListStore.selectedProjectName$;
   readonly selectedProjectTodos$ = this.todoListStore.selectedProjectTodos$;
+  projects: Project[];
+  projectsSub: Subscription;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -39,6 +42,7 @@ export class TodoListComponent implements OnInit {
 
   ngOnInit(): void {
     this.todoListStore.initializeProjects();
+    this.setProjectsSub();
   }
 
   onDeleteTodo(todo: Todo): void {
@@ -48,7 +52,8 @@ export class TodoListComponent implements OnInit {
   openEditTodoDialog(todo: Todo): void {
     const dialogRef = this.dialog.open(EditTodoDialogComponent, {
       data: {
-        title: todo.title
+        todo,
+        projects: this.projects
       }
     });
     dialogRef.afterClosed().subscribe(result =>
@@ -100,7 +105,14 @@ export class TodoListComponent implements OnInit {
     this.openEditTodoDialog(todo);
   }
 
+  setProjectsSub(): void {
+    this.projectsSub = this.todoListStore.projects$.subscribe(projects => {
+      this.projects = projects;
+    });
+  }
+
   ngOnDestroy(): void {
     this.sidenavStore.closeDrawer();
+    this.projectsSub.unsubscribe();
   }
 }
