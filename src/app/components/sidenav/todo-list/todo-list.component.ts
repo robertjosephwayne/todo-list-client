@@ -41,8 +41,7 @@ export class TodoListComponent implements OnInit {
     this.todoListStore.initializeProjects();
   }
 
-  onDeleteTodo($event: Event, todo: Todo): void {
-    $event.stopPropagation();
+  onDeleteTodo(todo: Todo): void {
     this.todoListStore.deleteTodo(todo);
   }
 
