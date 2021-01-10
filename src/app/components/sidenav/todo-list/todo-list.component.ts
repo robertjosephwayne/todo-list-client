@@ -5,9 +5,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { NewTodo } from 'src/app/models/new-todo.model';
 import { SidenavStore } from '../sidenav.store';
 import { Todo } from '../../../models/todo.model';
-import { TodoListEditorComponent } from './todo-list-editor/todo-list-editor.component';
 import { TodoListStore } from './todo-list.store';
 import { Project } from 'src/app/models/project.model';
+import { EditTodoDialogComponent } from './edit-todo-dialog/edit-todo-dialog.component';
+import { CreateTodoDialogComponent } from './create-todo-dialog/create-todo-dialog.component';
 
 @Component({
   selector: 'app-todo-list',
@@ -45,10 +46,9 @@ export class TodoListComponent implements OnInit {
   }
 
   openEditTodoDialog(todo: Todo): void {
-    const dialogRef = this.dialog.open(TodoListEditorComponent, {
+    const dialogRef = this.dialog.open(EditTodoDialogComponent, {
       data: {
-        title: todo.title,
-        isEditing: true
+        title: todo.title
       }
     });
     dialogRef.afterClosed().subscribe(result =>
@@ -66,10 +66,9 @@ export class TodoListComponent implements OnInit {
   }
 
   openCreateTodoDialog(selectedProject: Project): void {
-    const dialogRef = this.dialog.open(TodoListEditorComponent, {
+    const dialogRef = this.dialog.open(CreateTodoDialogComponent, {
       data: {
         title: '',
-        isEditing: false,
         projectId: selectedProject.id
       }
     });
