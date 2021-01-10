@@ -19,6 +19,8 @@
     <h1>{{ selectedProject.name }}</h1>
   </div>
 
+  <!-- TODO: Display message when todo list is empty -->
+
   <mat-table
     [dataSource]="selectedProjectTodos$ | async"
     class="mat-elevation-z2 w-11/12 max-w-3xl mx-auto"
