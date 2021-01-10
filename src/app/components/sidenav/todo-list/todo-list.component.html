@@ -4,14 +4,14 @@
   *ngIf="isLoading$ | async"
 ></mat-spinner>
 
-<ng-container *ngIf="selectedProject$ | async as selectedProject">
+<ng-container *ngIf="selectedProjectId$ | async as selectedProjectId">
   <div class="w-11/12 max-w-3xl mx-auto mt-4" *ngIf="!(isLoading$ | async)">
-    <div class="mb-6">
+    <div class="mb-6" *ngIf="selectedProjectId">
       <button
         class="focus:outline-none"
         color="primary"
         mat-mini-fab
-        (click)="openCreateTodoDialog(selectedProject)"
+        (click)="openCreateTodoDialog(selectedProjectId)"
       >
         <mat-icon> add </mat-icon>
       </button>
