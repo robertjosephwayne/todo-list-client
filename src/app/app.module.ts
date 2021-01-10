@@ -26,7 +26,6 @@ import { SignupComponent } from './components/sidenav/auth/signup/signup.compone
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { TodoItemComponent } from './components/sidenav/todo-list/todo-item/todo-item.component';
 import { TodoListComponent } from './components/sidenav/todo-list/todo-list.component';
-import { TodoListEditorComponent } from './components/sidenav/todo-list/todo-list-editor/todo-list-editor.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +40,6 @@ import { TodoListEditorComponent } from './components/sidenav/todo-list/todo-lis
     SignupComponent,
     TodoItemComponent,
     TodoListComponent,
-    TodoListEditorComponent,
   ],
   imports: [
     BrowserModule,
