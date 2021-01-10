@@ -96,6 +96,11 @@ export class TodoListComponent implements OnInit {
     this.todoListStore.editTodo(updatedTodo);
   }
 
+  onRowClick($event, todo: Todo): void {
+    if ($event.target.nodeName !== "MAT-CELL") return;
+    this.openEditTodoDialog(todo);
+  }
+
   ngOnDestroy(): void {
     this.sidenavStore.closeDrawer();
   }
