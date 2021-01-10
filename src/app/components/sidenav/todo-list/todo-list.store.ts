@@ -16,8 +16,7 @@ export interface TodoListState {
   isEditing: boolean;
   isLoading: boolean;
   projects: Project[];
-  selectedProject: Project;
-  todos: Todo[];
+  selectedProjectId: string;
 }
 
 const initialState: TodoListState = {
@@ -26,8 +25,7 @@ const initialState: TodoListState = {
   isEditing: false,
   isLoading: false,
   projects: [],
-  selectedProject: null,
-  todos: [],
+  selectedProjectId: '',
 };
 
 @Injectable()
@@ -41,8 +39,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
   readonly isEditing$ = this.select(state => state.isEditing);
   readonly isLoading$ = this.select(state => state.isLoading);
   readonly projects$ = this.select(state => state.projects);
-  readonly selectedProject$ = this.select(state => state.selectedProject);
-  readonly todos$ = this.select(state => state.todos);
+  readonly selectedProjectId$ = this.select(state => state.selectedProjectId);
 
   readonly inboxProject$ = this.select(
     this.projects$,
@@ -56,18 +53,31 @@ export class TodoListStore extends ComponentStore<TodoListState> {
   );
 
   readonly inboxSelected$ = this.select(
-    this.selectedProject$,
+    this.selectedProjectId$,
     this.inboxProject$,
-    (selectedProject, inboxProject) => {
-      if (!selectedProject || !inboxProject) return false;
-      return selectedProject.id === inboxProject.id;
+    (selectedProjectId, inboxProject) => {
+      if (!selectedProjectId || !inboxProject) return false;
+      return selectedProjectId === inboxProject.id;
     }
   );
 
-  readonly selectedProjectTodos$ = this.select(
-    this.todos$,
+  private readonly selectedProject$ = this.select(
+    this.projects$,
+    this.selectedProjectId$,
+    (projects, selectedProjectId) => projects.find(project => project.id === selectedProjectId)
+  );
+
+  readonly selectedProjectName$ = this.select(
     this.selectedProject$,
-    (todos, selectedProject) => todos.filter(todo => todo.projectId === selectedProject.id)
+    (selectedProject) => selectedProject.name
+  );
+
+  readonly selectedProjectTodos$ = this.select(
+    this.selectedProject$,
+    (selectedProject) => {
+      if (!selectedProject) return [];
+      return selectedProject.todos;
+    }
   );
 
   readonly createTodo = this.effect<NewTodo>((newTodos$) =>
@@ -76,19 +86,16 @@ export class TodoListStore extends ComponentStore<TodoListState> {
         this.setState((state) => {
           return {
             ...state,
-            todos: [
-              ...state.todos,
-              { ...newTodo, id: '' }
-            ]
+            // TODO: Fix optimistic updating
           };
         });
         return this.todoListService.createTodo(newTodo).pipe(
           tap({
             next: () => {
-              this.getTodos();
+              this.getProjects();
             },
             error: (error) => {
-              this.getTodos();
+              this.getProjects();
               return this.handleError(error);
             }
           }),
@@ -106,7 +113,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
             ...state,
             projects: [
               ...state.projects,
-              { ...newProject, id: '' }
+              { ...newProject, id: '', todos: [] }
             ]
           };
         });
@@ -129,20 +136,21 @@ export class TodoListStore extends ComponentStore<TodoListState> {
   readonly deleteTodo = this.effect<Todo>((todos$) =>
     todos$.pipe(
       mergeMap((todo) => {
-        this.setState((state) => {
-          const updatedTodos = state.todos.filter(currentTodo => currentTodo.id !== todo.id);
-          return {
-            ...state,
-            todos: updatedTodos
-          };
-        });
-        return this.todoListService.deleteTodo(todo.id).pipe(
+        // TODO: Fix optimistic updating
+        // this.setState((state) => {
+        //   const updatedTodos = state.todos.filter(currentTodo => currentTodo.id !== todo.id);
+        //   return {
+        //     ...state,
+        //     todos: updatedTodos
+        //   };
+        // });
+        return this.todoListService.deleteTodo(todo).pipe(
           tap({
             next: () => {
-              this.getTodos();
+              this.getProjects();
             },
             error: (error) => {
-              this.getTodos();
+              this.getProjects();
               return this.handleError(error);
             }
           }),
@@ -155,24 +163,25 @@ export class TodoListStore extends ComponentStore<TodoListState> {
   readonly editTodo = this.effect<Todo>((editedTodos$) =>
     editedTodos$.pipe(
       mergeMap((editedTodo) => {
-        this.setState((state) => {
-          const updatedTodos = [
-            ...state.todos
-          ];
-          const editedTodoIndex = updatedTodos.findIndex(todo => todo.id === editedTodo.id);
-          updatedTodos[editedTodoIndex] = editedTodo;
-          return {
-            ...state,
-            todos: updatedTodos
-          };
-        });
+        // TODO: Fix optimistic updating
+        // this.setState((state) => {
+        //   const updatedTodos = [
+        //     ...state.todos
+        //   ];
+        //   const editedTodoIndex = updatedTodos.findIndex(todo => todo.id === editedTodo.id);
+        //   updatedTodos[editedTodoIndex] = editedTodo;
+        //   return {
+        //     ...state,
+        //     todos: updatedTodos
+        //   };
+        // });
         return this.todoListService.editTodo(editedTodo).pipe(
           tap({
             next: () => {
-              this.getTodos();
+              this.getProjects();
             },
             error: (error) => {
-              this.getTodos();
+              this.getProjects();
               return this.handleError(error);
             }
           }),
@@ -203,10 +212,10 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     };
   });
 
-  readonly setSelectedProject = this.updater((state, selectedProject: Project) => {
+  readonly setSelectedProjectId = this.updater((state, selectedProjectId: string) => {
     return {
       ...state,
-      selectedProject
+      selectedProjectId
     };
   });
 
@@ -214,41 +223,43 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     const inboxProject: Project = state.projects.find(project => project.name === 'Inbox');
     return {
       ...state,
-      selectedProject: inboxProject
+      selectedProjectId: inboxProject.id
     };
   });
 
-  private readonly setTodos = this.updater((state, todos: Todo[]) => {
-    return {
-      ...state,
-      todos,
-    };
-  });
+  // private readonly setTodos = this.updater((state, todos: Todo[]) => {
+  //   return {
+  //     ...state,
+  //     todos,
+  //   };
+  // });
 
-  readonly getTodos = this.effect((trigger$) =>
-    trigger$.pipe(
-      switchMap(() => {
-        return this.todoListService.getTodos().pipe(
-          tap({
-            next: (todos) => {
-              this.setTodos(todos);
-            },
-            error: this.handleError
-          }),
-          catchError(() => EMPTY)
-        );
-      }),
-    ),
-  );
+  // readonly getTodos = this.effect((trigger$) =>
+  //   trigger$.pipe(
+  //     switchMap(() => {
+  //       return this.todoListService.getTodos().pipe(
+  //         tap({
+  //           next: (todos) => {
+  //             this.setTodos(todos);
+  //           },
+  //           error: this.handleError
+  //         }),
+  //         catchError(() => EMPTY)
+  //       );
+  //     }),
+  //   ),
+  // );
 
   readonly initializeProjects = this.effect((trigger$) =>
     trigger$.pipe(
+      tap(() => this.setIsLoading(true)),
       switchMap(() => {
         return this.todoListService.getProjects().pipe(
           tap({
             next: (projects) => {
               this.setProjects(projects);
               this.setInboxSelected();
+              this.setIsLoading(false)
             },
             error: this.handleError
           }),
@@ -274,6 +285,8 @@ export class TodoListStore extends ComponentStore<TodoListState> {
       }),
     ),
   );
+
+  // TODO: Clear projects when a user logs out
 
   private readonly handleError = (error) => {
     console.error(error);
