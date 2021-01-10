@@ -17,7 +17,6 @@ export class NewProjectDialogComponent implements OnInit {
   }
 
   onSave(form: NgForm) {
-    debugger;
     if (form.form.invalid) return;
     this.dialogRef.close(form.form.value.projectName);
   }
