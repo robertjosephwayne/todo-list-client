@@ -28,6 +28,7 @@ export class TodoListComponent implements OnInit {
   readonly isEditing$ = this.todoListStore.isEditing$;
   readonly isLoading$ = this.todoListStore.isLoading$;
   readonly selectedProjectId$ = this.todoListStore.selectedProjectId$;
+  readonly selectedProjectName$ = this.todoListStore.selectedProjectName$;
   readonly selectedProjectTodos$ = this.todoListStore.selectedProjectTodos$;
 
   constructor(

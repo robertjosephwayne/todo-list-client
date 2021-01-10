@@ -16,7 +16,7 @@
         <mat-icon> add </mat-icon>
       </button>
     </div>
-    <h1>{{ selectedProject.name }}</h1>
+    <h1>{{ selectedProjectName$ | async }}</h1>
   </div>
 
   <!-- TODO: Display message when todo list is empty -->
