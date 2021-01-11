@@ -206,6 +206,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
             projects: updatedProjects
           };
         });
+
         return this.todoListService.deleteTodo(todo).pipe(
           tap({
             next: () => {
@@ -222,21 +223,41 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     ),
   );
 
+  // TODO: Fix ordering of optimistic vs. backend update
   readonly editTodo = this.effect<Todo>((editedTodos$) =>
     editedTodos$.pipe(
       mergeMap((editedTodo) => {
-        // TODO: Fix optimistic updating
-        // this.setState((state) => {
-        //   const updatedTodos = [
-        //     ...state.todos
-        //   ];
-        //   const editedTodoIndex = updatedTodos.findIndex(todo => todo.id === editedTodo.id);
-        //   updatedTodos[editedTodoIndex] = editedTodo;
-        //   return {
-        //     ...state,
-        //     todos: updatedTodos
-        //   };
-        // });
+        this.setState((state) => {
+          const currentProject = this.getProjectByTodoId(state.projects, editedTodo.id);
+          const updatedCurrentProject = this.removeTodoFromProject(currentProject, editedTodo);
+
+          const newProject = this.getProjectById(state.projects, editedTodo.projectId);
+          const updatedNewProjectTodos = newProject.todos ? [...newProject.todos] : [];
+
+          let editedTodoIndex = updatedNewProjectTodos.findIndex(todo => todo.id === editedTodo.id);
+          if (editedTodoIndex === -1) {
+            updatedNewProjectTodos.push(editedTodo);
+            editedTodoIndex = updatedNewProjectTodos.length - 1;
+          }
+
+          updatedNewProjectTodos[editedTodoIndex] = editedTodo;
+          const updatedNewProject = {
+            ...newProject,
+            todos: updatedNewProjectTodos
+          };
+
+          const updatedProjects = [...state.projects].map(project => {
+            if (project.id === updatedNewProject.id) return updatedNewProject;
+            if (project.id === updatedCurrentProject.id) return updatedCurrentProject;
+            return project;
+          });
+
+          return {
+            ...state,
+            projects: updatedProjects
+          };
+        });
+
         return this.todoListService.editTodo(editedTodo).pipe(
           tap({
             next: () => {
@@ -297,7 +318,26 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     console.error(error);
   };
 
-  private readonly getProjectById = (projects, projectId) => {
+  private readonly getProjectById = (projects: Project[], projectId): Project => {
     return projects.find(project => project.id === projectId);
+  };
+
+  private readonly getProjectByTodoId = (projects: Project[], todoId: string): Project => {
+    return projects.find(project => {
+      const todos = project.todos;
+      if (!todos) return false;
+      for (let todo of todos) {
+        if (todo.id === todoId) return true;
+      }
+      return false;
+    });
+  };
+
+  private readonly removeTodoFromProject = (project: Project, todo: Todo): Project => {
+    const todos = project.todos.filter(currentTodo => currentTodo.id !== todo.id);
+    return {
+      ...project,
+      todos
+    };
   };
 }
