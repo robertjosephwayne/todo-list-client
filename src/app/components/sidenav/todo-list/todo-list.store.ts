@@ -196,6 +196,8 @@ export class TodoListStore extends ComponentStore<TodoListState> {
   readonly deleteTodo = this.effect<Todo>((todos$) =>
     todos$.pipe(
       mergeMap((todo) => {
+        if (!todo?.id) return;
+
         this.setState((state) => {
           const selectedProject = this.getProjectById(state.projects, todo.projectId);
           const selectedProjectTodos = this.getProjectTodos(selectedProject);
