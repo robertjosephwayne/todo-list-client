@@ -39,6 +39,17 @@ export class SidenavDrawerComponent implements OnInit {
     this.todoListStore.createProject(newProject);
   }
 
+  onProjectAdd($event): void {
+    // TODO
+    $event.stopPropagation();
+  }
+
+  onProjectDelete($event, project: Project): void {
+    // TODO
+    $event.stopPropagation();
+    console.log(project);
+  }
+
   openCreateProjectDialog(): void {
     const dialogRef = this.dialog.open(NewProjectDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {

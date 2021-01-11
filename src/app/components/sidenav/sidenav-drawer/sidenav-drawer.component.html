@@ -19,12 +19,21 @@
         expand_more
       </mat-icon>
       <span class="ml-2">Projects</span>
+      <span class="flex flex-grow"></span>
+      <button
+        class="focus:outline-none text-gray-300 hover:text-emerald-800"
+        mat-icon-button
+        (click)="onProjectAdd($event)"
+      >
+        <mat-icon> add_circle_outline </mat-icon>
+      </button>
     </a>
     <ng-container *ngIf="projectListOpen$ | async">
       <a
         mat-list-item
         *ngFor="let project of customProjects$ | async"
         (click)="selectProject(project)"
+        class="group"
       >
         <span
           class="ml-12"
@@ -33,11 +42,19 @@
           }"
           >{{ project.name }}
         </span>
+        <span class="flex flex-grow"></span>
+        <button
+          class="focus:outline-none text-gray-300 invisible group-hover:visible hover:text-red-800"
+          mat-icon-button
+          (click)="onProjectDelete($event, project)"
+        >
+          <mat-icon> remove_circle_outline </mat-icon>
+        </button>
       </a>
-      <a mat-list-item (click)="openCreateProjectDialog()">
+      <!-- <a mat-list-item (click)="openCreateProjectDialog()">
         <mat-icon matListIcon> add </mat-icon>
         <span class="ml-2">Add Project</span>
-      </a>
+      </a> -->
       <!-- TODO: Delete Project button -->
     </ng-container>
   </mat-nav-list>
