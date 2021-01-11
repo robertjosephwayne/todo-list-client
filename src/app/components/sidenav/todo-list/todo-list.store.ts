@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-
 import { EMPTY } from 'rxjs';
 import { catchError, mergeMap, switchMap, tap } from 'rxjs/operators';
-
 import { NewProject } from 'src/app/models/new-project.model';
 import { NewTodo } from 'src/app/models/new-todo.model';
 import { Project } from 'src/app/models/project.model';
 import { Todo } from 'src/app/models/todo.model';
 import { TodoListService } from '../../../services/todo-list.service';
+
+
 
 export interface TodoListState {
   columnsToDisplay: string[];
@@ -259,7 +259,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
             next: (projects) => {
               this.setProjects(projects);
               this.setInboxSelected();
-              this.setIsLoading(false)
+              this.setIsLoading(false);
             },
             error: this.handleError
           }),

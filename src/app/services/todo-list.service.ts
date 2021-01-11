@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 import { NewProject } from '../models/new-project.model';
 import { NewTodo } from '../models/new-todo.model';
 import { Project } from '../models/project.model';
-import { Todo, TodoId } from '../models/todo.model';
+import { Todo } from '../models/todo.model';
+
 
 @Injectable({ providedIn: 'root' })
 export class TodoListService {

@@ -1,5 +1,5 @@
 import * as fromRouter from '@ngrx/router-store';
-import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { createFeatureSelector } from '@ngrx/store';
 import { RouterState } from './router.state';
 
 export const selectRouter = createFeatureSelector<

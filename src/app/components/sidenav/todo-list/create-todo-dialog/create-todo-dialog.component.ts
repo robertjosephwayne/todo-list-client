@@ -11,7 +11,7 @@ export class CreateTodoDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CreateTodoDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { title: string }
+    @Inject(MAT_DIALOG_DATA) public data: { title: string; }
   ) { }
 
   ngOnInit(): void { }

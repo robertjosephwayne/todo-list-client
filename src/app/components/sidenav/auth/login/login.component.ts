@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
-
 import * as AuthActions from '../../../../store/auth/auth.actions';
+
 
 @Component({
   templateUrl: './login.component.html',
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
       email: loginForm.value.email,
       password: loginForm.value.password
     };
-    this.store.dispatch(AuthActions.login({ loginCredentials }))
+    this.store.dispatch(AuthActions.login({ loginCredentials }));
   }
 }
 

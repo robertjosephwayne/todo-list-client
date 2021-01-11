@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-
-import * as fromAuth from '../../../store/auth/auth.selectors';
+import { NewProject } from 'src/app/models/new-project.model';
 import { Project } from 'src/app/models/project.model';
+import * as fromAuth from '../../../store/auth/auth.selectors';
 import { SidenavStore } from '../sidenav.store';
 import { TodoListStore } from '../todo-list/todo-list.store';
-import { NewProject } from 'src/app/models/new-project.model';
-import { MatDialog } from '@angular/material/dialog';
 import { NewProjectDialogComponent } from './new-project-dialog/new-project-dialog.component';
+
 
 @Component({
   selector: 'app-sidenav-drawer',

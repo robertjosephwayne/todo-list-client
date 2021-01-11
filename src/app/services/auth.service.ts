@@ -1,14 +1,14 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-
-import { AppState } from '../store/app.state';
-import * as AuthActions from '../store/auth/auth.actions';
 import { LoginCredentials } from '../models/login-credentials.model';
 import { SignupInformation } from '../models/signup-information.model';
+import { AppState } from '../store/app.state';
+import * as AuthActions from '../store/auth/auth.actions';
+
+
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -19,7 +19,7 @@ export class AuthService {
   ) { }
 
   login(loginCredentials: LoginCredentials): void {
-    this.http.post<{ token: string }>('http://localhost:3000/users/login', loginCredentials)
+    this.http.post<{ token: string; }>('http://localhost:3000/users/login', loginCredentials)
       .pipe(
         catchError(this.handleError)
       )

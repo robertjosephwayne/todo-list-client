@@ -1,15 +1,15 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-
-import { NewTodo } from 'src/app/models/new-todo.model';
-import { SidenavStore } from '../sidenav.store';
-import { Todo } from '../../../models/todo.model';
-import { TodoListStore } from './todo-list.store';
-import { Project } from 'src/app/models/project.model';
-import { EditTodoDialogComponent } from './edit-todo-dialog/edit-todo-dialog.component';
-import { CreateTodoDialogComponent } from './create-todo-dialog/create-todo-dialog.component';
 import { Subscription } from 'rxjs';
+import { NewTodo } from 'src/app/models/new-todo.model';
+import { Project } from 'src/app/models/project.model';
+import { Todo } from '../../../models/todo.model';
+import { SidenavStore } from '../sidenav.store';
+import { CreateTodoDialogComponent } from './create-todo-dialog/create-todo-dialog.component';
+import { EditTodoDialogComponent } from './edit-todo-dialog/edit-todo-dialog.component';
+import { TodoListStore } from './todo-list.store';
+
 
 @Component({
   selector: 'app-todo-list',
@@ -61,7 +61,7 @@ export class TodoListComponent implements OnInit {
     );
   }
 
-  handleEditTodoDialogResult(originalTodo: Todo, result: { title: string }) {
+  handleEditTodoDialogResult(originalTodo: Todo, result: { title: string; }) {
     if (!result?.title || result.title === originalTodo.title) return;
     const editedTodo: Todo = {
       ...originalTodo,
@@ -82,7 +82,7 @@ export class TodoListComponent implements OnInit {
     });
   }
 
-  handleCreateTodoDialogResult(result: { title: string, projectId: string }): void {
+  handleCreateTodoDialogResult(result: { title: string, projectId: string; }): void {
     if (!result?.title) return;
     const newTodo: NewTodo = {
       title: result.title,

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
-
-import * as AuthActions from '../../../../store/auth/auth.actions';
 import { SignupInformation } from 'src/app/models/signup-information.model';
+import * as AuthActions from '../../../../store/auth/auth.actions';
+
 
 @Component({
   templateUrl: './signup.component.html',

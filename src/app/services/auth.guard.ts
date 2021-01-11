@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
-
-import * as fromAuth from '../store/auth/auth.selectors';
 import * as AuthActions from '../store/auth/auth.actions';
 
 @Injectable()
@@ -23,7 +20,7 @@ export class AuthGuard implements CanActivate {
   ): boolean | Observable<boolean> | Promise<boolean> {
     this.updateAuthStatus();
     if (!this.isAuth) {
-      this.router.navigate(['/login'])
+      this.router.navigate(['/login']);
     }
     return this.isAuth;
   }

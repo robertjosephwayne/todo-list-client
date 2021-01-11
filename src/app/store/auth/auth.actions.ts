@@ -1,16 +1,15 @@
 import { createAction, props } from '@ngrx/store';
-
 import { LoginCredentials } from 'src/app/models/login-credentials.model';
 import { SignupInformation } from 'src/app/models/signup-information.model';
 
 export const login = createAction(
   '[Auth] Login',
-  props<{ loginCredentials: LoginCredentials }>()
+  props<{ loginCredentials: LoginCredentials; }>()
 );
 
 export const loginSuccess = createAction(
   '[Auth] Login Success',
-  props<{ jwtToken: string }>()
+  props<{ jwtToken: string; }>()
 );
 
 export const logout = createAction(
@@ -19,7 +18,7 @@ export const logout = createAction(
 
 export const signup = createAction(
   '[Auth] Signup',
-  props<{ signupInformation: SignupInformation }>()
+  props<{ signupInformation: SignupInformation; }>()
 );
 
 export const signupSuccess = createAction(
@@ -32,5 +31,5 @@ export const syncLocalStorageToken = createAction(
 
 export const updateJWTToken = createAction(
   '[Auth] Update JWT Token',
-  props<{ jwtToken: string }>()
+  props<{ jwtToken: string; }>()
 );
