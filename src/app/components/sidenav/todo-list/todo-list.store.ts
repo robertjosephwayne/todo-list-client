@@ -80,6 +80,11 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     (selectedProject) => this.getProjectTodos(selectedProject)
   );
 
+  readonly selectedProjectTodoCount$ = this.select(
+    this.selectedProjectTodos$,
+    (selectedProjectTodos) => selectedProjectTodos.length
+  );
+
   // Updaters
 
   readonly setInboxSelected = this.updater((state) => {
