@@ -30,10 +30,6 @@ export class TodoListService {
     });
   }
 
-  // getTodos() {
-  //   return this.http.get<Todo[]>('http://localhost:3000/todos');
-  // }
-
   getProjects() {
     return this.http.get<Project[]>('http://localhost:3000/projects?filter[include][][relation]=todos');
   }
