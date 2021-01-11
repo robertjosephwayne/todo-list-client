@@ -20,7 +20,7 @@ export class TodoListService {
   }
 
   deleteTodo(todo: Todo) {
-    return this.http.delete(`http://localhost:3000/projects/${todo.projectId}/todos?where[id]=${todo.id}`);
+    return this.http.delete(`http://localhost:3000/todos/${todo.id}`);
   }
 
   editTodo(updatedTodo: Todo) {
