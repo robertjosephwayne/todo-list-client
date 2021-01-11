@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-
-import * as fromAuth from '../../store/auth/auth.selectors';
 import * as AuthActions from '../../store/auth/auth.actions';
+import * as fromAuth from '../../store/auth/auth.selectors';
 import { SidenavStore } from '../sidenav/sidenav.store';
 
 @Component({
@@ -15,8 +14,8 @@ export class HeaderComponent implements OnInit {
   isAuth$: Observable<boolean>;
 
   constructor(
+    private readonly sidenavStore: SidenavStore,
     private store: Store,
-    private readonly sidenavStore: SidenavStore
   ) { }
 
   ngOnInit(): void {
@@ -27,11 +26,12 @@ export class HeaderComponent implements OnInit {
     this.store.dispatch(AuthActions.logout());
   }
 
-  setAuthState(): void {
-    this.isAuth$ = this.store.select(fromAuth.selectIsAuth);
-  }
-
   onMenuSelected(): void {
     this.sidenavStore.toggleDrawer();
   }
+
+  setAuthState(): void {
+    this.isAuth$ = this.store.select(fromAuth.selectIsAuth);
+  }
+  
 }

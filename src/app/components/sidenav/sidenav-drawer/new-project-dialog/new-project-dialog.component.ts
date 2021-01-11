@@ -13,8 +13,7 @@ export class NewProjectDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<NewProjectDialogComponent>
   ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   onSave(form: NgForm) {
     if (form.form.invalid) return;

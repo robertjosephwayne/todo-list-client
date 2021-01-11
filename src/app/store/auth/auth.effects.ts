@@ -23,6 +23,14 @@ export class AuthEffects {
     })
   ), { dispatch: false });
 
+  logout$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.logout),
+    tap(() => {
+      localStorage.removeItem('jwtToken');
+      this.router.navigate(['./login']);
+    })
+  ), { dispatch: false });
+
   signup$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.signup),
     map((action) => {
@@ -33,14 +41,6 @@ export class AuthEffects {
   signupSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.signupSuccess),
     tap(() => {
-      this.router.navigate(['./login']);
-    })
-  ), { dispatch: false });
-
-  logout$ = createEffect(() => this.actions$.pipe(
-    ofType(AuthActions.logout),
-    tap(() => {
-      localStorage.removeItem('jwtToken');
       this.router.navigate(['./login']);
     })
   ), { dispatch: false });

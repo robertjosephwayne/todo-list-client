@@ -8,8 +8,6 @@ import { SignupInformation } from '../models/signup-information.model';
 import { AppState } from '../store/app.state';
 import * as AuthActions from '../store/auth/auth.actions';
 
-
-
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 

@@ -17,20 +17,18 @@ const initialState: SidenavState = {
 
 @Injectable()
 export class SidenavStore extends ComponentStore<SidenavState> {
+
   constructor() {
     super(initialState);
   }
+
+  // Selectors
 
   readonly drawerMode$ = this.select(state => state.drawerMode);
   readonly drawerOpen$ = this.select(state => state.drawerOpen);
   readonly projectListOpen$ = this.select(state => state.projectListOpen);
 
-  readonly openDrawer = this.updater((state) => {
-    return {
-      ...state,
-      drawerOpen: true
-    };
-  });
+  // Updaters
 
   readonly closeDrawer = this.updater((state) => {
     return {
@@ -39,10 +37,10 @@ export class SidenavStore extends ComponentStore<SidenavState> {
     };
   });
 
-  readonly toggleDrawer = this.updater((state) => {
+  readonly openDrawer = this.updater((state) => {
     return {
       ...state,
-      drawerOpen: !state.drawerOpen
+      drawerOpen: true
     };
   });
 
@@ -53,10 +51,18 @@ export class SidenavStore extends ComponentStore<SidenavState> {
     };
   });
 
+  readonly toggleDrawer = this.updater((state) => {
+    return {
+      ...state,
+      drawerOpen: !state.drawerOpen
+    };
+  });
+
   readonly toggleProjectList = this.updater((state) => {
     return {
       ...state,
       projectListOpen: !state.projectListOpen
     };
   });
+
 }

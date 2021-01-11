@@ -11,12 +11,12 @@ export class TodoListService {
 
   constructor(private http: HttpClient) { }
 
-  createTodo(newTodo: NewTodo) {
-    return this.http.post<Todo>(`http://localhost:3000/projects/${newTodo.projectId}/todos`, newTodo);
-  }
-
   createProject(newProject: NewProject) {
     return this.http.post<Project>('http://localhost:3000/projects', newProject);
+  }
+
+  createTodo(newTodo: NewTodo) {
+    return this.http.post<Todo>(`http://localhost:3000/projects/${newTodo.projectId}/todos`, newTodo);
   }
 
   deleteTodo(todo: Todo) {

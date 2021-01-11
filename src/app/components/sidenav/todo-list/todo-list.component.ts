@@ -45,20 +45,14 @@ export class TodoListComponent implements OnInit {
     this.setProjectsSub();
   }
 
-  onDeleteTodo(todo: Todo): void {
-    this.todoListStore.deleteTodo(todo);
-  }
-
-  openEditTodoDialog(todo: Todo): void {
-    const dialogRef = this.dialog.open(EditTodoDialogComponent, {
-      data: {
-        todo,
-        projects: this.projects
-      }
-    });
-    dialogRef.afterClosed().subscribe(result =>
-      this.handleEditTodoDialogResult(todo, result)
-    );
+  handleCreateTodoDialogResult(result: { title: string, projectId: string; }): void {
+    if (!result?.title) return;
+    const newTodo: NewTodo = {
+      title: result.title,
+      projectId: result.projectId,
+      isComplete: false
+    };
+    this.todoListStore.createTodo(newTodo);
   }
 
   handleEditTodoDialogResult(originalTodo: Todo, result: { title: string; }) {
@@ -68,6 +62,23 @@ export class TodoListComponent implements OnInit {
       title: result.title
     };
     this.todoListStore.editTodo(editedTodo);
+  }
+
+  onDeleteTodo(todo: Todo): void {
+    this.todoListStore.deleteTodo(todo);
+  }
+
+  onRowClick($event, todo: Todo): void {
+    if ($event.target.nodeName !== "MAT-CELL") return;
+    this.openEditTodoDialog(todo);
+  }
+
+  onToggleCompleteStatus(todo: Todo): void {
+    const updatedTodo: Todo = {
+      ...todo,
+      isComplete: !todo.isComplete
+    };
+    this.todoListStore.editTodo(updatedTodo);
   }
 
   openCreateTodoDialog(selectedProjectId: string): void {
@@ -82,27 +93,16 @@ export class TodoListComponent implements OnInit {
     });
   }
 
-  handleCreateTodoDialogResult(result: { title: string, projectId: string; }): void {
-    if (!result?.title) return;
-    const newTodo: NewTodo = {
-      title: result.title,
-      projectId: result.projectId,
-      isComplete: false
-    };
-    this.todoListStore.createTodo(newTodo);
-  }
-
-  onToggleCompleteStatus(todo: Todo): void {
-    const updatedTodo: Todo = {
-      ...todo,
-      isComplete: !todo.isComplete
-    };
-    this.todoListStore.editTodo(updatedTodo);
-  }
-
-  onRowClick($event, todo: Todo): void {
-    if ($event.target.nodeName !== "MAT-CELL") return;
-    this.openEditTodoDialog(todo);
+  openEditTodoDialog(todo: Todo): void {
+    const dialogRef = this.dialog.open(EditTodoDialogComponent, {
+      data: {
+        todo,
+        projects: this.projects
+      }
+    });
+    dialogRef.afterClosed().subscribe(result =>
+      this.handleEditTodoDialogResult(todo, result)
+    );
   }
 
   setProjectsSub(): void {

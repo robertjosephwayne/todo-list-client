@@ -2,7 +2,6 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { SidenavStore } from './sidenav.store';
 import { TodoListStore } from './todo-list/todo-list.store';
 
-
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',

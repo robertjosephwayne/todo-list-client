@@ -21,17 +21,17 @@ export class EditTodoDialogComponent implements OnInit {
     this.setSelectedProjectId();
   }
 
+  onSave(form: NgForm) {
+    if (form.invalid) return;
+    this.data.todo.title = form.value.title;
+    this.dialogRef.close(this.data);
+  }
+
   setSelectedProjectId(): void {
     const selectedProject = this.data.projects.find(project => {
       return project.id === this.data.todo.projectId;
     });
     this.selectedProjectId = selectedProject.id;
-  }
-
-  onSave(form: NgForm) {
-    if (form.invalid) return;
-    this.data.todo.title = form.value.title;
-    this.dialogRef.close(this.data);
   }
 
 }

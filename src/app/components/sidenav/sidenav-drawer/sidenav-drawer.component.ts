@@ -29,15 +29,7 @@ export class SidenavDrawerComponent implements OnInit {
     private readonly todoListStore: TodoListStore
   ) { }
 
-  ngOnInit(): void {
-  }
-
-  openCreateProjectDialog(): void {
-    const dialogRef = this.dialog.open(NewProjectDialogComponent);
-    dialogRef.afterClosed().subscribe((result) => {
-      this.handleCreateProjectDialogResult(result);
-    });
-  }
+  ngOnInit(): void { }
 
   handleCreateProjectDialogResult(result): void {
     if (!result) return;
@@ -45,6 +37,13 @@ export class SidenavDrawerComponent implements OnInit {
       name: result
     };
     this.todoListStore.createProject(newProject);
+  }
+
+  openCreateProjectDialog(): void {
+    const dialogRef = this.dialog.open(NewProjectDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      this.handleCreateProjectDialogResult(result);
+    });
   }
 
   selectInbox(): void {
