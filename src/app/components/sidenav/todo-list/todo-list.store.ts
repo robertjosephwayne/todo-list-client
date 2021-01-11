@@ -64,7 +64,10 @@ export class TodoListStore extends ComponentStore<TodoListState> {
   private readonly selectedProject$ = this.select(
     this.projects$,
     this.selectedProjectId$,
-    (projects, selectedProjectId) => projects.find(project => project.id === selectedProjectId)
+    (projects, selectedProjectId) => {
+      const selectedProject = projects.find(project => project.id === selectedProjectId);
+      return selectedProject || projects[0];
+    }
   );
 
   readonly selectedProjectName$ = this.select(
