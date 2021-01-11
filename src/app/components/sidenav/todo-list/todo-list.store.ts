@@ -190,14 +190,22 @@ export class TodoListStore extends ComponentStore<TodoListState> {
   readonly deleteTodo = this.effect<Todo>((todos$) =>
     todos$.pipe(
       mergeMap((todo) => {
-        // TODO: Fix optimistic updating
-        // this.setState((state) => {
-        //   const updatedTodos = state.todos.filter(currentTodo => currentTodo.id !== todo.id);
-        //   return {
-        //     ...state,
-        //     todos: updatedTodos
-        //   };
-        // });
+        this.setState((state) => {
+          const selectedProject = this.getProjectById(state.projects, todo.projectId);
+          const updatedTodos = selectedProject.todos.filter(currentTodo => currentTodo.id !== todo.id);
+          const updatedProject = {
+            ...selectedProject,
+            todos: updatedTodos
+          };
+          const updatedProjects = [...state.projects].map(project => {
+            if (project.id === updatedProject.id) return updatedProject;
+            return project;
+          });
+          return {
+            ...state,
+            projects: updatedProjects
+          };
+        });
         return this.todoListService.deleteTodo(todo).pipe(
           tap({
             next: () => {
