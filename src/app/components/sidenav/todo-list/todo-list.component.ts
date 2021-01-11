@@ -102,7 +102,6 @@ export class TodoListComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      debugger;
       this.handleEditTodoDialogResult(todo, result);
     });
   }
