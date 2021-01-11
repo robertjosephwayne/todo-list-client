@@ -5,7 +5,6 @@ import { NewTodo } from '../models/new-todo.model';
 import { Project } from '../models/project.model';
 import { Todo } from '../models/todo.model';
 
-
 @Injectable({ providedIn: 'root' })
 export class TodoListService {
 
