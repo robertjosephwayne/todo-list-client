@@ -30,6 +30,7 @@ export class TodoListComponent implements OnInit {
   readonly isLoading$ = this.todoListStore.isLoading$;
   readonly selectedProjectId$ = this.todoListStore.selectedProjectId$;
   readonly selectedProjectName$ = this.todoListStore.selectedProjectName$;
+  readonly selectedProjectTodoCount$ = this.todoListStore.selectedProjectTodoCount$;
   readonly selectedProjectTodos$ = this.todoListStore.selectedProjectTodos$;
   projects: Project[];
   projectsSub: Subscription;

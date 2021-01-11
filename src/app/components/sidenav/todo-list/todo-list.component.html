@@ -16,11 +16,14 @@
         <mat-icon> add </mat-icon>
       </button>
     </div>
+
     <h1>{{ selectedProjectName$ | async }}</h1>
+
+    <h3 *ngIf="!(selectedProjectTodoCount$ | async)">
+      This project is currently empty.
+    </h3>
   </div>
 </ng-container>
-
-<!-- TODO: Display message when todo list is empty -->
 
 <ng-container *ngIf="selectedProjectTodos$ | async as selectedProjectTodos">
   <mat-table
