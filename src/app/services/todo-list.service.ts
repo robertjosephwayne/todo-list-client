@@ -24,7 +24,7 @@ export class TodoListService {
   }
 
   editTodo(updatedTodo: Todo) {
-    return this.http.patch(`http://localhost:3000/projects/${updatedTodo.projectId}/todos/${updatedTodo.id}`, {
+    return this.http.patch(`http://localhost:3000/todos/${updatedTodo.id}`, {
       title: updatedTodo.title,
       isComplete: updatedTodo.isComplete,
       projectId: updatedTodo.projectId
