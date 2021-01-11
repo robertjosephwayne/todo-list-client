@@ -55,11 +55,12 @@ export class TodoListComponent implements OnInit {
     this.todoListStore.createTodo(newTodo);
   }
 
-  handleEditTodoDialogResult(originalTodo: Todo, result: { title: string; }) {
-    if (!result?.title || result.title === originalTodo.title) return;
+  handleEditTodoDialogResult(originalTodo: Todo, result: { title: string, projectId: string; }) {
+    if (!result?.title || !result?.projectId) return;
     const editedTodo: Todo = {
       ...originalTodo,
-      title: result.title
+      title: result.title,
+      projectId: result.projectId
     };
     this.todoListStore.editTodo(editedTodo);
   }
@@ -100,9 +101,10 @@ export class TodoListComponent implements OnInit {
         projects: this.projects
       }
     });
-    dialogRef.afterClosed().subscribe(result =>
-      this.handleEditTodoDialogResult(todo, result)
-    );
+    dialogRef.afterClosed().subscribe(result => {
+      debugger;
+      this.handleEditTodoDialogResult(todo, result);
+    });
   }
 
   setProjectsSub(): void {

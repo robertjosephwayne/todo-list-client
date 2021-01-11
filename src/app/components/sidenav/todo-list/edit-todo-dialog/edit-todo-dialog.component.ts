@@ -23,8 +23,11 @@ export class EditTodoDialogComponent implements OnInit {
 
   onSave(form: NgForm) {
     if (form.invalid) return;
-    this.data.todo.title = form.value.title;
-    this.dialogRef.close(this.data);
+    const result = {
+      title: form.value.title,
+      projectId: form.value.projectId
+    };
+    this.dialogRef.close(result);
   }
 
   setSelectedProjectId(): void {
