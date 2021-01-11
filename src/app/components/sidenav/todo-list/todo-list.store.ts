@@ -77,10 +77,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
 
   readonly selectedProjectTodos$ = this.select(
     this.selectedProject$,
-    (selectedProject) => {
-      if (!selectedProject) return [];
-      return selectedProject.todos;
-    }
+    (selectedProject) => this.getProjectTodos(selectedProject)
   );
 
   // Updaters
@@ -156,18 +153,19 @@ export class TodoListStore extends ComponentStore<TodoListState> {
       mergeMap((newTodo) => {
         this.setState((state) => {
           const selectedProject = this.getProjectById(state.projects, newTodo.projectId);
-          const updatedTodos = [
-            ...selectedProject.todos,
-            { ...newTodo, id: '' }
-          ];
+          const updatedTodos = [...this.getProjectTodos(selectedProject)];
+          updatedTodos.push({ ...newTodo, id: '' });
+
           const updatedProject = {
             ...selectedProject,
             todos: updatedTodos
           };
+
           const updatedProjects = [...state.projects].map(project => {
             if (project.id === updatedProject.id) return updatedProject;
             return project;
           });
+
           return {
             ...state,
             projects: updatedProjects
@@ -195,15 +193,19 @@ export class TodoListStore extends ComponentStore<TodoListState> {
       mergeMap((todo) => {
         this.setState((state) => {
           const selectedProject = this.getProjectById(state.projects, todo.projectId);
-          const updatedTodos = selectedProject.todos.filter(currentTodo => currentTodo.id !== todo.id);
+          const selectedProjectTodos = this.getProjectTodos(selectedProject);
+          const updatedTodos = selectedProjectTodos.filter(currentTodo => currentTodo.id !== todo.id);
+
           const updatedProject = {
             ...selectedProject,
             todos: updatedTodos
           };
+
           const updatedProjects = [...state.projects].map(project => {
             if (project.id === updatedProject.id) return updatedProject;
             return project;
           });
+
           return {
             ...state,
             projects: updatedProjects
@@ -235,7 +237,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
           const updatedCurrentProject = this.removeTodoFromProject(currentProject, editedTodo);
 
           const newProject = this.getProjectById(state.projects, editedTodo.projectId);
-          const updatedNewProjectTodos = newProject.todos ? [...newProject.todos] : [];
+          const updatedNewProjectTodos = [...this.getProjectTodos(newProject)];
 
           let editedTodoIndex = updatedNewProjectTodos.findIndex(todo => todo.id === editedTodo.id);
           if (editedTodoIndex === -1) {
@@ -327,8 +329,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
 
   private readonly getProjectByTodoId = (projects: Project[], todoId: string): Project => {
     return projects.find(project => {
-      const todos = project.todos;
-      if (!todos) return false;
+      const todos = this.getProjectTodos(project);
       for (let todo of todos) {
         if (todo.id === todoId) return true;
       }
@@ -336,11 +337,19 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     });
   };
 
+  private readonly getProjectTodos = (project: Project): Todo[] => {
+    if (!project?.todos) return [];
+    return project.todos;
+  };
+
   private readonly removeTodoFromProject = (project: Project, todo: Todo): Project => {
-    const todos = project.todos.filter(currentTodo => currentTodo.id !== todo.id);
+    const todos = this.getProjectTodos(project);
+    const updatedTodos = todos.filter(currentTodo => currentTodo.id !== todo.id);
     return {
       ...project,
-      todos
+      todos: updatedTodos
     };
   };
+
+
 }
