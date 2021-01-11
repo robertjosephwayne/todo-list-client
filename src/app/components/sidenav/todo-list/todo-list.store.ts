@@ -152,11 +152,25 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     newTodos$.pipe(
       mergeMap((newTodo) => {
         this.setState((state) => {
+          const selectedProject = this.getProjectById(state.projects, newTodo.projectId);
+          const updatedTodos = [
+            ...selectedProject.todos,
+            { ...newTodo, id: '' }
+          ];
+          const updatedProject = {
+            ...selectedProject,
+            todos: updatedTodos
+          };
+          const updatedProjects = [...state.projects].map(project => {
+            if (project.id === updatedProject.id) return updatedProject;
+            return project;
+          });
           return {
             ...state,
-            // TODO: Fix optimistic updating
+            projects: updatedProjects
           };
         });
+
         return this.todoListService.createTodo(newTodo).pipe(
           tap({
             next: () => {
@@ -273,5 +287,9 @@ export class TodoListStore extends ComponentStore<TodoListState> {
 
   private readonly handleError = (error) => {
     console.error(error);
+  };
+
+  private readonly getProjectById = (projects, projectId) => {
+    return projects.find(project => project.id === projectId);
   };
 }
