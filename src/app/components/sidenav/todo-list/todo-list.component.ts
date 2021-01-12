@@ -86,6 +86,7 @@ export class TodoListComponent implements OnInit {
   }
 
   openCreateTodoDialog(selectedProjectId: string): void {
+    if (!selectedProjectId) return;
     const dialogRef = this.dialog.open(CreateTodoDialogComponent, {
       data: {
         title: '',
