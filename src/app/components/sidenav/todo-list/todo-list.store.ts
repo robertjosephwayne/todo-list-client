@@ -119,7 +119,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
   readonly setSelectedProjectId = this.updater((state, selectedProjectId: string) => {
     return {
       ...state,
-      selectedProjectId
+      selectedProjectId: selectedProjectId || state.selectedProjectId
     };
   });
 
