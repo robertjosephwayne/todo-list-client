@@ -47,6 +47,7 @@ export class TodoListComponent implements OnInit {
   }
 
   handleCreateTodoDialogResult(result: { title: string, projectId: string; }): void {
+    // TODO: Validate title and projectId in form
     if (!result?.title) return;
     const newTodo: NewTodo = {
       title: result.title,
@@ -57,6 +58,7 @@ export class TodoListComponent implements OnInit {
   }
 
   handleEditTodoDialogResult(originalTodo: Todo, result: { title: string, projectId: string; }) {
+    // TODO: Validate title and projectId in form
     if (!result?.title || !result?.projectId) return;
     const editedTodo: Todo = {
       ...originalTodo,
