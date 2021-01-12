@@ -99,6 +99,7 @@ export class TodoListComponent implements OnInit {
   }
 
   openEditTodoDialog(todo: Todo): void {
+    if (!todo?.id) return;
     const dialogRef = this.dialog.open(EditTodoDialogComponent, {
       data: {
         todo,
