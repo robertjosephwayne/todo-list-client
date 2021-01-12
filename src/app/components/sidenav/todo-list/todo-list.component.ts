@@ -10,7 +10,6 @@ import { CreateTodoDialogComponent } from './create-todo-dialog/create-todo-dial
 import { EditTodoDialogComponent } from './edit-todo-dialog/edit-todo-dialog.component';
 import { TodoListStore } from './todo-list.store';
 
-
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
@@ -73,6 +72,7 @@ export class TodoListComponent implements OnInit {
   }
 
   onRowClick($event, todo: Todo): void {
+    // TODO: Refactor this guard so it isn't dependent on element type
     if ($event.target.nodeName !== "MAT-CELL") return;
     this.openEditTodoDialog(todo);
   }
