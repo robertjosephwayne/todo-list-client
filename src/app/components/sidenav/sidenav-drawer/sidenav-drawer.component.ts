@@ -45,6 +45,7 @@ export class SidenavDrawerComponent implements OnInit {
 
   onProjectDelete($event, project: Project): void {
     $event.stopPropagation();
+    if (!project.id) return;
     this.todoListStore.deleteProject(project);
   }
 
@@ -60,6 +61,7 @@ export class SidenavDrawerComponent implements OnInit {
   }
 
   selectProject(project: Project): void {
+    if (!project?.id) return;
     this.todoListStore.setSelectedProjectId(project.id);
   }
 
