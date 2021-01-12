@@ -8,7 +8,6 @@ import { SidenavStore } from '../sidenav.store';
 import { TodoListStore } from '../todo-list/todo-list.store';
 import { NewProjectDialogComponent } from './new-project-dialog/new-project-dialog.component';
 
-
 @Component({
   selector: 'app-sidenav-drawer',
   templateUrl: './sidenav-drawer.component.html',
@@ -45,9 +44,8 @@ export class SidenavDrawerComponent implements OnInit {
   }
 
   onProjectDelete($event, project: Project): void {
-    // TODO
     $event.stopPropagation();
-    console.log(project);
+    this.todoListStore.deleteProject(project);
   }
 
   openCreateProjectDialog(): void {
