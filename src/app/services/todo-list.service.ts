@@ -18,6 +18,10 @@ export class TodoListService {
     return this.http.post<Todo>(`http://localhost:3000/projects/${newTodo.projectId}/todos`, newTodo);
   }
 
+  deleteProject(project: Project) {
+    return this.http.delete(`http://localhost:3000/projects/${project.id}`);
+  }
+
   deleteTodo(todo: Todo) {
     return this.http.delete(`http://localhost:3000/todos/${todo.id}`);
   }
