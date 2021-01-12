@@ -40,8 +40,8 @@ export class SidenavDrawerComponent implements OnInit {
   }
 
   onProjectAdd($event): void {
-    // TODO
     $event.stopPropagation();
+    this.openCreateProjectDialog();
   }
 
   onProjectDelete($event, project: Project): void {
