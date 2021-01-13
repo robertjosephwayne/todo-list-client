@@ -35,9 +35,19 @@ export class TodoListService {
   }
 
   getProjects() {
-    return this.http.get<Project[]>('http://localhost:3000/projects?filter[include][][relation]=todos');
+    const filter = {
+      include: [
+        {
+          relation: 'todos',
+          scope: {
+            order: 'createdAt ASC'
+          }
+        }
+      ]
+    };
+    // return this.http.get<Project[]>('http://localhost:3000/projects?filter[include][][relation]=todos[scope][order]=createdAt ASC');
+    return this.http.get<Project[]>(`http://localhost:3000/projects?filter=${JSON.stringify(filter)}`);
   }
-
 }
 
 

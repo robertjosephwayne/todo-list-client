@@ -5,4 +5,5 @@ export interface Todo {
   isComplete: boolean;
   projectId: string;
   title: string;
+  createdAt: Date;
 }

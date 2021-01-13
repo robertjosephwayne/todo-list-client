@@ -158,8 +158,17 @@ export class TodoListStore extends ComponentStore<TodoListState> {
       mergeMap((newTodo) => {
         this.setState((state) => {
           const selectedProject = this.getProjectById(state.projects, newTodo.projectId);
-          const updatedTodos = [...this.getProjectTodos(selectedProject)];
-          updatedTodos.push({ ...newTodo, id: '' });
+          const updatedTodos = [
+            ...this.getProjectTodos(selectedProject),
+            {
+              ...newTodo,
+              id: '',
+              createdAt: new Date()
+            },
+          ].sort((firstTodo, secondTodo) => {
+            if (firstTodo.createdAt < secondTodo.createdAt) return -1;
+            return 1;
+          });
 
           const updatedProject = {
             ...selectedProject,
@@ -197,7 +206,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     projects$.pipe(
       mergeMap((project) => {
         if (!project?.id) return;
-        
+
         this.setState((state) => {
           const updatedProjects = state.projects.filter(currentProject => {
             return currentProject.id !== project.id;
