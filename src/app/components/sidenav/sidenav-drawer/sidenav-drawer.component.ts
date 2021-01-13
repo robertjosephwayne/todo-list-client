@@ -31,7 +31,7 @@ export class SidenavDrawerComponent implements OnInit {
   ngOnInit(): void { }
 
   handleCreateProjectDialogResult(result): void {
-    if (!result?.name) return;
+    if (!result) return;
     const newProject: NewProject = {
       name: result
     };
