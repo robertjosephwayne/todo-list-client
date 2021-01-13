@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { EMPTY } from 'rxjs';
-import { catchError, concatMap, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { catchError, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { NewProject } from 'src/app/models/new-project.model';
 import { NewTodo } from 'src/app/models/new-todo.model';
 import { Project } from 'src/app/models/project.model';
@@ -197,7 +197,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     projects$.pipe(
       mergeMap((project) => {
         if (!project?.id) return;
-
+        
         this.setState((state) => {
           const updatedProjects = state.projects.filter(currentProject => {
             return currentProject.id !== project.id;
@@ -272,7 +272,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
   // TODO: Fix ordering of optimistic vs. backend update
   readonly editTodo = this.effect<Todo>((editedTodos$) =>
     editedTodos$.pipe(
-      concatMap((editedTodo) => {
+      mergeMap((editedTodo) => {
         if (!editedTodo?.id || !editedTodo?.title) return;
 
         this.setState((state) => {
