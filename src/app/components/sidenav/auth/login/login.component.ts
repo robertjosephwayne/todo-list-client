@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../../../store/auth/auth.actions';
 
-
+// TODO: Refactor using reactive forms
 @Component({
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
@@ -26,6 +26,6 @@ export class LoginComponent implements OnInit {
     };
     this.store.dispatch(AuthActions.login({ loginCredentials }));
   }
-  
+
 }
 
