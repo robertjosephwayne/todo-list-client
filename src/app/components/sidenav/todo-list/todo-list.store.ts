@@ -52,6 +52,11 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     (projects, inboxProject) => projects.filter(project => project.id !== inboxProject.id)
   );
 
+  readonly customProjectCount$ = this.select(
+    this.customProjects$,
+    customProjects => customProjects.length
+  );
+
   readonly inboxSelected$ = this.select(
     this.selectedProjectId$,
     this.inboxProject$,
