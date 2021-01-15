@@ -15,6 +15,7 @@ import { NewProjectDialogComponent } from './new-project-dialog/new-project-dial
   styleUrls: ['./sidenav-drawer.component.css']
 })
 export class SidenavDrawerComponent implements OnInit {
+  readonly customProjectCount$ = this.todoListStore.customProjectCount$;
   readonly customProjects$ = this.todoListStore.customProjects$;
   readonly inboxProject$ = this.todoListStore.inboxProject$;
   readonly inboxSelected$ = this.todoListStore.inboxSelected$;
