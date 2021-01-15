@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -8,16 +8,32 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./new-project-dialog.component.css']
 })
 export class NewProjectDialogComponent implements OnInit {
+  maxProjectNameLength = 15;
+
+  projectNameControlValidators = [
+    Validators.required,
+    Validators.maxLength(this.maxProjectNameLength)
+  ];
+  projectNameControlConfig = {
+    validators: this.projectNameControlValidators
+  };
+  newProjectForm = this.fb.group({
+    projectName: ['', this.projectNameControlConfig]
+  });
 
   constructor(
+    private fb: FormBuilder,
     public dialogRef: MatDialogRef<NewProjectDialogComponent>
   ) { }
 
   ngOnInit(): void { }
 
-  onSave(form: NgForm) {
-    if (form.form.invalid) return;
-    this.dialogRef.close(form.form.value.projectName);
+  onSave() {
+    this.dialogRef.close(this.newProjectForm.value.projectName);
+  }
+
+  get projectName() {
+    return this.newProjectForm.get('projectName');
   }
 
 }
