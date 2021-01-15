@@ -55,19 +55,21 @@
         <mat-menu #editProjectMenu="matMenu" xPosition="after">
           <button
             mat-menu-item
-            class="focus:outline-none"
+            class="focus:outline-none group"
             (click)="openEditProjectDialog(project)"
             [disabled]="!project.id"
           >
-            Edit Project
+            <mat-icon class="group-hover:text-yellow-500">edit</mat-icon>
+            <span>Edit Project</span>
           </button>
           <button
             mat-menu-item
-            class="focus:outline-none"
+            class="focus:outline-none group"
             (click)="onProjectDelete(project)"
             [disabled]="!project.id"
           >
-            Delete Project
+            <mat-icon class="group-hover:text-red-700">delete</mat-icon>
+            <span>Delete Project</span>
           </button>
         </mat-menu>
       </a>
