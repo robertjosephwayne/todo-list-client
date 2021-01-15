@@ -1,6 +1,6 @@
 // Refactor using reactive forms
 import { Component, Inject, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Project } from 'src/app/models/project.model';
 import { Todo } from 'src/app/models/todo.model';
@@ -11,31 +11,38 @@ import { Todo } from 'src/app/models/todo.model';
   styleUrls: ['./edit-todo-dialog.component.css']
 })
 export class EditTodoDialogComponent implements OnInit {
-  selectedProjectId: string;
+  maxTitleLength = 35;
+
+  todoTitleControlValidators = [
+    Validators.required,
+    Validators.maxLength(this.maxTitleLength)
+  ];
+  todoTitleControlConfig = {
+    validators: this.todoTitleControlValidators
+  };
+  todoForm = this.fb.group({
+    title: [this.data.todo.title, this.todoTitleControlConfig],
+    projectId: [this.data.todo.projectId]
+  });
 
   constructor(
+    private readonly fb: FormBuilder,
     public dialogRef: MatDialogRef<EditTodoDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { todo: Todo, projects: Project[]; }
   ) { }
 
-  ngOnInit(): void {
-    this.setSelectedProjectId();
+  ngOnInit(): void { }
+
+  onSave() {
+    this.dialogRef.close(this.todoForm.value);
   }
 
-  onSave(form: NgForm) {
-    if (form.invalid) return;
-    const result = {
-      title: form.value.title,
-      projectId: form.value.projectId
-    };
-    this.dialogRef.close(result);
+  get title() {
+    return this.todoForm.get('title');
   }
 
-  setSelectedProjectId(): void {
-    const selectedProject = this.data.projects.find(project => {
-      return project.id === this.data.todo.projectId;
-    });
-    this.selectedProjectId = selectedProject.id;
+  get projectId() {
+    return this.todoForm.get('projectId');
   }
 
 }
