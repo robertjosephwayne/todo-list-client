@@ -34,6 +34,12 @@ export class TodoListService {
     });
   }
 
+  editProject(updatedProject: Project) {
+    return this.http.patch(`http://localhost:3000/projects/${updatedProject.id}`, {
+      name: updatedProject.name
+    });
+  }
+
   getProjects() {
     const filter = {
       include: [
@@ -45,7 +51,6 @@ export class TodoListService {
         }
       ]
     };
-    // return this.http.get<Project[]>('http://localhost:3000/projects?filter[include][][relation]=todos[scope][order]=createdAt ASC');
     return this.http.get<Project[]>(`http://localhost:3000/projects?filter=${JSON.stringify(filter)}`);
   }
 }

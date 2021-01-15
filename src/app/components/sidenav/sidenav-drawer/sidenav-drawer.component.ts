@@ -6,6 +6,7 @@ import { Project } from 'src/app/models/project.model';
 import * as fromAuth from '../../../store/auth/auth.selectors';
 import { SidenavStore } from '../sidenav.store';
 import { TodoListStore } from '../todo-list/todo-list.store';
+import { EditProjectDialogComponent } from './edit-project-dialog/edit-project-dialog.component';
 import { NewProjectDialogComponent } from './new-project-dialog/new-project-dialog.component';
 
 @Component({
@@ -38,21 +39,39 @@ export class SidenavDrawerComponent implements OnInit {
     this.todoListStore.createProject(newProject);
   }
 
+  handleEditProjectDialogResult(updatedProject): void {
+    this.todoListStore.editProject(updatedProject);
+  }
+
   onProjectAdd($event): void {
     $event.stopPropagation();
     this.openCreateProjectDialog();
   }
 
-  onProjectDelete($event, project: Project): void {
-    $event.stopPropagation();
+  onProjectDelete(project: Project): void {
     if (!project.id) return;
     this.todoListStore.deleteProject(project);
+  }
+
+  onSelectProjectEditMenu($event): void {
+    $event.stopPropagation();
   }
 
   openCreateProjectDialog(): void {
     const dialogRef = this.dialog.open(NewProjectDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       this.handleCreateProjectDialogResult(result);
+    });
+  }
+
+  openEditProjectDialog(project: Project): void {
+    const dialogRef = this.dialog.open(EditProjectDialogComponent, {
+      data: {
+        project
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.handleEditProjectDialogResult(result);
     });
   }
 

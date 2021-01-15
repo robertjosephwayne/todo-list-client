@@ -43,13 +43,33 @@
           >{{ project.name }}
         </span>
         <span class="flex flex-grow"></span>
+
         <button
-          class="focus:outline-none text-gray-300 invisible group-hover:visible hover:text-red-800"
+          class="focus:outline-none text-gray-300 invisible group-hover:visible hover:text-gray-600"
           mat-icon-button
-          (click)="onProjectDelete($event, project)"
+          (click)="onSelectProjectEditMenu($event)"
+          [matMenuTriggerFor]="editProjectMenu"
         >
-          <mat-icon> remove_circle_outline </mat-icon>
+          <mat-icon> more_vert </mat-icon>
         </button>
+        <mat-menu #editProjectMenu="matMenu" xPosition="after">
+          <button
+            mat-menu-item
+            class="focus:outline-none"
+            (click)="openEditProjectDialog(project)"
+            [disabled]="!project.id"
+          >
+            Edit Project
+          </button>
+          <button
+            mat-menu-item
+            class="focus:outline-none"
+            (click)="onProjectDelete(project)"
+            [disabled]="!project.id"
+          >
+            Delete Project
+          </button>
+        </mat-menu>
       </a>
       <!-- TODO: Handle dropdown when project list is empty -->
       <!-- <a mat-list-item (click)="openCreateProjectDialog()">

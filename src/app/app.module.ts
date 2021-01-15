@@ -24,6 +24,7 @@ import { MaterialModule } from './material.module';
 import { AuthInterceptor } from './services/auth-interceptor';
 import { appReducer } from './store/app.reducer';
 import { AuthEffects } from './store/auth/auth.effects';
+import { EditProjectDialogComponent } from './components/sidenav/sidenav-drawer/edit-project-dialog/edit-project-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { AuthEffects } from './store/auth/auth.effects';
     SignupComponent,
     TodoItemComponent,
     TodoListComponent,
+    EditProjectDialogComponent,
   ],
   imports: [
     BrowserModule,

@@ -331,6 +331,37 @@ export class TodoListStore extends ComponentStore<TodoListState> {
     ),
   );
 
+  readonly editProject = this.effect<Project>((editedProjects$) =>
+    editedProjects$.pipe(
+      mergeMap((editedProject) => {
+        this.setState((state) => {
+          const updatedProjects = [...state.projects].map(project => {
+            if (project.id === editedProject.id) return editedProject;
+            return project;
+          });
+
+          return {
+            ...state,
+            projects: updatedProjects
+          };
+        });;
+
+        return this.todoListService.editProject(editedProject).pipe(
+          tap({
+            next: () => {
+              this.getProjects();
+            },
+            error: (error) => {
+              this.getProjects();
+              return this.handleError(error);
+            }
+          }),
+          catchError(() => EMPTY)
+        );
+      })
+    )
+  );
+
   readonly getProjects = this.effect((trigger$) =>
     trigger$.pipe(
       switchMap(() => {
