@@ -9,8 +9,6 @@
       <span class="ml-2">Inbox</span>
     </a>
 
-    <mat-divider></mat-divider>
-
     <a mat-list-item (click)="toggleProjectList()">
       <mat-icon matListIcon *ngIf="!(projectListOpen$ | async)">
         chevron_right
@@ -28,6 +26,7 @@
         <mat-icon> add_circle_outline </mat-icon>
       </button>
     </a>
+    <mat-divider></mat-divider>
     <ng-container *ngIf="projectListOpen$ | async">
       <a
         mat-list-item
@@ -73,11 +72,10 @@
           </button>
         </mat-menu>
       </a>
-      <!-- TODO: Handle dropdown when project list is empty -->
-      <!-- <a mat-list-item (click)="openCreateProjectDialog()">
-        <mat-icon matListIcon> add </mat-icon>
-        <span class="ml-2">Add Project</span>
-      </a> -->
+      <!-- TODO: This shouldn't be clickable -->
+      <mat-list-item *ngIf="!(customProjectCount$ | async)">
+        <span> You don't have any projects. </span>
+      </mat-list-item>
     </ng-container>
   </mat-nav-list>
 </ng-container>
