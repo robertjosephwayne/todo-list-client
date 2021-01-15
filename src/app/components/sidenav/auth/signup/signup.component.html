@@ -5,40 +5,35 @@
       <div class="text-center">
         <h1>Create Account</h1>
       </div>
-      <form (submit)="onSignup(signupForm)" #signupForm="ngForm" class="pt-2">
+
+      <form [formGroup]="signupForm" (ngSubmit)="onSignup()" class="pt-2">
         <div class="mb-4">
           <mat-form-field appearance="outline" class="w-full">
             <mat-label>Email</mat-label>
-            <input
-              matInput
-              name="email"
-              ngModel
-              type="email"
-              #emailInput="ngModel"
-              required
-              email
-            />
-            <mat-error *ngIf="emailInput.invalid">
-              {{ emailErrorMessage }}
+            <input matInput type="email" formControlName="email" />
+            <mat-error *ngIf="email.errors?.required">
+              Please enter an email.
             </mat-error>
+            <mat-error *ngIf="email.errors?.email">
+              Please enter a valid email.
+            </mat-error>
+            <!-- Add error if email is already registered -->
           </mat-form-field>
         </div>
 
         <div class="mb-6">
           <mat-form-field appearance="outline" class="w-full">
             <mat-label>Password</mat-label>
-            <input
-              matInput
-              name="password"
-              ngModel
-              type="password"
-              #passwordInput="ngModel"
-              required
-              password
-            />
-            <mat-error *ngIf="passwordInput.invalid">
-              {{ passwordErrorMessage }}
+            <input matInput type="password" formControlName="password" />
+            <mat-error *ngIf="password.errors?.required">
+              Please enter a password.
             </mat-error>
+            <mat-error *ngIf="password.errors?.minlength">
+              Your password must be at least 8 characters long.
+            </mat-error>
+            <!-- TODO: Add error if password doesn't contain a lowercase letter -->
+            <!-- TODO: Add error if password doesn't contain a capital letter -->
+            <!-- TODO: Add error if password doesn't contain a number -->
           </mat-form-field>
         </div>
 
@@ -52,6 +47,7 @@
           <button
             mat-raised-button
             class="bg-emerald-800 text-white focus:outline-none w-8"
+            [disabled]="!signupForm.valid"
             type="submit"
           >
             Next
