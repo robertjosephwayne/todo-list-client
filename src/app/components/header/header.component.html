@@ -1,4 +1,3 @@
-<!-- TODO: Fix automatic height adjustment when screen width is small -->
 <ng-container *ngIf="isAuth$ | async as isAuth">
   <mat-toolbar class="flex justify-between bg-white border-b">
     <div>
@@ -10,27 +9,6 @@
         <mat-icon>menu</mat-icon>
       </button>
     </div>
-
-    <!-- <nav mat-tab-nav-bar *ngIf="!isAuth">
-    <a
-      mat-tab-link
-      routerLink="/login"
-      routerLinkActive
-      #signInLink="routerLinkActive"
-      [active]="signInLink.isActive"
-    >
-      Sign In
-    </a>
-    <a
-      mat-tab-link
-      routerLink="/signup"
-      routerLinkActive
-      #signUpLink="routerLinkActive"
-      [active]="signUpLink.isActive"
-    >
-      Sign Up
-    </a>
-  </nav> -->
 
     <button mat-button class="focus:outline-none" (click)="onLogout()">
       Logout
