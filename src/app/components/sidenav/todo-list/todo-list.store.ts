@@ -349,7 +349,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
         return this.todoListService.editProject(editedProject).pipe(
           tap({
             next: () => {
-              this.getProjects();
+              // this.getProjects();
             },
             error: (error) => {
               this.getProjects();
