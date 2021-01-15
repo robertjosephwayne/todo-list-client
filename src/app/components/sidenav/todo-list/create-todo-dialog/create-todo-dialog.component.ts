@@ -1,26 +1,41 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-// Refactor using reactive forms
 @Component({
   selector: 'app-create-todo-dialog',
   templateUrl: './create-todo-dialog.component.html',
   styleUrls: ['./create-todo-dialog.component.css']
 })
 export class CreateTodoDialogComponent implements OnInit {
+  maxTitleLength = 35;
+
+  todoTitleControlValidators = [
+    Validators.required,
+    Validators.maxLength(this.maxTitleLength)
+  ];
+  todoTitleControlConfig = {
+    validators: this.todoTitleControlValidators
+  };
+  todoForm = this.fb.group({
+    title: [this.data.title, this.todoTitleControlConfig]
+  });
 
   constructor(
+    private readonly fb: FormBuilder,
     public dialogRef: MatDialogRef<CreateTodoDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { title: string; }
+    @Inject(MAT_DIALOG_DATA) public data: { title: string, projectId: string; }
   ) { }
 
   ngOnInit(): void { }
 
-  onSave(form: NgForm) {
-    if (form.invalid) return;
-    this.data.title = form.value.title;
+  onSave() {
+    this.data.title = this.todoForm.value.title;
     this.dialogRef.close(this.data);
+  }
+
+  get title() {
+    return this.todoForm.get('title');
   }
 
 }

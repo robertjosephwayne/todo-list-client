@@ -1,17 +1,31 @@
 <!-- Refactor using reactive forms -->
-<form (submit)="onSave(todoForm)" #todoForm="ngForm">
+<form [formGroup]="todoForm" (ngSubmit)="onSave()">
   <div mat-dialog-content>
     <div class="flex flex-col">
       <mat-form-field class="xs: w-80">
         <mat-label>Create Task</mat-label>
-        <!-- TODO: Set input length limit -->
-        <input matInput type="text" name="title" [ngModel]="data.title" />
+        <input
+          matInput
+          type="text"
+          formControlName="title"
+          [maxlength]="maxTitleLength"
+        />
+        <mat-hint align="end">
+          {{ title.value.length }} / {{ maxTitleLength }}
+        </mat-hint>
       </mat-form-field>
     </div>
   </div>
 
   <div mat-dialog-actions class="flex justify-center">
-    <button class="focus:outline-none" mat-button type="submit">Save</button>
+    <button
+      class="focus:outline-none"
+      mat-button
+      type="submit"
+      [disabled]="todoForm.invalid"
+    >
+      Save
+    </button>
     <button class="focus:outline-none" mat-button mat-dialog-close>
       Close
     </button>
