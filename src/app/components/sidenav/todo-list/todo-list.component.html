@@ -49,7 +49,7 @@
       <mat-cell *matCellDef="let todo" class="flex-initial">
         <button
           mat-icon-button
-          class="focus:outline-none invisible group-hover:visible text-yellow-500"
+          class="focus:outline-none invisible group-hover:visible text-gray-300 hover:text-yellow-500"
           (click)="openEditTodoDialog(todo)"
         >
           <mat-icon>edit</mat-icon>
@@ -57,7 +57,7 @@
         <button
           mat-icon-button
           (click)="onDeleteTodo(todo)"
-          class="invisible focus:outline-none group-hover:visible text-red-700"
+          class="invisible focus:outline-none group-hover:visible text-gray-300 hover:text-red-700"
         >
           <mat-icon>delete</mat-icon>
         </button>
