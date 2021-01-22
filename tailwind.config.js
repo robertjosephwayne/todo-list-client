@@ -1,4 +1,5 @@
-const colors = require("tailwindcss/colors");
+const defaultColors = require("tailwindcss/colors");
+const customColors = require("./theme/colors");
 
 module.exports = {
   purge: ["./src/**/*.{html,ts}"],
@@ -7,6 +8,7 @@ module.exports = {
     extend: {
       width: {
         102: "25.5rem",
+        
       },
       screens: {
         xs: "37.5rem",
@@ -19,12 +21,12 @@ module.exports = {
       black: "#000",
       white: "#fff",
 
-      emerald: colors.emerald,
-      gray: colors.blueGray,
-      blue: colors.lightBlue,
-      purple: colors.violet,
-      red: colors.red,
-      yellow: colors.yellow,
+      cyan: customColors.cyan,
+      gray: customColors.blueGray,
+      indigo: customColors.indigo,
+      pink: customColors.pink,
+      red: customColors.red,
+      yellow: customColors.yellow,
     },
   },
   variants: {
