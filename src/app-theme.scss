@@ -6,6 +6,35 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
+$tw-cyan: (
+  900: #044e54,
+  800: #0a6c74,
+  700: #0e7c86,
+  600: #14919b,
+  500: #2cb1bc,
+  400: #38bec9,
+  300: #54d1db,
+  200: #87eaf2,
+  100: #bef8fd,
+  50: #e0fcff,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: $black-87-opacity,
+    A700: $black-87-opacity,
+  ),
+);
+
 $tw-emerald: (
   50: #ecfdf5,
   100: #d1fae5,
@@ -67,8 +96,8 @@ $tw-red: (
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$app-primary: mat-palette($tw-emerald, 700, 300, 700);
-$app-accent: mat-palette($tw-emerald, 500, 300, 600);
+$app-primary: mat-palette($tw-cyan, 700, 300, 700);
+$app-accent: mat-palette($tw-cyan, 500, 300, 600);
 
 // The warn palette is optional (defaults to red).
 $app-warn: mat-palette($tw-red, 600, 400, 900);
