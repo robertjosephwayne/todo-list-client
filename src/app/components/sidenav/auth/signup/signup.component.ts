@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { createPasswordStrengthValidator } from 'src/app/validators/password-strength.validator';
 import * as AuthActions from '../../../../store/auth/auth.actions';
 
 @Component({
@@ -20,8 +19,7 @@ export class SignupComponent implements OnInit {
   };
   passwordControlSyncValidators = [
     Validators.required,
-    Validators.minLength(8),
-    createPasswordStrengthValidator()
+    Validators.minLength(8)
   ];
   passwordControlConfig = {
     validators: this.passwordControlSyncValidators
