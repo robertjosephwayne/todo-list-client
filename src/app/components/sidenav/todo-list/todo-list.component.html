@@ -5,7 +5,7 @@
 ></mat-spinner>
 
 <ng-container *ngIf="selectedProjectId$ | async as selectedProjectId">
-  <div class="w-11/12 max-w-3xl mx-auto mt-4" *ngIf="!(isLoading$ | async)">
+  <div class="w-11/12 max-w-3xl mx-auto mt-10" *ngIf="!(isLoading$ | async)">
     <div class="mb-6" *ngIf="selectedProjectId">
       <button
         class="focus:outline-none"
