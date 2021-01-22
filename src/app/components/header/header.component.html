@@ -1,16 +1,20 @@
 <ng-container *ngIf="isAuth$ | async as isAuth">
-  <mat-toolbar class="flex justify-between bg-white border-b">
+  <mat-toolbar class="flex justify-between bg-gray-700 border-b">
     <div>
       <button
         mat-icon-button
         class="focus:outline-none"
         (click)="onMenuSelected()"
       >
-        <mat-icon>menu</mat-icon>
+        <mat-icon class="text-white">menu</mat-icon>
       </button>
     </div>
 
-    <button mat-button class="focus:outline-none" (click)="onLogout()">
+    <button
+      mat-button
+      class="focus:outline-none text-white"
+      (click)="onLogout()"
+    >
       Logout
     </button>
   </mat-toolbar>
