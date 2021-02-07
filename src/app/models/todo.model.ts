@@ -1,9 +1,9 @@
 export type TodoId = string;
 
 export interface Todo {
-  id: TodoId;
+  _id: TodoId;
   isComplete: boolean;
-  projectId: string;
+  project: string;
   title: string;
   createdAt: Date;
 }

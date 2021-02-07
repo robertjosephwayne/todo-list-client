@@ -1,7 +1,7 @@
 import { Todo } from './todo.model';
 
 export interface Project {
-  id: string;
+  _id: string;
   name: string;
-  todos: Todo[]
+  todoList: Todo[];
 }

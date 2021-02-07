@@ -1,5 +1,5 @@
 export interface NewTodo {
   isComplete: boolean;
-  projectId: string;
+  project: string;
   title: string;
 }

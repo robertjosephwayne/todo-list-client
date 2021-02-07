@@ -15,43 +15,33 @@ export class TodoListService {
   }
 
   createTodo(newTodo: NewTodo) {
-    return this.http.post<Todo>(`http://localhost:3000/projects/${newTodo.projectId}/todos`, newTodo);
+    return this.http.post<Todo>(`http://localhost:3000/todos`, newTodo);
   }
 
   deleteProject(project: Project) {
-    return this.http.delete(`http://localhost:3000/projects/${project.id}`);
+    return this.http.delete(`http://localhost:3000/projects/${project._id}`);
   }
 
   deleteTodo(todo: Todo) {
-    return this.http.delete(`http://localhost:3000/todos/${todo.id}`);
+    return this.http.delete(`http://localhost:3000/todos/${todo._id}`);
   }
 
   editTodo(updatedTodo: Todo) {
-    return this.http.patch(`http://localhost:3000/todos/${updatedTodo.id}`, {
+    return this.http.patch(`http://localhost:3000/todos/${updatedTodo._id}`, {
       title: updatedTodo.title,
       isComplete: updatedTodo.isComplete,
-      projectId: updatedTodo.projectId
+      project: updatedTodo.project
     });
   }
 
   editProject(updatedProject: Project) {
-    return this.http.patch(`http://localhost:3000/projects/${updatedProject.id}`, {
+    return this.http.patch(`http://localhost:3000/projects/${updatedProject._id}`, {
       name: updatedProject.name
     });
   }
 
   getProjects() {
-    const filter = {
-      include: [
-        {
-          relation: 'todos',
-          scope: {
-            order: 'createdAt ASC'
-          }
-        }
-      ]
-    };
-    return this.http.get<Project[]>(`http://localhost:3000/projects?filter=${JSON.stringify(filter)}`);
+    return this.http.get<Project[]>(`http://localhost:3000/projects`);
   }
 }
 

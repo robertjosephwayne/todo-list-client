@@ -22,7 +22,7 @@ export class EditTodoDialogComponent implements OnInit {
   };
   todoForm = this.fb.group({
     title: [this.data.todo.title, this.todoTitleControlConfig],
-    projectId: [this.data.todo.projectId]
+    projectId: [this.data.todo.project]
   });
 
   constructor(

@@ -50,7 +50,7 @@ export class SidenavDrawerComponent implements OnInit {
   }
 
   onProjectDelete(project: Project): void {
-    if (!project.id) return;
+    if (!project._id) return;
     this.todoListStore.deleteProject(project);
   }
 
@@ -81,8 +81,8 @@ export class SidenavDrawerComponent implements OnInit {
   }
 
   selectProject(project: Project): void {
-    if (!project?.id) return;
-    this.todoListStore.setSelectedProjectId(project.id);
+    if (!project?._id) return;
+    this.todoListStore.setSelectedProjectId(project._id);
   }
 
   toggleProjectList(): void {

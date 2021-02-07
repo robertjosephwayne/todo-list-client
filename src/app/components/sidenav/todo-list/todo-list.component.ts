@@ -50,7 +50,7 @@ export class TodoListComponent implements OnInit {
     if (!result?.title) return;
     const newTodo: NewTodo = {
       title: result.title,
-      projectId: result.projectId,
+      project: result.projectId,
       isComplete: false
     };
     this.todoListStore.createTodo(newTodo);
@@ -62,7 +62,7 @@ export class TodoListComponent implements OnInit {
     const editedTodo: Todo = {
       ...originalTodo,
       title: result.title,
-      projectId: result.projectId
+      project: result.projectId
     };
     this.todoListStore.editTodo(editedTodo);
   }
@@ -99,7 +99,7 @@ export class TodoListComponent implements OnInit {
   }
 
   openEditTodoDialog(todo: Todo): void {
-    if (!todo?.id) return;
+    if (!todo?._id) return;
     const dialogRef = this.dialog.open(EditTodoDialogComponent, {
       data: {
         todo,
