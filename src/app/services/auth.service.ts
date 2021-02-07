@@ -17,19 +17,19 @@ export class AuthService {
   ) { }
 
   login(loginCredentials: LoginCredentials): void {
-    this.http.post<{ token: string; }>('http://localhost:3000/users/login', loginCredentials)
+    this.http.post<{ access_token: string; }>('http://localhost:3000/auth/login', loginCredentials)
       .pipe(
         catchError(this.handleError)
       )
       .subscribe(response => {
         this.store.dispatch(AuthActions.loginSuccess({
-          jwtToken: response.token
+          jwtToken: response.access_token
         }));
       });
   }
 
   signup(signupInformation: SignupInformation): void {
-    this.http.post('http://localhost:3000/signup', signupInformation)
+    this.http.post('http://localhost:3000/auth/signup', signupInformation)
       .pipe(
         catchError(this.handleError)
       )
