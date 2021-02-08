@@ -167,8 +167,9 @@ export class TodoListStore extends ComponentStore<TodoListState> {
             ...this.getProjectTodos(selectedProject),
             {
               ...newTodo,
-              id: '',
-              createdAt: new Date()
+              _id: '',
+              createdAt: new Date(),
+              isComplete: false
             },
           ].sort((firstTodo, secondTodo) => {
             if (firstTodo.createdAt < secondTodo.createdAt) return -1;
@@ -177,7 +178,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
 
           const updatedProject = {
             ...selectedProject,
-            todos: updatedTodos
+            todoList: updatedTodos
           };
 
           const updatedProjects = [...state.projects].map(project => {
@@ -253,7 +254,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
 
           const updatedProject = {
             ...selectedProject,
-            todos: updatedTodos
+            todoList: updatedTodos
           };
 
           const updatedProjects = [...state.projects].map(project => {
@@ -305,7 +306,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
           updatedNewProjectTodos[editedTodoIndex] = editedTodo;
           const updatedNewProject = {
             ...newProject,
-            todos: updatedNewProjectTodos
+            todoList: updatedNewProjectTodos
           };
 
           const updatedProjects = [...state.projects].map(project => {
@@ -323,7 +324,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
         return this.todoListService.editTodo(editedTodo).pipe(
           tap({
             next: () => {
-              this.getProjects();
+              // this.getProjects();
             },
             error: (error) => {
               this.getProjects();
