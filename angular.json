@@ -122,6 +122,12 @@
               "devServerTarget": "todo-list-client:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "/todo-list-client-angular/"
+          }
         }
       }
     }
