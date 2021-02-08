@@ -27,7 +27,7 @@ export class TodoListService {
   }
 
   editTodo(updatedTodo: Todo) {
-    return this.http.patch(`http://localhost:3000/todos/${updatedTodo._id}`, {
+    return this.http.put(`http://localhost:3000/todos/${updatedTodo._id}`, {
       title: updatedTodo.title,
       isComplete: updatedTodo.isComplete,
       project: updatedTodo.project
@@ -35,7 +35,7 @@ export class TodoListService {
   }
 
   editProject(updatedProject: Project) {
-    return this.http.patch(`http://localhost:3000/projects/${updatedProject._id}`, {
+    return this.http.put(`http://localhost:3000/projects/${updatedProject._id}`, {
       name: updatedProject.name
     });
   }
