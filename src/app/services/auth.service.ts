@@ -17,7 +17,7 @@ export class AuthService {
   ) { }
 
   login(loginCredentials: LoginCredentials): void {
-    this.http.post<{ access_token: string; }>('http://localhost:3000/auth/login', loginCredentials)
+    this.http.post<{ access_token: string; }>('https://todo-list-api-nest.herokuapp.com/auth/login', loginCredentials)
       .pipe(
         catchError(this.handleError)
       )
@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   signup(signupInformation: SignupInformation): void {
-    this.http.post('http://localhost:3000/auth/signup', signupInformation)
+    this.http.post('https://todo-list-api-nest.herokuapp.com/auth/signup', signupInformation)
       .pipe(
         catchError(this.handleError)
       )
