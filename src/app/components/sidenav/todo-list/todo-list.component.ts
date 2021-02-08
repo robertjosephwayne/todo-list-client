@@ -50,8 +50,7 @@ export class TodoListComponent implements OnInit {
     if (!result?.title) return;
     const newTodo: NewTodo = {
       title: result.title,
-      project: result.projectId,
-      isComplete: false
+      project: result.projectId
     };
     this.todoListStore.createTodo(newTodo);
   }
