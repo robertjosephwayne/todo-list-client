@@ -19,7 +19,7 @@
         <mat-select formControlName="projectId">
           <mat-option
             *ngFor="let project of data.projects"
-            [value]="project.id"
+            [value]="project._id"
           >
             {{ project.name }}
           </mat-option>

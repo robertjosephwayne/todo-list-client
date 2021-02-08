@@ -19,7 +19,7 @@
       <span class="ml-2">Projects</span>
       <span class="flex flex-grow"></span>
       <button
-        class="focus:outline-none text-gray-300 hover:text-cyan-800"
+        class="text-gray-300 focus:outline-none hover:text-cyan-800"
         mat-icon-button
         (click)="onProjectAdd($event)"
       >
@@ -37,14 +37,14 @@
         <span
           class="ml-12"
           [ngClass]="{
-            'font-bold': (selectedProjectId$ | async) === project.id
+            'font-bold': (selectedProjectId$ | async) === project._id
           }"
           >{{ project.name }}
         </span>
         <span class="flex flex-grow"></span>
 
         <button
-          class="focus:outline-none text-gray-300 invisible group-hover:visible hover:text-cyan-800"
+          class="invisible text-gray-300 focus:outline-none group-hover:visible hover:text-cyan-800"
           mat-icon-button
           (click)="onSelectProjectEditMenu($event)"
           [matMenuTriggerFor]="editProjectMenu"
@@ -56,7 +56,7 @@
             mat-menu-item
             class="focus:outline-none group"
             (click)="openEditProjectDialog(project)"
-            [disabled]="!project.id"
+            [disabled]="!project._id"
           >
             <mat-icon class="group-hover:text-yellow-500">edit</mat-icon>
             <span>Edit Project</span>
@@ -65,7 +65,7 @@
             mat-menu-item
             class="focus:outline-none group"
             (click)="onProjectDelete(project)"
-            [disabled]="!project.id"
+            [disabled]="!project._id"
           >
             <mat-icon class="group-hover:text-red-700">delete</mat-icon>
             <span>Delete Project</span>
