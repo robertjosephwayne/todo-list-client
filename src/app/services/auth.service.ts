@@ -19,7 +19,10 @@ export class AuthService {
   login(loginCredentials: LoginCredentials): void {
     this.http.post<{ access_token: string; }>('https://todo-list-api-nest.herokuapp.com/auth/login', loginCredentials)
       .pipe(
-        catchError(this.handleError)
+        catchError((error) => {
+          this.store.dispatch(AuthActions.loginFailure());
+          return this.handleError(error);
+        }),
       )
       .subscribe(response => {
         this.store.dispatch(AuthActions.loginSuccess({
@@ -31,7 +34,10 @@ export class AuthService {
   signup(signupInformation: SignupInformation): void {
     this.http.post('https://todo-list-api-nest.herokuapp.com/auth/signup', signupInformation)
       .pipe(
-        catchError(this.handleError)
+        catchError((error) => {
+          this.store.dispatch(AuthActions.signupFailure());
+          return this.handleError(error);
+        }),
       )
       .subscribe(response => {
         this.store.dispatch(AuthActions.signupSuccess());

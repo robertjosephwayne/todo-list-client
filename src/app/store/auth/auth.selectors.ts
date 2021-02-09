@@ -12,3 +12,8 @@ export const selectIsAuth = createSelector(
   selectJWTToken,
   (jwtToken) => !!jwtToken
 );
+
+export const selectIsLoading = createSelector(
+  selectAuth,
+  (auth) => auth.isLoading
+);

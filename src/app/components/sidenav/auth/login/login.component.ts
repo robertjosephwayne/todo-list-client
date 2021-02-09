@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import * as AuthActions from '../../../../store/auth/auth.actions';
+import * as fromAuth from '../../../../store/auth/auth.selectors';
 
 @Component({
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  isLoading$: Observable<boolean>;
+
   emailControlSyncValidators = [
     Validators.required,
     Validators.email
@@ -31,7 +35,13 @@ export class LoginComponent implements OnInit {
     private readonly store: Store
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.setAuthData();
+  }
+
+  setAuthData() {
+    this.isLoading$ = this.store.select(fromAuth.selectIsLoading);
+  }
 
   onLogin() {
     this.store.dispatch(AuthActions.login({

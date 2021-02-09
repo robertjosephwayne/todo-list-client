@@ -12,6 +12,10 @@ export const loginSuccess = createAction(
   props<{ jwtToken: string; }>()
 );
 
+export const loginFailure = createAction(
+  '[Auth] Login Failure',
+);
+
 export const logout = createAction(
   '[Auth] Logout'
 );
@@ -23,6 +27,10 @@ export const signup = createAction(
 
 export const signupSuccess = createAction(
   '[Auth] Signup Success'
+);
+
+export const signupFailure = createAction(
+  '[Auth] Signup Failure',
 );
 
 export const syncLocalStorageToken = createAction(

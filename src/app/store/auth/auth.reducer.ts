@@ -5,10 +5,46 @@ import { AuthState, initialState } from './auth.state';
 const _authReducer = createReducer(
   initialState,
 
+  on(AuthActions.login, (state) => {
+    return {
+      ...state,
+      isLoading: true
+    };
+  }),
+
   on(AuthActions.loginSuccess, (state, { jwtToken }) => {
     return {
       ...state,
-      jwtToken
+      jwtToken,
+      isLoading: false
+    };
+  }),
+
+  on(AuthActions.loginFailure, (state) => {
+    return {
+      ...state,
+      isLoading: false
+    };
+  }),
+
+  on(AuthActions.signup, (state) => {
+    return {
+      ...state,
+      isLoading: true
+    };
+  }),
+
+  on(AuthActions.signupSuccess, (state) => {
+    return {
+      ...state,
+      isLoading: false
+    };
+  }),
+
+  on(AuthActions.signupFailure, (state) => {
+    return {
+      ...state,
+      isLoading: false
     };
   }),
 
@@ -18,6 +54,8 @@ const _authReducer = createReducer(
       jwtToken: null
     };
   }),
+
+
 
   on(AuthActions.updateJWTToken, (state, { jwtToken }) => {
     return {

@@ -1,7 +1,13 @@
 <!-- TODO: Error handling for invalid login -->
 <div class="h-full xs:flex xs:items-center">
-  <mat-card class="mx-auto h-full xs:h-auto w-full xs:w-102">
-    <div class="pt-8 px-6 pb-5">
+  <mat-card class="w-full h-full mx-auto xs:h-auto xs:w-102">
+    <mat-spinner
+      class="mx-auto mt-20"
+      [diameter]="70"
+      *ngIf="isLoading$ | async"
+    ></mat-spinner>
+
+    <div class="px-6 pt-8 pb-5" *ngIf="!(isLoading$ | async)">
       <div class="text-center">
         <h1>Sign In</h1>
       </div>
@@ -37,7 +43,7 @@
           </div>
           <button
             mat-raised-button
-            class="bg-cyan-600 text-white focus:outline-none w-8"
+            class="w-8 text-white bg-cyan-600 focus:outline-none"
             type="submit"
           >
             Next
