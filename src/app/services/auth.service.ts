@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   signup(signupInformation: SignupInformation): void {
-    this.http.post('https://todo-list-api-nest.herokuapp.com/auth/signup', signupInformation)
+    this.http.post<{ access_token: string; }>('https://todo-list-api-nest.herokuapp.com/auth/signup', signupInformation)
       .pipe(
         catchError((error) => {
           this.store.dispatch(AuthActions.signupFailure());
