@@ -26,7 +26,8 @@ export const signup = createAction(
 );
 
 export const signupSuccess = createAction(
-  '[Auth] Signup Success'
+  '[Auth] Signup Success',
+  props<{ jwtToken: string; }>()
 );
 
 export const signupFailure = createAction(

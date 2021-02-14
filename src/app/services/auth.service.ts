@@ -40,7 +40,9 @@ export class AuthService {
         }),
       )
       .subscribe(response => {
-        this.store.dispatch(AuthActions.signupSuccess());
+        this.store.dispatch(AuthActions.signupSuccess({
+          jwtToken: response.access_token
+        }));
       });
   }
 

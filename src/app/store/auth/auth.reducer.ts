@@ -34,9 +34,10 @@ const _authReducer = createReducer(
     };
   }),
 
-  on(AuthActions.signupSuccess, (state) => {
+  on(AuthActions.signupSuccess, (state, { jwtToken }) => {
     return {
       ...state,
+      jwtToken,
       isLoading: false
     };
   }),

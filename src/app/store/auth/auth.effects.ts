@@ -40,8 +40,9 @@ export class AuthEffects {
 
   signupSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.signupSuccess),
-    tap(() => {
-      this.router.navigate(['./login']);
+    map((action) => {
+      localStorage.setItem('jwtToken', action.jwtToken);
+      this.router.navigate(['./']);
     })
   ), { dispatch: false });
 
